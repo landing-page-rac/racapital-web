@@ -10,6 +10,7 @@ const LandingPage: React.FC = () => {
       <Navbar navItems={navItems} />
       <main>
         <HeroSection heroSection={heroSection} />
+
       </main>
     </div>
   );

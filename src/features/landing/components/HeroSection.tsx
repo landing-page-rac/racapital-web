@@ -1,14 +1,33 @@
+'use client';
+
+import Image from 'next/image';
 import { HeroSection as HeroSectionType } from '../types';
 import Container from '../../../shared/components/ui/Container';
-import Button from '../../../shared/components/ui/Button';
+import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import hero1 from '../assets/hero-1.png';
+import hero2 from '../assets/hero-2.png';
+import hero3 from '../assets/hero-3.png';
 
 interface HeroSectionProps {
   heroSection: HeroSectionType;
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({ heroSection }) => {
+  const scrollY = useScrollAnimation();
+
+  // Calculate scroll-based transformations
+  const maxScroll = 500; // Maximum scroll distance for full effect
+  const scrollProgress = Math.min(scrollY / maxScroll, 1);
+
+  // Center image grows from 60% to 80% width
+  const centerImageWidth = 40 + (scrollProgress * 20);
+
+  // Side images shrink and move outward
+  const sideImageWidth = 20 - (scrollProgress * 5);
+  const sideImageOffset = scrollProgress * 10;
+
   return (
-    <section className="relative bg-gradient-to-br from-[#041E42] via-[#002d72] to-[#0C52E6] text-white">
+    <section className="relative bg-gradient-to-br from-[#041E42] via-[#002d72] to-[#0C52E6] text-white overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-opacity-90">
         <div className="absolute inset-0 opacity-20" style={{
@@ -16,54 +35,92 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroSection }) => {
         }}></div>
       </div>
 
-      <Container maxWidth="7xl" className="relative">
-        <div className="py-20 lg:py-32">
-          <div className="max-w-4xl mx-auto text-center">
+      <Container maxWidth="7xl" className="relative z-10">
+        <div className="py-10 lg:py-20">
+          {/* Text Content */}
+          <div className="max-w-4xl mx-auto text-center mb-16">
             {/* Main Headline */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
               {heroSection.headline}
             </h1>
+          </div>
 
-            {/* Subheading */}
-            <p className="text-xl md:text-2xl lg:text-3xl text-gray-100 mb-8 leading-relaxed max-w-3xl mx-auto">
-              {heroSection.subheading}
-            </p>
-
-            {/* CTA Button */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button
-                href={heroSection.ctaButton.href}
-                variant={heroSection.ctaButton.variant || 'secondary'}
-                size="lg"
-                className="bg-white text-[#041E42] hover:bg-gray-100 focus:ring-white border-0 shadow-lg"
+          {/* Scroll-responsive Images */}
+          <div className="flex items-center justify-center w-full">
+            <div className="flex items-center justify-center w-full max-w-6xl mx-auto px-4">
+              {/* Left Image */}
+              <div
+                className="relative transition-all duration-300 ease-out"
+                style={{
+                  width: `${sideImageWidth}%`,
+                  transform: `translateX(-${sideImageOffset}%)`,
+                }}
               >
-                {heroSection.ctaButton.text}
-              </Button>
+                <Image
+                  src={hero2}
+                  alt="Hero Image 1"
+                  width={600}
+                  height={400}
+                  className="w-full h-auto object-cover rounded-lg shadow-2xl"
+                  style={{ aspectRatio: '3/2' }}
+                />
+              </div>
 
-              {/* Secondary CTA */}
-              <Button
-                href="/about"
-                variant="outline"
-                size="lg"
-                className="border-white text-white hover:bg-white hover:text-[#041E42] focus:ring-white"
+              {/* Center Image */}
+              <div
+                className="relative transition-all duration-300 ease-out mx-4"
+                style={{
+                  width: `${centerImageWidth}%`,
+                }}
               >
-                Learn More
-              </Button>
-            </div>
+                <Image
+                  src={hero1}
+                  alt="Hero Image 2"
+                  width={800}
+                  height={600}
+                  className="w-full h-auto object-cover rounded-lg shadow-2xl"
+                  style={{ aspectRatio: '4/3' }}
+                />
+              </div>
 
-            {/* Trust Indicators */}
-            <div className="mt-16 pt-8 border-t border-white/20">
-              <p className="text-sm text-gray-300 mb-4">Trusted by leading institutions</p>
-              <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
-                <div className="text-2xl font-bold">$2.5B+</div>
-                <div className="text-sm">Assets Under Management</div>
-                <div className="text-2xl font-bold">15+</div>
-                <div className="text-sm">Years Experience</div>
-                <div className="text-2xl font-bold">500+</div>
-                <div className="text-sm">Client Relationships</div>
+              {/* Right Image */}
+              <div
+                className="relative transition-all duration-300 ease-out"
+                style={{
+                  width: `${sideImageWidth}%`,
+                  transform: `translateX(${sideImageOffset}%)`,
+                }}
+              >
+                <Image
+                  src={hero3}
+                  alt="Hero Image 3"
+                  width={600}
+                  height={400}
+                  className="w-full h-auto object-cover rounded-lg shadow-2xl"
+                  style={{ aspectRatio: '3/2' }}
+                />
               </div>
             </div>
           </div>
+
+          {/* Trust Indicators */}
+          <div className="mt-16 pt-8 border-t border-white/20">
+            <p className="text-sm text-gray-300 mb-4">Trusted by leading institutions</p>
+            <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
+              <div className="text-2xl font-bold">$2.5B+</div>
+              <div className="text-sm">Assets Under Management</div>
+              <div className="text-2xl font-bold">15+</div>
+              <div className="text-sm">Years Experience</div>
+              <div className="text-2xl font-bold">500+</div>
+              <div className="text-sm">Client Relationships</div>
+            </div>
+          </div>
+
+          <div className='h-64'></div>
+          <div className='h-64'></div>
+          <div className='h-64'></div>
+          <div className='h-64'></div>
+          <div className='h-64'></div>
         </div>
       </Container>
 
@@ -81,6 +138,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroSection }) => {
           />
         </svg>
       </div>
+
     </section >
   );
 };
