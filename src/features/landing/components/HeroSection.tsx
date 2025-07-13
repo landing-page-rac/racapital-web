@@ -7,8 +7,6 @@ import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import hero1 from '../assets/hero-1.png';
 import hero2 from '../assets/hero-2.png';
 import hero3 from '../assets/hero-3.png';
-import StatsBar from './StatsBar';
-import OurServices from './OurServices';
 
 interface HeroSectionProps {
   heroSection: HeroSectionType;
@@ -107,8 +105,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroSection }) => {
 
         </div>
       </Container>
-      <OurServices />
-      <StatsBar />
     </section >
   );
 };
