@@ -44,7 +44,7 @@ const CARD_WIDTH = 320; // px
 const CARD_GAP = 24; // px
 
 const InsightCarousel: React.FC<{ cards?: CardData[] }> = ({ cards = defaultCards }) => {
-  const [index, setIndex] = useState(0);
+  const [activeIdx, setActiveIdx] = useState(0);
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const total = cards.length;
@@ -59,46 +59,49 @@ const InsightCarousel: React.FC<{ cards?: CardData[] }> = ({ cards = defaultCard
     }
   };
 
-  // Infinite next/prev
+  // Navigation
   const handleNext = () => {
-    const next = (index + 1) % total;
-    setIndex(next);
+    const next = (activeIdx + 1) % total;
+    setActiveIdx(next);
     scrollToIndex(next);
   };
   const handlePrev = () => {
-    const prev = (index - 1 + total) % total;
-    setIndex(prev);
+    const prev = (activeIdx - 1 + total) % total;
+    setActiveIdx(prev);
     scrollToIndex(prev);
   };
 
-  // Snap to card on index change
-  React.useEffect(() => {
-    scrollToIndex(index);
-  }, [index]);
-
-  // Handle manual scroll to update index
+  // On scroll, update the active card to the one most centered
   const handleScroll = () => {
     if (scrollRef.current) {
       const scrollLeft = scrollRef.current.scrollLeft;
-      const i = Math.round(scrollLeft / (CARD_WIDTH + CARD_GAP));
-      setIndex(i % total);
+      const idx = Math.round(scrollLeft / (CARD_WIDTH + CARD_GAP));
+      setActiveIdx(idx);
     }
   };
+
+  // Hide scrollbar (utility class)
+  const scrollbarHide = 'scrollbar-hide';
 
   return (
     <div className="w-full max-w-full">
       <div
         ref={scrollRef}
-        className="flex overflow-x-auto gap-6 snap-x snap-mandatory px-2 py-4 scrollbar-hide"
-        style={{ scrollBehavior: 'smooth' }}
+        className={`flex overflow-x-auto gap-6 snap-x snap-mandatory px-2 py-4 ${scrollbarHide} items-center`}
+        style={{ scrollBehavior: 'smooth', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         onScroll={handleScroll}
       >
-        {cards.concat(cards).map((card, i) => {
-          const isHovered = hoveredIdx === i;
+        <style jsx>{`
+          div::-webkit-scrollbar {
+            display: none;
+          }
+        `}</style>
+        {cards.map((card, i) => {
+          const isZoomed = hoveredIdx === i;
           return (
             <div
               key={i}
-              className={`flex-shrink-0 w-[320px] snap-center transition-transform duration-300 ${isHovered ? 'scale-110 z-20' : 'scale-100 z-10'}`}
+              className={`flex-shrink-0 snap-center transition-all duration-300 mx-3 ${isZoomed ? 'w-[400px] h-[560px] z-20' : 'w-[320px] h-[480px] z-10'}`}
               style={{ scrollSnapAlign: 'center' }}
               onMouseEnter={() => setHoveredIdx(i)}
               onMouseLeave={() => setHoveredIdx(null)}

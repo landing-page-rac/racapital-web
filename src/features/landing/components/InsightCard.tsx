@@ -24,7 +24,7 @@ const InsightCard: React.FC<InsightCardProps> = ({
 
   return (
     <div
-      className="relative w-full max-w-md h-[480px] rounded-xl overflow-hidden shadow-lg bg-[#0a2342] group cursor-pointer transition-all duration-300"
+      className="relative w-full max-w-md h-full flex flex-col rounded-xl overflow-hidden shadow-lg bg-[#0a2342] group cursor-pointer transition-all duration-300"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
