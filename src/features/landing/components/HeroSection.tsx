@@ -20,10 +20,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroSection }) => {
   const scrollProgress = Math.min(scrollY / maxScroll, 1);
 
   // Center image grows from 60% to 80% width
-  const centerImageWidth = 40 + (scrollProgress * 20);
+  const centerImageWidth = 50 + (scrollProgress * 20);
 
   // Side images shrink and move outward
-  const sideImageWidth = 20 - (scrollProgress * 5);
+  const sideImageWidth = 30 - (scrollProgress * 5);
   const sideImageOffset = scrollProgress * 10;
 
   return (
@@ -50,7 +50,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroSection }) => {
             <div className="flex items-center justify-center w-full max-w-6xl mx-auto px-4">
               {/* Left Image */}
               <div
-                className="relative transition-all duration-300 ease-out"
+                className="relative transition-all duration-300 ease-out bottom-32 left-10"
                 style={{
                   width: `${sideImageWidth}%`,
                   transform: `translateX(-${sideImageOffset}%)`,
@@ -68,7 +68,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroSection }) => {
 
               {/* Center Image */}
               <div
-                className="relative transition-all duration-300 ease-out mx-4"
+                className="relative transition-all duration-300 ease-out mx-4 z-20"
                 style={{
                   width: `${centerImageWidth}%`,
                 }}
@@ -85,7 +85,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroSection }) => {
 
               {/* Right Image */}
               <div
-                className="relative transition-all duration-300 ease-out"
+                className="relative transition-all duration-300 ease-out top-32 right-14"
                 style={{
                   width: `${sideImageWidth}%`,
                   transform: `translateX(${sideImageOffset}%)`,
