@@ -9,24 +9,24 @@ export const useLandingPageData = (): LandingPageProps => {
         href: '/',
       },
       {
-        label: 'About',
+        label: 'About Us',
         href: '/about',
       },
       {
-        label: 'Services',
-        href: '/services',
+        label: 'Insight',
+        href: '/insight',
       },
       {
-        label: 'Portfolio',
-        href: '/portfolio',
+        label: 'Case Studies',
+        href: '/case-studies',
       },
       {
-        label: 'Insights',
-        href: '/insights',
+        label: 'How We Can Help',
+        href: '/how-we-can-help',
       },
       {
-        label: 'Contact',
-        href: '/contact',
+        label: 'Careers',
+        href: '/careers',
       },
     ],
     heroSection: {

@@ -2,10 +2,12 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { clsx } from 'clsx';
 import { NavItem } from '../types';
 import Container from '../../../shared/components/ui/Container';
 import Button from '../../../shared/components/ui/Button';
+import racIcon from '../assets/rac-icon-primary.png';
 
 interface NavbarProps {
   navItems: NavItem[];
@@ -23,13 +25,15 @@ const Navbar: React.FC<NavbarProps> = ({ navItems }) => {
       <Container maxWidth="7xl">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <div className="flex-shrink-0">
-            <Link href="/" className="flex items-center">
-              <h1 className="text-xl lg:text-2xl font-bold text-[#041E42] tracking-tight">
-                RAC Capital Management
-              </h1>
-            </Link>
-          </div>
+          <Link href="/" className="flex items-center space-x-2">
+            <Image
+              src={racIcon}
+              alt="RAC Capital Management"
+              width={100}
+              height={100}
+              className="w-8 h-8 lg:w-52 lg:h-10 object-contain"
+            />
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:block">
