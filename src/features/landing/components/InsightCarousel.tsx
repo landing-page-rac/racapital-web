@@ -3,6 +3,7 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 import InsightCard from './InsightCard';
 import { StaticImageData } from 'next/image';
 import hero1 from '../assets/hero-1.png';
+import CaseStudyButton from './CaseStudyButton';
 
 interface CardData {
   title: string;
@@ -236,6 +237,10 @@ const InsightCarousel: React.FC<{ cards?: CardData[] }> = ({ cards = defaultCard
           </svg>
         </button>
       </div>
+
+      <p className='text-center mt-10 text-3xl px-44'>We conduct prudent and in-depth perspectives particulary tailored to help you achieve your utmost aspiration</p>
+
+      <CaseStudyButton />
     </div>
   );
 };
