@@ -1,6 +1,6 @@
+'use client'
+import React from 'react';
 import EventCard from './EventCard';
-import Button from '../../../shared/components/ui/Button';
-import Container from '../../../shared/components/ui/Container';
 import { Event } from '../types';
 import event1 from '../assets/event-1.png';
 import event2 from '../assets/event-2.png';
@@ -50,39 +50,34 @@ const Events: React.FC<EventsProps> = ({
   events = dummyEvents,
   showMoreButton = true
 }) => {
-  // Show only first 2 events by default
-  const displayedEvents = events.slice(0, 3);
-
   return (
-    <section className="bg-[#041E42] py-16">
-      <Container maxWidth="7xl">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Latest Events
-          </h2>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            Stay updated with our latest events, conferences, and industry insights
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
-          {displayedEvents.map((event) => (
-            <EventCard key={event.id} event={event} />
-          ))}
-        </div>
-
-        {showMoreButton && (
-          <div className="text-center">
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-white text-white hover:bg-white hover:text-[#041E42]"
-            >
-              MORE EVENTS
-            </Button>
+    <section className="bg-[#041E42] p-16">
+      <div className="flex overflow-x-auto gap-6 px-2 py-4 scrollbar-hide items-center snap-x snap-mandatory"
+        style={{
+          scrollBehavior: 'smooth',
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none'
+        }}>
+        {[...events, ...events].map((event, idx) => (
+          <div
+            key={idx}
+            className="snap-center"
+            style={{ scrollSnapAlign: 'center' }}
+          >
+            <EventCard event={event} />
           </div>
-        )}
-      </Container>
+        ))}
+      </div>
+
+      {showMoreButton && (
+        <div className="text-center">
+          <button
+            className="mx-auto block mt-10 px-10 py-4 border-2 border-white text-white text-xl rounded transition-colors hover:bg-white hover:text-[#1763F7] font-light hover:cursor-pointer"
+          >
+            MORE EVENTS
+          </button>
+        </div>
+      )}
     </section>
   );
 };
