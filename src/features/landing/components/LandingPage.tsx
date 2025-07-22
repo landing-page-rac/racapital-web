@@ -72,9 +72,7 @@ const LandingPage: React.FC = () => {
         <OurServices />
         <StatsBar />
         <StewardshipCTA />
-        <div className='p-6'>
-          <InsightCarousel cards={dummyCards} />
-        </div>
+        <InsightCarousel cards={dummyCards} />
         <CaseStudyList />
       </main>
     </div>

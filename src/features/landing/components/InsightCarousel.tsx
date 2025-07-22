@@ -84,7 +84,7 @@ const InsightCarousel: React.FC<{ cards?: CardData[] }> = ({ cards = defaultCard
   const scrollbarHide = 'scrollbar-hide';
 
   return (
-    <div className="w-full max-w-full">
+    <div className="w-full max-w-full bg-[#051F42] py-20">
       <div
         ref={scrollRef}
         className={`flex overflow-x-auto gap-6 snap-x snap-mandatory px-2 py-4 ${scrollbarHide} items-center`}

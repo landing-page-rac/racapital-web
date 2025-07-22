@@ -49,7 +49,7 @@ const InsightCard: React.FC<InsightCardProps> = ({
         className="absolute left-0 bottom-0 w-full flex flex-col justify-end px-6 py-6 transition-all duration-500 backdrop-blur-md"
         style={{
           height: hovered ? '88%' : '48%',
-          background: 'linear-gradient(180deg, rgba(10,35,66,0.92) 80%, rgba(10,35,66,0.85) 95%, rgba(10,35,66,0.0) 100%)',
+          background: 'linear-gradient(180deg, rgba(10,35,66,0.0) 0%, rgba(10,35,66,0.0) 20%, rgba(10,35,66,0.2) 40%, rgba(10,35,66,0.5) 60%, rgba(10,35,66,0.8) 80%, rgba(10,35,66,0.95) 100%)',
           zIndex: 2,
         }}
       >

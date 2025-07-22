@@ -3,7 +3,7 @@ import Image from 'next/image';
 import cta2Img from '../assets/cta-2.png';
 
 const StewardshipCTA: React.FC = () => (
-  <section className="bg-[#0a2342] border border-[#0a2342] px-4 md:px-8 overflow-hidden">
+  <section className="bg-[#002E73] border border-[#0a2342] px-4 md:px-8 overflow-hidden">
     <div className="flex flex-col md:flex-row items-center md:items-stretch">
       <div className="flex-shrink-0 w-full md:w-1/2 flex justify-center">
         <div className="relative transform ">
