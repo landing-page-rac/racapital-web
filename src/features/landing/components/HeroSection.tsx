@@ -103,6 +103,16 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroSection }) => {
             </div>
           </div>
 
+          {/* Hero Text Content */}
+          <div className="max-w-4xl mx-auto text-center mt-16">
+            <h2 className="text-3xl font-light text-white mb-8 leading-relaxed">
+              You set the <span className="underline font-bold">goal</span>, we clear the <span className="underline font-bold">path</span>. We are here to guide your growth through strategic, hands-on advisory.
+            </h2>
+            <p className="text-lg md:text-xl text-gray-100 leading-relaxed max-w-4xl mx-auto">
+              <span className="font-bold">Relevance and Alliance Capital (RAC)</span> is an independent, privately owned multi-family office and corporate-finance advisory firm. We work hand-in-hand with family groups and institutions to create lasting value and sharpen their competitive edge. Based in Indonesia, were perfectly positioned to serve one of the worlds fastest-growing markets.
+            </p>
+          </div>
+
         </div>
       </Container>
     </section >
