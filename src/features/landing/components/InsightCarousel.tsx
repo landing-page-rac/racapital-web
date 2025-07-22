@@ -97,6 +97,20 @@ const InsightCarousel: React.FC<{ cards?: CardData[] }> = ({ cards = defaultCard
     if (isPlaying) {
       stopAutoPlay();
       setIsPlaying(false);
+
+      // When pausing, smoothly scroll to the nearest card
+      if (scrollRef.current) {
+        const currentScrollLeft = scrollRef.current.scrollLeft;
+        const cardWidth = CARD_WIDTH + CARD_GAP;
+        const nearestIndex = Math.round(currentScrollLeft / cardWidth);
+        const targetScrollLeft = nearestIndex * cardWidth;
+
+        // Smooth scroll to the nearest card
+        scrollRef.current.scrollTo({
+          left: targetScrollLeft,
+          behavior: 'smooth',
+        });
+      }
     } else {
       startAutoPlay();
       setIsPlaying(true);
