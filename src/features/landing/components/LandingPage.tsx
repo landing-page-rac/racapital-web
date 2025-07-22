@@ -11,6 +11,7 @@ import hero2 from '../assets/hero-2.png';
 import hero3 from '../assets/hero-3.png';
 import CaseStudyList from './CaseStudyList';
 import ContactSection from './ContactSection';
+import Footer from './Footer';
 
 const dummyCards = [
   {
@@ -79,6 +80,7 @@ const LandingPage: React.FC = () => {
         <Events />
         <ContactSection />
       </main>
+      <Footer />
     </div>
   );
 };
