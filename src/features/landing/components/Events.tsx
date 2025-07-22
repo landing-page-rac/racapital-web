@@ -1,5 +1,5 @@
 'use client'
-import React from 'react';
+import React, { useRef } from 'react';
 import EventCard from './EventCard';
 import { Event } from '../types';
 import event1 from '../assets/event-1.png';
@@ -50,14 +50,59 @@ const Events: React.FC<EventsProps> = ({
   events = dummyEvents,
   showMoreButton = true
 }) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollLeft = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({
+        left: -400,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({
+        left: 400,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   return (
-    <section className="bg-[#041E42] p-16">
-      <div className="flex overflow-x-auto gap-6 px-2 py-4 scrollbar-hide items-center snap-x snap-mandatory"
+    <section className="bg-[#041E42] p-16 relative">
+      {/* Left Arrow */}
+      <button
+        onClick={scrollLeft}
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors backdrop-blur-sm"
+        aria-label="Scroll left"
+      >
+        <svg width="24" height="24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
+      </button>
+
+      {/* Right Arrow */}
+      <button
+        onClick={scrollRight}
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors backdrop-blur-sm"
+        aria-label="Scroll right"
+      >
+        <svg width="24" height="24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+          <path d="M9 6l6 6-6 6" />
+        </svg>
+      </button>
+
+      <div
+        ref={scrollRef}
+        className="flex overflow-x-auto gap-6 px-2 py-4 scrollbar-hide items-center snap-x snap-mandatory"
         style={{
           scrollBehavior: 'smooth',
           scrollbarWidth: 'none',
           msOverflowStyle: 'none'
-        }}>
+        }}
+      >
         {[...events, ...events].map((event, idx) => (
           <div
             key={idx}
