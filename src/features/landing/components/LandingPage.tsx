@@ -71,9 +71,7 @@ const LandingPage: React.FC = () => {
         <HeroSection heroSection={heroSection} />
         <OurServices />
         <StatsBar />
-        <div className='p-6'>
-          <StewardshipCTA />
-        </div>
+        <StewardshipCTA />
         <div className='p-6'>
           <InsightCarousel cards={dummyCards} />
         </div>

@@ -1,29 +1,33 @@
 import React from 'react';
 import Image from 'next/image';
-import ctaImg from '../assets/cta.png';
+import cta2Img from '../assets/cta-2.png';
 
 const StewardshipCTA: React.FC = () => (
-  <div className="flex flex-col md:flex-row items-center md:items-stretch bg-[#e4e4e4] rounded-sm">
-    <div className="flex-shrink-0 w-full md:w-1/3">
-      <Image
-        src={ctaImg}
-        alt="Stewardship Report Preview"
-        className="object-cover w-full h-32 md:h-full rounded-md md:rounded-sm"
-        style={{ minHeight: '100px', maxHeight: '120px' }}
-      />
-    </div>
-    <div className="flex-1 flex flex-col justify-center px-4 py-2 md:py-0">
-      <div className="text-[#0a2342] text-lg md:text-2xl font-normal mb-2 md:mb-0">
-        Dive in below for our Fourth Annual Stewardship Report.
+  <section className="bg-[#0a2342] border border-[#0a2342] px-4 md:px-8 overflow-hidden">
+    <div className="flex flex-col md:flex-row items-center md:items-stretch">
+      <div className="flex-shrink-0 w-full md:w-1/2 flex justify-center">
+        <div className="relative transform ">
+          <Image
+            src={cta2Img}
+            alt="Fourth Annual Stewardship Report"
+            className="object-contain w-full max-w-sm md:max-w-md"
+            style={{ maxHeight: '300px' }}
+          />
+        </div>
       </div>
-      <a
-        href="#"
-        className="text-[#0a2342] underline text-base md:text-lg font-medium hover:text-blue-700 transition-colors w-fit"
-      >
-        Download Here &rarr;
-      </a>
+      <div className="flex-1 flex flex-col justify-center text-center md:text-left">
+        <div className="text-white text-xl font-normal mb-4 md:mb-6">
+          Dive in below for our Fourth Annual Stewardship Report.
+        </div>
+        <a
+          href="#"
+          className="text-white underline text-lg font-medium hover:text-blue-300 transition-colors w-fit mx-auto md:mx-0"
+        >
+          Download Here &rarr;
+        </a>
+      </div>
     </div>
-  </div>
+  </section>
 );
 
 export default StewardshipCTA; 

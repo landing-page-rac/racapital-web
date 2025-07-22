@@ -16,8 +16,8 @@ const services = [
 ];
 
 const OurServices: React.FC = () => (
-  <section className="bg-[#06306B] py-12">
-    <h2 className="text-white text-2xl md:text-3xl font-bold text-center mb-8">Our Services</h2>
+  <section className="bg-[#06306B] py-8">
+    <h2 className="text-white text-2xl md:text-3xl font-bold text-center mb-5">Our Services</h2>
     <div className="flex flex-col md:flex-row justify-center gap-8 md:gap-52">
       {services.map((service) => (
         <div key={service.number} className="flex gap-3">
