@@ -5,6 +5,7 @@ import OurServices from './OurServices';
 import StatsBar from './StatsBar';
 import StewardshipCTA from './StewardshipCTA';
 import InsightCarousel from './InsightCarousel';
+import Events from './Events';
 import hero1 from '../assets/hero-1.png';
 import hero2 from '../assets/hero-2.png';
 import hero3 from '../assets/hero-3.png';
@@ -74,6 +75,7 @@ const LandingPage: React.FC = () => {
         <StewardshipCTA />
         <InsightCarousel cards={dummyCards} />
         <CaseStudyList />
+        <Events />
       </main>
     </div>
   );

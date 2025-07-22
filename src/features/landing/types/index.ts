@@ -1,3 +1,5 @@
+import { StaticImageData } from 'next/image';
+
 export interface NavItem {
   label: string;
   href: string;
@@ -35,4 +37,13 @@ export interface ContainerProps {
   children: React.ReactNode;
   className?: string;
   maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '7xl';
+}
+
+export interface Event {
+  id: string;
+  type: string;
+  title: string;
+  location: string;
+  date: string;
+  image: string | StaticImageData;
 } 
