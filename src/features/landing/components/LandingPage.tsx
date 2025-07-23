@@ -13,8 +13,9 @@ import InsightCarousel from './InsightCarousel';
 import InsightCarouselMobile from './InsightCarouselMobile';
 import CaseStudyList from './CaseStudyList';
 import CaseStudyListMobile from './CaseStudyListMobile';
-import { useLandingPageData } from '../hooks/useLandingPageData';
 import Events from './Events';
+import EventsMobile from './EventsMobile';
+import { useLandingPageData } from '../hooks/useLandingPageData';
 import hero1 from '../assets/hero-1.png';
 import hero2 from '../assets/hero-2.png';
 import hero3 from '../assets/hero-3.png';
@@ -131,7 +132,11 @@ const LandingPage: React.FC = () => {
         ) : (
           <CaseStudyList />
         )}
-        <Events />
+        {isMobile ? (
+          <EventsMobile />
+        ) : (
+          <Events />
+        )}
         <ContactSection />
       </main>
       <Footer />

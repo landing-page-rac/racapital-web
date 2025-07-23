@@ -13,6 +13,10 @@ export { default as InsightCarousel } from './components/InsightCarousel';
 export { default as InsightCarouselMobile } from './components/InsightCarouselMobile';
 export { default as CaseStudyList } from './components/CaseStudyList';
 export { default as CaseStudyListMobile } from './components/CaseStudyListMobile';
+export { default as Events } from './components/Events';
+export { default as EventsMobile } from './components/EventsMobile';
+export { default as EventCard } from './components/EventCard';
+export { default as EventCardMobile } from './components/EventCardMobile';
 
 // Hooks
 export { useLandingPageData } from './hooks/useLandingPageData';
