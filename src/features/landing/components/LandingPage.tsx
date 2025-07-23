@@ -15,12 +15,13 @@ import CaseStudyList from './CaseStudyList';
 import CaseStudyListMobile from './CaseStudyListMobile';
 import Events from './Events';
 import EventsMobile from './EventsMobile';
+import ContactSection from '@/shared/components/ui/ContactSection';
+import ContactSectionMobile from '@/shared/components/ui/ContactSectionMobile';
 import { useLandingPageData } from '../hooks/useLandingPageData';
 import hero1 from '../assets/hero-1.png';
 import hero2 from '../assets/hero-2.png';
 import hero3 from '../assets/hero-3.png';
 import Footer from './Footer';
-import ContactSection from '@/shared/components/ui/ContactSection';
 
 const dummyCards = [
   {
@@ -137,7 +138,11 @@ const LandingPage: React.FC = () => {
         ) : (
           <Events />
         )}
-        <ContactSection />
+        {isMobile ? (
+          <ContactSectionMobile />
+        ) : (
+          <ContactSection />
+        )}
       </main>
       <Footer />
     </div>
