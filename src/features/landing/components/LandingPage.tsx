@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react';
 import HeroSection from './HeroSection';
 import HeroSectionMobile from './HeroSectionMobile';
-import { useLandingPageData } from '../hooks/useLandingPageData';
 import OurServices from './OurServices';
+import OurServicesMobile from './OurServicesMobile';
+import { useLandingPageData } from '../hooks/useLandingPageData';
 import StatsBar from './StatsBar';
 import StewardshipCTA from './StewardshipCTA';
 import InsightCarousel from './InsightCarousel';
@@ -101,7 +102,11 @@ const LandingPage: React.FC = () => {
         ) : (
           <HeroSection navItems={navItems} />
         )}
-        <OurServices />
+        {isMobile ? (
+          <OurServicesMobile />
+        ) : (
+          <OurServices />
+        )}
         <StatsBar />
         <StewardshipCTA />
         <InsightCarousel cards={dummyCards} />
