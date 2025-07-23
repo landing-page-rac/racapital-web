@@ -58,7 +58,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ navItems }) => {
       <Navbar navItems={navItems} />
 
       <Container maxWidth="7xl" className="relative z-10">
-        <div className="py-10 lg:py-20">
+        <div className="py-10 lg:py-10">
           {/* Text Content */}
           <div className="max-w-4xl mx-auto text-center mb-16">
             {/* Main Headline */}
