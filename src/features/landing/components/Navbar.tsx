@@ -31,7 +31,7 @@ const Navbar: React.FC<NavbarProps> = ({ navItems }) => {
               alt="RAC Capital Management"
               width={100}
               height={100}
-              className="w-8 h-8 lg:w-52 lg:h-10 object-contain"
+              className="w-28 h-28 lg:w-52 lg:h-10 object-contain"
             />
           </Link>
 
