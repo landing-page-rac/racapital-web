@@ -21,6 +21,10 @@ export const useLandingPageData = (): LandingPageProps => {
         href: '/case-studies',
       },
       {
+        label: 'Events',
+        href: '/events',
+      },
+      {
         label: 'How We Can Help',
         href: '/how-we-can-help',
       },
