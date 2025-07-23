@@ -13,8 +13,8 @@ export const useLandingPageData = (): LandingPageProps => {
         href: '/about',
       },
       {
-        label: 'Insight',
-        href: '/insight',
+        label: 'Insights',
+        href: '/insights',
       },
       {
         label: 'Case Studies',
