@@ -11,6 +11,8 @@ export { default as StewardshipCTA } from './components/StewardshipCTA';
 export { default as StewardshipCTAMobile } from './components/StewardshipCTAMobile';
 export { default as InsightCarousel } from './components/InsightCarousel';
 export { default as InsightCarouselMobile } from './components/InsightCarouselMobile';
+export { default as CaseStudyList } from './components/CaseStudyList';
+export { default as CaseStudyListMobile } from './components/CaseStudyListMobile';
 
 // Hooks
 export { useLandingPageData } from './hooks/useLandingPageData';
