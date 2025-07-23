@@ -1,6 +1,20 @@
+import Image from 'next/image';
+import superGraphic from '../assets/super-graphic-white.png';
+
 const Footer: React.FC = () => {
   return (
     <footer className="bg-[#041E42] text-white py-16 px-4 relative overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <Image
+          src={superGraphic}
+          alt="Background Graphic"
+          fill
+          className="object-cover opacity-20"
+          priority
+        />
+      </div>
+
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid md:grid-cols-3 gap-8">
           {/* Left Column - Logo and Copyright */}
