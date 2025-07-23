@@ -1,4 +1,3 @@
-import Navbar from './Navbar';
 import HeroSection from './HeroSection';
 import { useLandingPageData } from '../hooks/useLandingPageData';
 import OurServices from './OurServices';
@@ -65,13 +64,12 @@ const dummyCards = [
 ];
 
 const LandingPage: React.FC = () => {
-  const { navItems, heroSection } = useLandingPageData();
+  const { navItems } = useLandingPageData();
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar navItems={navItems} />
-      <main>
-        <HeroSection heroSection={heroSection} />
+      <main className='bg-white'>
+        <HeroSection navItems={navItems} />
         <OurServices />
         <StatsBar />
         <StewardshipCTA />

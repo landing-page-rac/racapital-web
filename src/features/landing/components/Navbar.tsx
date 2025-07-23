@@ -7,7 +7,7 @@ import { clsx } from 'clsx';
 import { NavItem } from '../types';
 import Container from '../../../shared/components/ui/Container';
 import Button from '../../../shared/components/ui/Button';
-import racIcon from '../assets/rac-icon-primary.png';
+import racIcon from '../assets/rac-icon.png';
 
 interface NavbarProps {
   navItems: NavItem[];
@@ -21,7 +21,7 @@ const Navbar: React.FC<NavbarProps> = ({ navItems }) => {
   };
 
   return (
-    <nav className="bg-white shadow-md sticky top-0 z-50">
+    <nav className="bg-transparent sticky top-0 z-50 transition-all duration-300">
       <Container maxWidth="7xl">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
@@ -43,8 +43,8 @@ const Navbar: React.FC<NavbarProps> = ({ navItems }) => {
                   key={item.href}
                   href={item.href}
                   className={clsx(
-                    'text-[#041E42] hover:text-[#0C52E6] px-3 py-2 text-sm font-medium transition-colors duration-200',
-                    'focus:outline-none focus:text-[#0C52E6]'
+                    'text-white hover:text-blue-200 px-3 py-2 text-sm font-medium transition-colors duration-200',
+                    'focus:outline-none focus:text-blue-200'
                   )}
                   {...(item.isExternal && { target: '_blank', rel: 'noopener noreferrer' })}
                 >
@@ -54,18 +54,11 @@ const Navbar: React.FC<NavbarProps> = ({ navItems }) => {
             </div>
           </div>
 
-          {/* Desktop CTA Button */}
-          <div className="hidden md:block">
-            <Button href="/contact" variant="primary" size="sm">
-              Get Started
-            </Button>
-          </div>
-
           {/* Mobile menu button */}
           <div className="md:hidden">
             <button
               onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-[#041E42] hover:text-[#0C52E6] hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#0C52E6]"
+              className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-blue-200 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-200"
               aria-expanded="false"
             >
               <span className="sr-only">Open main menu</span>
@@ -109,14 +102,14 @@ const Navbar: React.FC<NavbarProps> = ({ navItems }) => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-black/80 backdrop-blur-sm border-t border-white/20">
               {navItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   className={clsx(
-                    'text-[#041E42] hover:text-[#0C52E6] block px-3 py-2 text-base font-medium transition-colors duration-200',
-                    'focus:outline-none focus:text-[#0C52E6]'
+                    'text-white hover:text-blue-200 block px-3 py-2 text-base font-medium transition-colors duration-200',
+                    'focus:outline-none focus:text-blue-200'
                   )}
                   onClick={() => setIsMenuOpen(false)}
                   {...(item.isExternal && { target: '_blank', rel: 'noopener noreferrer' })}

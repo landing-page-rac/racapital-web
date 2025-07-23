@@ -1,8 +1,9 @@
 'use client'
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import InsightCard from './InsightCard';
-import { StaticImageData } from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import hero1 from '../assets/hero-1.png';
+import superGraphic from '../assets/super-graphic-1.png';
 import CaseStudyButton from './CaseStudyButton';
 
 interface CardData {
@@ -161,86 +162,100 @@ const InsightCarousel: React.FC<{ cards?: CardData[] }> = ({ cards = defaultCard
   const scrollbarHide = 'scrollbar-hide';
 
   return (
-    <div className="w-full max-w-full bg-[#051F42] py-20">
-      <div
-        ref={scrollRef}
-        className={`flex overflow-x-auto gap-6 px-2 py-4 ${scrollbarHide} items-center ${isPlaying ? '' : 'snap-x snap-mandatory'}`}
-        style={{
-          scrollBehavior: isPlaying ? 'auto' : 'smooth',
-          scrollbarWidth: 'none',
-          msOverflowStyle: 'none'
-        }}
-        onScroll={handleScroll}
-      >
-        <style jsx>{`
+    <div className="w-full max-w-full bg-[#051F42] py-20 relative overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <Image
+          src={superGraphic}
+          alt="Background Graphic"
+          fill
+          className="object-cover opacity-20"
+          priority
+        />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10">
+        <div
+          ref={scrollRef}
+          className={`flex overflow-x-auto gap-6 px-2 py-4 ${scrollbarHide} items-center ${isPlaying ? '' : 'snap-x snap-mandatory'}`}
+          style={{
+            scrollBehavior: isPlaying ? 'auto' : 'smooth',
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none'
+          }}
+          onScroll={handleScroll}
+        >
+          <style jsx>{`
           div::-webkit-scrollbar {
             display: none;
           }
         `}</style>
-        {cards.map((card, i) => {
-          const isZoomed = hoveredIdx === i;
-          return (
-            <div
-              key={i}
-              className={`flex-shrink-0 transition-all duration-300 mx-3 ${isPlaying ? '' : 'snap-center'} ${isZoomed ? 'w-[400px] h-[560px] z-20' : 'w-[320px] h-[480px] z-10'}`}
-              style={{ scrollSnapAlign: isPlaying ? 'none' : 'center' }}
-              onMouseEnter={() => setHoveredIdx(i)}
-              onMouseLeave={() => setHoveredIdx(null)}
-              onFocus={() => setHoveredIdx(i)}
-              onBlur={() => setHoveredIdx(null)}
-              tabIndex={0}
-            >
-              <InsightCard {...card} />
-            </div>
-          );
-        })}
-      </div>
-      {/* Navigation Buttons */}
-      <div className="flex justify-center gap-4 mt-2">
-        {/* Play/Pause Button */}
-        <button
-          aria-label={isPlaying ? "Pause" : "Play"}
-          onClick={togglePlayPause}
-          className="w-14 h-14 rounded-xl bg-[#f4f4f4] flex items-center justify-center shadow hover:bg-[#e0e0e0] transition-colors"
-        >
-          {isPlaying ? (
-            // Pause icon
+          {cards.map((card, i) => {
+            const isZoomed = hoveredIdx === i;
+            return (
+              <div
+                key={i}
+                className={`flex-shrink-0 transition-all duration-300 mx-3 ${isPlaying ? '' : 'snap-center'} ${isZoomed ? 'w-[400px] h-[560px] z-20' : 'w-[320px] h-[480px] z-10'}`}
+                style={{ scrollSnapAlign: isPlaying ? 'none' : 'center' }}
+                onMouseEnter={() => setHoveredIdx(i)}
+                onMouseLeave={() => setHoveredIdx(null)}
+                onFocus={() => setHoveredIdx(i)}
+                onBlur={() => setHoveredIdx(null)}
+                tabIndex={0}
+              >
+                <InsightCard {...card} />
+              </div>
+            );
+          })}
+        </div>
+        {/* Navigation Buttons */}
+        <div className="flex justify-center gap-4 mt-2">
+          {/* Play/Pause Button */}
+          <button
+            aria-label={isPlaying ? "Pause" : "Play"}
+            onClick={togglePlayPause}
+            className="w-14 h-14 rounded-xl bg-[#f4f4f4] flex items-center justify-center shadow hover:bg-[#e0e0e0] transition-colors"
+          >
+            {isPlaying ? (
+              // Pause icon
+              <svg width="28" height="28" fill="none" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                <rect x="6" y="4" width="4" height="16" />
+                <rect x="14" y="4" width="4" height="16" />
+              </svg>
+            ) : (
+              // Play icon
+              <svg width="28" height="28" fill="none" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                <polygon points="5,3 19,12 5,21" />
+              </svg>
+            )}
+          </button>
+
+          <button
+            aria-label="Previous"
+            onClick={handlePrev}
+            className="w-14 h-14 rounded-xl bg-[#f4f4f4] flex items-center justify-center shadow hover:bg-[#e0e0e0] transition-colors"
+          >
             <svg width="28" height="28" fill="none" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-              <rect x="6" y="4" width="4" height="16" />
-              <rect x="14" y="4" width="4" height="16" />
+              <path d="M15 18l-6-6 6-6" />
             </svg>
-          ) : (
-            // Play icon
+          </button>
+
+          <button
+            aria-label="Next"
+            onClick={handleNext}
+            className="w-14 h-14 rounded-xl bg-[#f4f4f4] flex items-center justify-center shadow hover:bg-[#e0e0e0] transition-colors"
+          >
             <svg width="28" height="28" fill="none" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-              <polygon points="5,3 19,12 5,21" />
+              <path d="M9 6l6 6-6 6" />
             </svg>
-          )}
-        </button>
+          </button>
+        </div>
 
-        <button
-          aria-label="Previous"
-          onClick={handlePrev}
-          className="w-14 h-14 rounded-xl bg-[#f4f4f4] flex items-center justify-center shadow hover:bg-[#e0e0e0] transition-colors"
-        >
-          <svg width="28" height="28" fill="none" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-            <path d="M15 18l-6-6 6-6" />
-          </svg>
-        </button>
+        <p className='text-center mt-10 text-3xl px-44'>We conduct prudent and in-depth perspectives particulary tailored to help you achieve your utmost aspiration</p>
 
-        <button
-          aria-label="Next"
-          onClick={handleNext}
-          className="w-14 h-14 rounded-xl bg-[#f4f4f4] flex items-center justify-center shadow hover:bg-[#e0e0e0] transition-colors"
-        >
-          <svg width="28" height="28" fill="none" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-            <path d="M9 6l6 6-6 6" />
-          </svg>
-        </button>
+        <CaseStudyButton />
       </div>
-
-      <p className='text-center mt-10 text-3xl px-44'>We conduct prudent and in-depth perspectives particulary tailored to help you achieve your utmost aspiration</p>
-
-      <CaseStudyButton />
     </div>
   );
 };

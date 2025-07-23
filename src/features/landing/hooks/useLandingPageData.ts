@@ -34,7 +34,7 @@ export const useLandingPageData = (): LandingPageProps => {
       },
     ],
     heroSection: {
-      headline: 'Empowering Your Financial Future',
+      headline: 'Building Your Tomorrow’s Fortune, Today.',
       subheading: 'Strategic investment management and wealth preservation solutions tailored for discerning clients who demand excellence.',
       ctaButton: {
         text: 'Start Your Journey',
