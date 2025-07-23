@@ -23,7 +23,7 @@ const InsightPage: React.FC = () => {
             </h1>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
             {insights && insights.length > 0 ? (
               insights.map((insight) => (
                 <InsightListCard
