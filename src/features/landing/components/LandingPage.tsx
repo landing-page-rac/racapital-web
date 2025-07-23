@@ -1,4 +1,8 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import HeroSection from './HeroSection';
+import HeroSectionMobile from './HeroSectionMobile';
 import { useLandingPageData } from '../hooks/useLandingPageData';
 import OurServices from './OurServices';
 import StatsBar from './StatsBar';
@@ -56,20 +60,47 @@ const dummyCards = [
   {
     subtitle: 'INSIGHT',
     title: 'Risk management in a volatile world',
-    description: 'Effective risk management is more important than ever. Explore best practices for today’s environment.',
+    description: 'Effective risk management is more important than ever. Explore best practices for today\'s environment.',
     linkText: 'Explore risk strategies',
     linkHref: '#',
     image: hero3,
   },
 ];
 
+// Custom hook for responsive rendering
+const useResponsiveHero = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 1024); // lg breakpoint
+    };
+
+    // Check on mount
+    checkScreenSize();
+
+    // Add event listener
+    window.addEventListener('resize', checkScreenSize);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  return isMobile;
+};
+
 const LandingPage: React.FC = () => {
   const { navItems } = useLandingPageData();
+  const isMobile = useResponsiveHero();
 
   return (
     <div className="min-h-screen bg-white">
       <main className='bg-white'>
-        <HeroSection navItems={navItems} />
+        {isMobile ? (
+          <HeroSectionMobile navItems={navItems} />
+        ) : (
+          <HeroSection navItems={navItems} />
+        )}
         <OurServices />
         <StatsBar />
         <StewardshipCTA />
