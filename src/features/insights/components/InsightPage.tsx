@@ -1,36 +1,49 @@
 import React from 'react';
 import Navbar from '../../landing/components/Navbar';
 import { useLandingPageData } from '../../landing/hooks/useLandingPageData';
+import { useInsightsData } from '../hooks/useInsightsData';
+import InsightListCard from './InsightListCard';
+import ContactSection from '@/shared/components/ui/ContactSection';
+import Footer from '@/features/landing/components/Footer';
 
 const InsightPage: React.FC = () => {
   const { navItems } = useLandingPageData();
+  const { insights } = useInsightsData();
+
+  console.log('Insights data:', insights);
 
   return (
     <div className="min-h-screen bg-white">
       <Navbar navItems={navItems} />
-      <main className="pt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="text-center">
+      <main className="pt-5">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="text-center mb-16">
             <h1 className="text-4xl md:text-6xl font-bold text-[#041E42] mb-6">
               Insights
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Discover our latest perspectives on finance, investment strategies, and market trends.
-            </p>
           </div>
 
-          <div className="mt-16">
-            <div className="bg-gray-50 rounded-lg p-8 text-center">
-              <h2 className="text-2xl font-semibold text-[#041E42] mb-4">
-                Coming Soon
-              </h2>
-              <p className="text-gray-600">
-                We&apos;re working on bringing you comprehensive insights and analysis.
-                Stay tuned for our latest research and perspectives.
-              </p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            {insights && insights.length > 0 ? (
+              insights.map((insight) => (
+                <InsightListCard
+                  key={insight.id}
+                  image={insight.image}
+                  title={insight.title}
+                  linkText={insight.linkText}
+                  linkHref={insight.linkHref}
+                />
+              ))
+            ) : (
+              <div className="text-center text-gray-600 col-span-full">
+                <p>No insights available</p>
+              </div>
+            )}
           </div>
         </div>
+
+        <ContactSection />
+        <Footer />
       </main>
     </div>
   );
