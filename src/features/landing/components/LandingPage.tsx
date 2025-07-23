@@ -5,8 +5,9 @@ import HeroSection from './HeroSection';
 import HeroSectionMobile from './HeroSectionMobile';
 import OurServices from './OurServices';
 import OurServicesMobile from './OurServicesMobile';
-import { useLandingPageData } from '../hooks/useLandingPageData';
 import StatsBar from './StatsBar';
+import StatsBarMobile from './StatsBarMobile';
+import { useLandingPageData } from '../hooks/useLandingPageData';
 import StewardshipCTA from './StewardshipCTA';
 import InsightCarousel from './InsightCarousel';
 import Events from './Events';
@@ -107,7 +108,11 @@ const LandingPage: React.FC = () => {
         ) : (
           <OurServices />
         )}
-        <StatsBar />
+        {isMobile ? (
+          <StatsBarMobile />
+        ) : (
+          <StatsBar />
+        )}
         <StewardshipCTA />
         <InsightCarousel cards={dummyCards} />
         <CaseStudyList />
