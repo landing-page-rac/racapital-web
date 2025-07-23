@@ -17,11 +17,12 @@ import Events from './Events';
 import EventsMobile from './EventsMobile';
 import ContactSection from '@/shared/components/ui/ContactSection';
 import ContactSectionMobile from '@/shared/components/ui/ContactSectionMobile';
+import Footer from './Footer';
+import FooterMobile from './FooterMobile';
 import { useLandingPageData } from '../hooks/useLandingPageData';
 import hero1 from '../assets/hero-1.png';
 import hero2 from '../assets/hero-2.png';
 import hero3 from '../assets/hero-3.png';
-import Footer from './Footer';
 
 const dummyCards = [
   {
@@ -144,7 +145,11 @@ const LandingPage: React.FC = () => {
           <ContactSection />
         )}
       </main>
-      <Footer />
+      {isMobile ? (
+        <FooterMobile />
+      ) : (
+        <Footer />
+      )}
     </div>
   );
 };

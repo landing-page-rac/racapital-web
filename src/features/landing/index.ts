@@ -17,6 +17,8 @@ export { default as Events } from './components/Events';
 export { default as EventsMobile } from './components/EventsMobile';
 export { default as EventCard } from './components/EventCard';
 export { default as EventCardMobile } from './components/EventCardMobile';
+export { default as Footer } from './components/Footer';
+export { default as FooterMobile } from './components/FooterMobile';
 
 // Hooks
 export { useLandingPageData } from './hooks/useLandingPageData';
