@@ -9,6 +9,8 @@ export { default as StatsBar } from './components/StatsBar';
 export { default as StatsBarMobile } from './components/StatsBarMobile';
 export { default as StewardshipCTA } from './components/StewardshipCTA';
 export { default as StewardshipCTAMobile } from './components/StewardshipCTAMobile';
+export { default as InsightCarousel } from './components/InsightCarousel';
+export { default as InsightCarouselMobile } from './components/InsightCarouselMobile';
 
 // Hooks
 export { useLandingPageData } from './hooks/useLandingPageData';

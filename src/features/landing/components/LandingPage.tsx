@@ -9,8 +9,9 @@ import StatsBar from './StatsBar';
 import StatsBarMobile from './StatsBarMobile';
 import StewardshipCTA from './StewardshipCTA';
 import StewardshipCTAMobile from './StewardshipCTAMobile';
-import { useLandingPageData } from '../hooks/useLandingPageData';
 import InsightCarousel from './InsightCarousel';
+import InsightCarouselMobile from './InsightCarouselMobile';
+import { useLandingPageData } from '../hooks/useLandingPageData';
 import Events from './Events';
 import hero1 from '../assets/hero-1.png';
 import hero2 from '../assets/hero-2.png';
@@ -119,7 +120,11 @@ const LandingPage: React.FC = () => {
         ) : (
           <StewardshipCTA />
         )}
-        <InsightCarousel cards={dummyCards} />
+        {isMobile ? (
+          <InsightCarouselMobile cards={dummyCards} />
+        ) : (
+          <InsightCarousel cards={dummyCards} />
+        )}
         <CaseStudyList />
         <Events />
         <ContactSection />
