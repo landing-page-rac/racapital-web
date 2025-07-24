@@ -6,8 +6,10 @@ import { motion } from 'framer-motion';
 import Navbar from '../../landing/components/Navbar';
 import { stats } from '../../landing/components/StatsBar';
 import PrinciplesWidget from './PrinciplesWidget';
+import OurPeople from './OurPeople';
 import { useLandingPageData } from '../../landing/hooks/useLandingPageData';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
+import { ContactSection } from '@/shared/components';
 
 const AboutPage: React.FC = () => {
   const { navItems } = useLandingPageData();
@@ -137,7 +139,11 @@ const AboutPage: React.FC = () => {
         <PrinciplesWidget />
       </section>
 
-      {/* Principles Widget */}
+      {/* Our People Section */}
+      <OurPeople />
+
+      {/* Contact Section */}
+      <ContactSection />
     </div>
   );
 };
