@@ -57,6 +57,7 @@ const InsightCarouselMobile: React.FC<{ cards?: CardData[] }> = ({ cards = defau
 
   // Touch/Swipe handlers
   const handleTouchStart = (e: React.TouchEvent) => {
+    e.preventDefault();
     setIsDragging(true);
     setStartX(e.touches[0].pageX - (scrollContainerRef.current?.offsetLeft || 0));
     setScrollLeft(scrollContainerRef.current?.scrollLeft || 0);
@@ -200,7 +201,7 @@ const InsightCarouselMobile: React.FC<{ cards?: CardData[] }> = ({ cards = defau
         />
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto">
+      <div className="relative z-10 max-w-4xl mx-auto overflow-hidden">
         {/* Header */}
         <motion.div
           className="text-center mb-10"
@@ -221,8 +222,12 @@ const InsightCarouselMobile: React.FC<{ cards?: CardData[] }> = ({ cards = defau
         <div className="relative">
           <div
             ref={scrollContainerRef}
-            className="flex overflow-x-auto gap-4 snap-x snap-mandatory scrollbar-hide"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            className="flex overflow-x-auto overflow-y-hidden gap-4 snap-x snap-mandatory scrollbar-hide"
+            style={{
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
+              overscrollBehavior: 'contain'
+            }}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
@@ -236,12 +241,16 @@ const InsightCarouselMobile: React.FC<{ cards?: CardData[] }> = ({ cards = defau
               div::-webkit-scrollbar {
                 display: none;
               }
+              div {
+                overscroll-behavior: contain;
+                -webkit-overflow-scrolling: touch;
+              }
             `}</style>
 
             {cards.map((card, index) => (
               <div
                 key={index}
-                className="flex-shrink-0 w-full snap-center"
+                className="flex-shrink-0 w-full snap-center overflow-hidden"
                 style={{ minWidth: 'calc(100vw - 2rem)' }}
               >
                 <motion.div
@@ -303,8 +312,8 @@ const InsightCarouselMobile: React.FC<{ cards?: CardData[] }> = ({ cards = defau
                 key={index}
                 onClick={() => goToCard(index)}
                 className={`w-3 h-3 rounded-full transition-all duration-300 ${index === activeIndex
-                    ? 'bg-blue-400 scale-125'
-                    : 'bg-white/30 hover:bg-white/50'
+                  ? 'bg-blue-400 scale-125'
+                  : 'bg-white/30 hover:bg-white/50'
                   }`}
                 aria-label={`Go to slide ${index + 1}`}
               />
