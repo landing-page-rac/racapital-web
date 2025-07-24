@@ -7,7 +7,6 @@ import { clsx } from 'clsx';
 import { motion, AnimatePresence } from 'framer-motion';
 import { NavItem } from '../types';
 import Container from '../../../shared/components/ui/Container';
-import Button from '../../../shared/components/ui/Button';
 import racIcon from '../assets/rac-icon.png';
 
 interface NavbarProps {
@@ -152,21 +151,6 @@ const Navbar: React.FC<NavbarProps> = ({ navItems }) => {
                     </Link>
                   </motion.div>
                 ))}
-                <motion.div
-                  className="pt-4"
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.3, delay: 0.4 }}
-                >
-                  <Button
-                    href="/contact"
-                    variant="primary"
-                    size="sm"
-                    className="w-full"
-                  >
-                    Get Started
-                  </Button>
-                </motion.div>
               </motion.div>
             </motion.div>
           )}
