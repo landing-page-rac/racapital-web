@@ -1,6 +1,6 @@
 import React from 'react';
 
-const stats = [
+export const stats = [
   {
     value: '999',
     label: 'Total Project Worth',
