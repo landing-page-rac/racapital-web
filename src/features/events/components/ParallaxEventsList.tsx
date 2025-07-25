@@ -28,7 +28,7 @@ const ParallaxEventCard: React.FC<ParallaxEventCardProps> = ({ event, isReversed
   return (
     <motion.div
       ref={ref}
-      className={`bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex ${isReversed ? 'flex-row-reverse' : 'flex-row'} max-w-4xl mx-auto`}
+      className={` rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex ${isReversed ? 'flex-row-reverse' : 'flex-row'} max-w-4xl mx-auto`}
       initial={{ opacity: 0, y: 100 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
@@ -55,7 +55,7 @@ const ParallaxEventCard: React.FC<ParallaxEventCardProps> = ({ event, isReversed
 
       {/* Content Section */}
       <motion.div
-        className="w-1/2 p-8 flex flex-col justify-center bg-white"
+        className="w-1/2 p-8 flex flex-col justify-center "
         initial={{ opacity: 0, x: isReversed ? -50 : 50 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, margin: "-50px" }}
@@ -136,17 +136,17 @@ const ParallaxEventCard: React.FC<ParallaxEventCardProps> = ({ event, isReversed
 
 const ParallaxEventsList: React.FC<ParallaxEventsListProps> = ({ events }) => {
   return (
-    <div className="bg-white">
+    <div>
       {/* Title Section */}
       <motion.div
-        className="text-center py-16 bg-gray-50"
+        className="text-center py-16"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h1
-            className="text-4xl md:text-6xl font-bold text-[#041E42] mb-6"
+            className="text-4xl md:text-6xl font-bold text-white mb-6"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -154,13 +154,12 @@ const ParallaxEventsList: React.FC<ParallaxEventsListProps> = ({ events }) => {
             Events
           </motion.h1>
           <motion.p
-            className="text-xl text-gray-600 max-w-3xl mx-auto"
+            className="text-xl text-gray-200 max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            Join us at industry events, conferences, and exclusive gatherings
-            where we share insights and connect with the financial community.
+            Join us at our upcoming events and discover insights from industry leaders, networking opportunities, and the latest developments in investment management.
           </motion.p>
         </div>
       </motion.div>

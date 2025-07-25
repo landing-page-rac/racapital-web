@@ -1,25 +1,41 @@
-import React from 'react';
-import Navbar from '../../landing/components/Navbar';
-import { useLandingPageData } from '../../landing/hooks/useLandingPageData';
-import { useEventsData } from '../hooks/useEventsData';
-import ParallaxEventsList from './ParallaxEventsList';
-import ContactSection from '@/shared/components/ui/ContactSection';
-import Footer from '@/features/landing/components/Footer';
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import EventsPageMobile from './EventsPageMobile';
+import EventsPageDesktop from './EventsPageDesktop';
+
+// Custom hook for responsive rendering
+const useResponsiveEvents = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 1024); // lg breakpoint
+    };
+
+    // Check on mount
+    checkScreenSize();
+
+    // Add event listener
+    window.addEventListener('resize', checkScreenSize);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  return isMobile;
+};
 
 const EventsPage: React.FC = () => {
-  const { navItems } = useLandingPageData();
-  const { events } = useEventsData();
-
-  console.log('Events data:', events);
+  const isMobile = useResponsiveEvents();
 
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar navItems={navItems} />
-      <main className="pt-5">
-        <ParallaxEventsList events={events} />
-        <ContactSection />
-        <Footer />
-      </main>
+    <div className="min-h-screen">
+      {isMobile ? (
+        <EventsPageMobile />
+      ) : (
+        <EventsPageDesktop />
+      )}
     </div>
   );
 };
