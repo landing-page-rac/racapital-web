@@ -1,50 +1,41 @@
-import React from 'react';
-import Navbar from '../../landing/components/Navbar';
-import { useLandingPageData } from '../../landing/hooks/useLandingPageData';
-import { useInsightsData } from '../hooks/useInsightsData';
-import InsightListCard from './InsightListCard';
-import ContactSection from '@/shared/components/ui/ContactSection';
-import Footer from '@/features/landing/components/Footer';
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import InsightPageMobile from './InsightPageMobile';
+import InsightPageDesktop from './InsightPageDesktop';
+
+// Custom hook for responsive rendering
+const useResponsiveInsights = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 1024); // lg breakpoint
+    };
+
+    // Check on mount
+    checkScreenSize();
+
+    // Add event listener
+    window.addEventListener('resize', checkScreenSize);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  return isMobile;
+};
 
 const InsightPage: React.FC = () => {
-  const { navItems } = useLandingPageData();
-  const { insights } = useInsightsData();
-
-  console.log('Insights data:', insights);
+  const isMobile = useResponsiveInsights();
 
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar navItems={navItems} />
-      <main className="pt-5">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-bold text-[#041E42] mb-6">
-              Insights
-            </h1>
-          </div>
-
-          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
-            {insights && insights.length > 0 ? (
-              insights.map((insight) => (
-                <InsightListCard
-                  key={insight.id}
-                  image={insight.image}
-                  title={insight.title}
-                  linkText={insight.linkText}
-                  linkHref={insight.linkHref}
-                />
-              ))
-            ) : (
-              <div className="text-center text-gray-600 col-span-full">
-                <p>No insights available</p>
-              </div>
-            )}
-          </div>
-        </div>
-
-        <ContactSection />
-        <Footer />
-      </main>
+    <div className="min-h-screen">
+      {isMobile ? (
+        <InsightPageMobile />
+      ) : (
+        <InsightPageDesktop />
+      )}
     </div>
   );
 };
