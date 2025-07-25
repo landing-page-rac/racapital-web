@@ -6,93 +6,130 @@ import { motion } from 'framer-motion';
 import Navbar from '../../landing/components/Navbar';
 import { useLandingPageData } from '../../landing/hooks/useLandingPageData';
 import { useCaseStudiesData } from '../hooks/useCaseStudiesData';
-import CaseStudyCard from './CaseStudyCard';
-import { ContactSectionMobile } from '@/shared/components';
-import { FooterMobile } from '@/features/landing';
+import { ContactSection } from '@/shared/components';
+import { Footer } from '@/features/landing';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
-import Container from '../../../shared/components/ui/Container';
 
 const CaseStudiesPageMobile: React.FC = () => {
   const { navItems } = useLandingPageData();
   const { caseStudies } = useCaseStudiesData();
 
   return (
-    <section className="relative bg-gradient-to-br from-[#051F42] via-[#002d72] to-[#051F42] text-white overflow-hidden">
-      <Navbar navItems={navItems} />
-      {/* Background Pattern */}
-      <motion.div
-        className="absolute inset-0"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5 }}
-      >
-        <Image
-          src={superGraphic}
-          alt="Background Graphic"
-          fill
-          className="object-cover opacity-20"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#051F42]/30 to-[#051F42]/60"></div>
-      </motion.div>
+    <div className="min-h-screen">
+      <div className="relative bg-gradient-to-br from-[#051F42] via-[#002d72] to-[#051F42] text-white overflow-hidden">
+        <Navbar navItems={navItems} />
 
-      <Container maxWidth="7xl" className="relative z-10">
-        <div className="px-4 pt-5 pb-16">
-          {/* Header */}
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              Case Studies
-            </h1>
-            <p className="text-base sm:text-lg text-gray-200 max-w-2xl mx-auto">
-              Explore our success stories and learn how we&apos;ve helped our clients achieve their strategic objectives and drive sustainable growth.
-            </p>
-          </motion.div>
+        {/* Background Pattern */}
+        <motion.div
+          className="absolute inset-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5 }}
+        >
+          <Image
+            src={superGraphic}
+            alt="Background Graphic"
+            fill
+            className="object-cover opacity-30"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#051F42]/50 to-[#051F42]/80"></div>
+        </motion.div>
 
-          {/* Mobile-optimized content grid */}
-          <motion.div
-            className="space-y-8"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            {caseStudies && caseStudies.length > 0 ? (
-              caseStudies.map((caseStudy) => (
+        <main className="relative z-10 pt-4">
+          <div className="px-4 py-8">
+            {/* Header Section */}
+            <motion.div
+              className="text-center mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <h1 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+                Case Studies
+              </h1>
+              <p className="text-base sm:text-lg text-gray-200 max-w-md mx-auto leading-relaxed">
+                Explore our success stories and learn how we&apos;ve helped our clients achieve their strategic objectives and drive sustainable growth.
+              </p>
+            </motion.div>
+
+            {/* Case Studies Grid */}
+            <motion.div
+              className="space-y-6"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              {caseStudies && caseStudies.length > 0 ? (
+                caseStudies.map((caseStudy, index) => (
+                  <motion.div
+                    key={caseStudy.id}
+                    className="relative"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
+                  >
+                    <div className="relative w-full h-64 rounded-xl overflow-hidden shadow-lg bg-[#0a2342] group cursor-pointer">
+                      {/* Image */}
+                      <div className="absolute inset-0">
+                        <Image
+                          src={caseStudy.image}
+                          alt={caseStudy.title}
+                          fill
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                      </div>
+
+                      {/* Content Overlay */}
+                      <div className="absolute inset-0 flex flex-col justify-end p-4">
+                        <div className="space-y-2">
+                          <div className="text-xs uppercase tracking-widest text-blue-300 font-medium">
+                            Case Study
+                          </div>
+                          <h3 className="text-lg sm:text-xl font-semibold text-white leading-tight">
+                            {caseStudy.title}
+                          </h3>
+                          <div className="text-white text-sm font-medium flex items-center group-hover:text-blue-300 transition-colors">
+                            Explore Approaches
+                            <svg className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))
+              ) : (
                 <motion.div
-                  key={caseStudy.id}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5 }}
+                  className="text-center py-12"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
                 >
-                  <CaseStudyCard
-                    image={caseStudy.image}
-                    title={caseStudy.title}
-                  />
+                  <div className="text-gray-200 mb-4">
+                    <svg className="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <p className="text-xl font-semibold mb-2">No case studies available</p>
+                    <p className="text-base text-gray-300">
+                      Check back soon for our latest case studies and success stories.
+                    </p>
+                  </div>
                 </motion.div>
-              ))
-            ) : (
-              <motion.div
-                className="text-center text-gray-200 bg-white/10 backdrop-blur-sm rounded-2xl p-8"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-              >
-                <p className="text-lg">No case studies available</p>
-                <p className="text-sm text-gray-300 mt-2">
-                  Check back soon for our latest case studies and success stories.
-                </p>
-              </motion.div>
-            )}
-          </motion.div>
-        </div>
-      </Container>
-      <ContactSectionMobile />
-      <FooterMobile />
-    </section>
+              )}
+            </motion.div>
+
+            {/* Bottom Spacing */}
+            <div className="h-8"></div>
+          </div>
+        </main>
+      </div>
+
+      <ContactSection />
+      <Footer />
+    </div>
   );
 };
 
