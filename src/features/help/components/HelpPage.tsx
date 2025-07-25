@@ -1,57 +1,42 @@
-import React from 'react';
-import Navbar from '../../landing/components/Navbar';
-import { useLandingPageData } from '../../landing/hooks/useLandingPageData';
-import superGraphic from '../../landing/assets/super-graphic-white.png';
-import Image from 'next/image';
-import HelpForm from './HelpForm';
-import { Footer } from '@/features/landing';
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import HelpPageMobile from './HelpPageMobile';
+import HelpPageDesktop from './HelpPageDesktop';
+
+// Custom hook for responsive rendering
+const useResponsiveHelp = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 1024); // lg breakpoint
+    };
+
+    // Check on mount
+    checkScreenSize();
+
+    // Add event listener
+    window.addEventListener('resize', checkScreenSize);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  return isMobile;
+};
 
 const HelpPage: React.FC = () => {
-  const { navItems } = useLandingPageData();
+  const isMobile = useResponsiveHelp();
 
   return (
-
-    <main className="bg-[#0D52E5] relative min-h-screen">
-      <Navbar navItems={navItems} />
-      <div className="absolute inset-0">
-        <Image
-          src={superGraphic.src}
-          alt="Background Graphic"
-          className="w-full h-full object-cover opacity-30"
-          fill
-          priority
-        />
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto mt-20">
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Left Column */}
-          <div className="text-white">
-            <h1 className="text-4xl md:text-6xl font-bold mb-10">
-              How Can We <br /><u>Support</u> You?
-            </h1>
-            <p className="text-2xl text-white/90 max-w-lg mb-10">
-              Nothing beats a one-on-one discussion. If you d like to learn more about our tailored solutions, drop us a line and one of our consultants will reach out shortly.
-            </p>
-
-            <button
-              type="submit"
-              className="text-white py-4 px-6 font-medium hover:bg-blue-700 transition-colors border w-1/2"
-            >
-              XXXXX
-            </button>
-          </div>
-
-
-          {/* Right Column */}
-          <HelpForm />
-        </div>
-      </div>
-
-      <Footer />
-    </main>
-
+    <div className="min-h-screen">
+      {isMobile ? (
+        <HelpPageMobile />
+      ) : (
+        <HelpPageDesktop />
+      )}
+    </div>
   );
 };
 
