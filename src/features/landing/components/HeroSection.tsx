@@ -36,23 +36,17 @@ const HeroSection: React.FC<HeroSectionProps> = ({ navItems }) => {
   const rightImageY = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   return (
-    <section className="relative bg-gradient-to-br from-[#051F42] via-[#002d72] to-[#051F42] text-white overflow-hidden">
+    <section className="relative bg-[#051F42] text-white overflow-hidden">
       {/* Background Pattern */}
-      <motion.div
-        className="absolute inset-0"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
+      <div className="absolute inset-0">
         <Image
           src={superGraphic}
           alt="Background Graphic"
           fill
-          className="object-cover"
+          className="object-cover opacity-20"
           priority
         />
-        <div className="absolute inset-0"></div>
-      </motion.div>
+      </div>
 
       {/* Navbar */}
       <Navbar navItems={navItems} />
