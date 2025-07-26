@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
 import peopleImage from '../assets/people.png';
 import Container from '../../../shared/components/ui/Container';
+import FlagshipServiceMobile from './FlagshipServiceMobile';
 
 interface Person {
   id: number;
@@ -247,6 +248,9 @@ const OurPeopleMobile: React.FC = () => {
           </div>
         </div>
       </Container>
+
+      {/* Flagship Services Section */}
+      <FlagshipServiceMobile />
     </section>
   );
 };

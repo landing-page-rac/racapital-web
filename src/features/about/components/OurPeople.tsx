@@ -5,6 +5,7 @@ import Image, { StaticImageData } from 'next/image';
 import { motion } from 'framer-motion';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
 import peopleImage from '../assets/people.png';
+import FlagshipService from './FlagshipService';
 
 interface Person {
   id: number;
@@ -187,6 +188,7 @@ const OurPeople: React.FC = () => {
         />
       </motion.div>
 
+      <FlagshipService />
       {/* Content */}
       <div className="relative z-10">
         {/* Section Header */}
