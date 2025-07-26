@@ -1,48 +1,29 @@
-import { useMemo } from 'react';
-import { LandingPageProps } from '../types';
+'use client';
 
-export const useLandingPageData = (): LandingPageProps => {
-  const landingPageData = useMemo(() => ({
-    navItems: [
-      {
-        label: 'Home',
-        href: '/',
-      },
-      {
-        label: 'About Us',
-        href: '/about',
-      },
-      {
-        label: 'Insights',
-        href: '/insights',
-      },
-      {
-        label: 'Case Studies',
-        href: '/case-studies',
-      },
-      {
-        label: 'Events',
-        href: '/events',
-      },
-      {
-        label: 'How We Can Help',
-        href: '/how-we-can-help',
-      },
-      {
-        label: 'Careers',
-        href: '/careers',
-      },
-    ],
-    heroSection: {
-      headline: 'Building Your Tomorrow’s Fortune, Today.',
-      subheading: 'Strategic investment management and wealth preservation solutions tailored for discerning clients who demand excellence.',
-      ctaButton: {
-        text: 'Start Your Journey',
-        href: '/contact',
-        variant: 'primary' as const,
-      },
-    },
-  }), []);
+import { useEffect, useState } from 'react';
+import axiosInstance from '@/shared/utils/axios';
+import { LandingPageResponse, LandingPageData } from '../types';
 
-  return landingPageData;
+export const useLandingPageData = () => {
+  const [data, setData] = useState<LandingPageData | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const response = await axiosInstance.get<LandingPageResponse>('/home-page');
+        setData(response.data.data);
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error('An error occurred'));
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return { data, isLoading, error };
 }; 

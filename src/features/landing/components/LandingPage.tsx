@@ -20,9 +20,42 @@ import ContactSectionMobile from '@/shared/components/ui/ContactSectionMobile';
 import Footer from './Footer';
 import FooterMobile from './FooterMobile';
 import { useLandingPageData } from '../hooks/useLandingPageData';
+import { NavItem } from '../types';
 import hero1 from '../assets/hero-1.png';
 import hero2 from '../assets/hero-2.png';
 import hero3 from '../assets/hero-3.png';
+
+// Navigation items configuration
+const navItems: NavItem[] = [
+  {
+    label: 'Home',
+    href: '/',
+  },
+  {
+    label: 'About Us',
+    href: '/about',
+  },
+  {
+    label: 'Insights',
+    href: '/insights',
+  },
+  {
+    label: 'Case Studies',
+    href: '/case-studies',
+  },
+  {
+    label: 'Events',
+    href: '/events',
+  },
+  {
+    label: 'How We Can Help',
+    href: '/how-we-can-help',
+  },
+  {
+    label: 'Careers',
+    href: '/careers',
+  },
+];
 
 const dummyCards = [
   {
@@ -98,8 +131,49 @@ const useResponsiveHero = () => {
 };
 
 const LandingPage: React.FC = () => {
-  const { navItems } = useLandingPageData();
+  const { data, isLoading, error } = useLandingPageData();
   const isMobile = useResponsiveHero();
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-600 text-lg">Error loading page content</p>
+          <p className="text-gray-600 mt-2">{error.message}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Show message if no data
+  if (!data) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-gray-600 text-lg">No content available</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white">
