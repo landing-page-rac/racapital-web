@@ -105,51 +105,32 @@ const LandingPage: React.FC = () => {
     <div className="min-h-screen bg-white">
       <main className='bg-white'>
         {isMobile ? (
-          <HeroSectionMobile navItems={navItems} />
+          <>
+            <HeroSectionMobile navItems={navItems} />
+            <OurServicesMobile />
+            <StatsBarMobile />
+            <StewardshipCTAMobile />
+            <InsightCarouselMobile cards={dummyCards} />
+            <CaseStudyListMobile />
+            <EventsMobile />
+            <ContactSectionMobile />
+            <FooterMobile />
+
+          </>
         ) : (
-          <HeroSection navItems={navItems} />
-        )}
-        {isMobile ? (
-          <OurServicesMobile />
-        ) : (
-          <OurServices />
-        )}
-        {isMobile ? (
-          <StatsBarMobile />
-        ) : (
-          <StatsBar />
-        )}
-        {isMobile ? (
-          <StewardshipCTAMobile />
-        ) : (
-          <StewardshipCTA />
-        )}
-        {isMobile ? (
-          <InsightCarouselMobile cards={dummyCards} />
-        ) : (
-          <InsightCarousel cards={dummyCards} />
-        )}
-        {isMobile ? (
-          <CaseStudyListMobile />
-        ) : (
-          <CaseStudyList />
-        )}
-        {isMobile ? (
-          <EventsMobile />
-        ) : (
-          <Events />
-        )}
-        {isMobile ? (
-          <ContactSectionMobile />
-        ) : (
-          <ContactSection />
+          <>
+            <HeroSection navItems={navItems} />
+            <OurServices />
+            <StatsBar />
+            <StewardshipCTA />
+            <InsightCarousel cards={dummyCards} />
+            <CaseStudyList />
+            <Events />
+            <ContactSection />
+            <Footer />
+          </>
         )}
       </main>
-      {isMobile ? (
-        <FooterMobile />
-      ) : (
-        <Footer />
-      )}
     </div>
   );
 };
