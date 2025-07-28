@@ -3,18 +3,19 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../../landing/components/Navbar';
-import { useLandingPageData } from '../../landing/hooks/useLandingPageData';
+import HelpFormMobile from './HelpFormMobile';
+import { NAV_ITEMS } from '@/shared/constants/navigation';
 import superGraphic from '../../landing/assets/super-graphic-white.png';
 import Image from 'next/image';
-import HelpFormMobile from './HelpFormMobile';
 import { Footer } from '@/features/landing';
 
-const HelpPageMobile: React.FC = () => {
-  const { navItems } = useLandingPageData();
+// Navigation items configuration
 
+
+const HelpPageMobile: React.FC = () => {
   return (
     <main className="bg-[#0D52E5] relative min-h-screen">
-      <Navbar navItems={navItems} />
+      <Navbar navItems={NAV_ITEMS} />
       <div className="absolute inset-0">
         <Image
           src={superGraphic.src}

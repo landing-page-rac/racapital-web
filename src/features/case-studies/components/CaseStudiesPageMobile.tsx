@@ -4,20 +4,19 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Navbar from '../../landing/components/Navbar';
-import { useLandingPageData } from '../../landing/hooks/useLandingPageData';
 import { useCaseStudiesData } from '../hooks/useCaseStudiesData';
 import { ContactSection } from '@/shared/components';
 import { Footer } from '@/features/landing';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
+import { NAV_ITEMS } from '@/shared/constants/navigation';
 
 const CaseStudiesPageMobile: React.FC = () => {
-  const { navItems } = useLandingPageData();
   const { caseStudies } = useCaseStudiesData();
 
   return (
     <div className="min-h-screen">
       <div className="relative bg-gradient-to-br from-[#051F42] via-[#002d72] to-[#051F42] text-white overflow-hidden">
-        <Navbar navItems={navItems} />
+        <Navbar navItems={NAV_ITEMS} />
 
         {/* Background Pattern */}
         <motion.div

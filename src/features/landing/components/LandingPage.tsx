@@ -20,42 +20,10 @@ import ContactSectionMobile from '@/shared/components/ui/ContactSectionMobile';
 import Footer from './Footer';
 import FooterMobile from './FooterMobile';
 import { useLandingPageData } from '../hooks/useLandingPageData';
-import { NavItem } from '../types';
+import { NAV_ITEMS } from '@/shared/constants/navigation';
 import hero1 from '../assets/hero-1.png';
 import hero2 from '../assets/hero-2.png';
 import hero3 from '../assets/hero-3.png';
-
-// Navigation items configuration
-const navItems: NavItem[] = [
-  {
-    label: 'Home',
-    href: '/',
-  },
-  {
-    label: 'About Us',
-    href: '/about',
-  },
-  {
-    label: 'Insights',
-    href: '/insights',
-  },
-  {
-    label: 'Case Studies',
-    href: '/case-studies',
-  },
-  {
-    label: 'Events',
-    href: '/events',
-  },
-  {
-    label: 'How We Can Help',
-    href: '/how-we-can-help',
-  },
-  {
-    label: 'Careers',
-    href: '/careers',
-  },
-];
 
 const dummyCards = [
   {
@@ -180,7 +148,7 @@ const LandingPage: React.FC = () => {
       <main className='bg-white'>
         {isMobile ? (
           <>
-            <HeroSectionMobile navItems={navItems} />
+            <HeroSectionMobile navItems={NAV_ITEMS} />
             <OurServicesMobile />
             <StatsBarMobile />
             <StewardshipCTAMobile />
@@ -193,7 +161,7 @@ const LandingPage: React.FC = () => {
           </>
         ) : (
           <>
-            <HeroSection navItems={navItems} />
+            <HeroSection navItems={NAV_ITEMS} />
             <OurServices />
             <StatsBar />
             <StewardshipCTA />

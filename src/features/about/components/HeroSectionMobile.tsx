@@ -6,12 +6,11 @@ import { motion } from 'framer-motion';
 import Navbar from '../../landing/components/Navbar';
 import { stats } from '../../landing/components/StatsBar';
 import PrinciplesWidget from './PrinciplesWidget';
-import { useLandingPageData } from '../../landing/hooks/useLandingPageData';
+import { NAV_ITEMS } from '@/shared/constants/navigation';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
 import Container from '../../../shared/components/ui/Container';
 
 const HeroSectionMobile: React.FC = () => {
-  const { navItems } = useLandingPageData();
   const [animatedStats, setAnimatedStats] = useState(stats.map(() => 0));
 
   useEffect(() => {
@@ -67,7 +66,7 @@ const HeroSectionMobile: React.FC = () => {
       </motion.div>
 
       {/* Navbar */}
-      <Navbar navItems={navItems} />
+      <Navbar navItems={NAV_ITEMS} />
 
       <Container maxWidth="7xl" className="relative z-10">
         <div className="pt-8 pb-8 px-4">

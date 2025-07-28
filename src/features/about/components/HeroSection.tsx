@@ -6,11 +6,10 @@ import { motion } from 'framer-motion';
 import Navbar from '../../landing/components/Navbar';
 import { stats } from '../../landing/components/StatsBar';
 import PrinciplesWidget from './PrinciplesWidget';
-import { useLandingPageData } from '../../landing/hooks/useLandingPageData';
+import { NAV_ITEMS } from '@/shared/constants/navigation';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
 
 const HeroSection: React.FC = () => {
-  const { navItems } = useLandingPageData();
   const [animatedStats, setAnimatedStats] = useState(stats.map(() => 0));
 
   useEffect(() => {
@@ -65,7 +64,7 @@ const HeroSection: React.FC = () => {
       </motion.div>
 
       {/* Navbar */}
-      <Navbar navItems={navItems} />
+      <Navbar navItems={NAV_ITEMS} />
 
       {/* Content */}
       <div className="relative z-10 pt-20 pb-16">

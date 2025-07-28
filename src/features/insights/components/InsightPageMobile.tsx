@@ -4,21 +4,23 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Navbar from '../../landing/components/Navbar';
-import { useLandingPageData } from '../../landing/hooks/useLandingPageData';
-import { useInsightsData } from '../hooks/useInsightsData';
+import Container from '../../../shared/components/ui/Container';
 import InsightListCard from './InsightListCard';
+import { useInsightsData } from '../hooks/useInsightsData';
+import { NAV_ITEMS } from '@/shared/constants/navigation';
 import { ContactSectionMobile } from '@/shared/components';
 import { FooterMobile } from '@/features/landing';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
-import Container from '../../../shared/components/ui/Container';
+
+// Navigation items configuration
+
 
 const InsightPageMobile: React.FC = () => {
-  const { navItems } = useLandingPageData();
   const { insights } = useInsightsData();
 
   return (
     <section className="relative bg-gradient-to-br from-[#051F42] via-[#002d72] to-[#051F42] text-white overflow-hidden" >
-      <Navbar navItems={navItems} />
+      <Navbar navItems={NAV_ITEMS} />
       {/* Background Pattern */}
       <motion.div
         className="absolute inset-0"

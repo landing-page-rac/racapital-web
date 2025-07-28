@@ -1,17 +1,17 @@
+'use client';
+
 import React from 'react';
-import Navbar from '../../landing/components/Navbar';
-import { useLandingPageData } from '../../landing/hooks/useLandingPageData';
-import superGraphic from '../../landing/assets/super-graphic-white.png';
 import Image from 'next/image';
+import Navbar from '../../landing/components/Navbar';
 import HelpForm from './HelpForm';
 import { Footer } from '@/features/landing';
+import superGraphic from '../../landing/assets/super-graphic-white.png';
+import { NAV_ITEMS } from '@/shared/constants/navigation';
 
 const HelpPageDesktop: React.FC = () => {
-  const { navItems } = useLandingPageData();
-
   return (
     <main className="bg-[#0D52E5] relative min-h-screen">
-      <Navbar navItems={navItems} />
+      <Navbar navItems={NAV_ITEMS} />
       <div className="absolute inset-0">
         <Image
           src={superGraphic.src}
