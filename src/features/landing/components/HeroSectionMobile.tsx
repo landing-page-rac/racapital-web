@@ -2,10 +2,11 @@
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { NavItem, RichTextContent } from '../types';
+import { NavItem } from '../types';
 import Container from '../../../shared/components/ui/Container';
 import Navbar from './Navbar';
-import { richTextToPlainText } from '@/shared/utils/richTextUtils';
+import { RichTextParagraph } from '@/shared/types';
+import { renderInlineBlock } from '@/shared/utils/contentRenderer';
 import hero1 from '../assets/hero-1.png';
 import hero2 from '../assets/hero-2.png';
 import hero3 from '../assets/hero-3.png';
@@ -13,7 +14,7 @@ import superGraphic from '../assets/super-graphic-1.png';
 
 interface HeroSectionMobileProps {
   navItems: NavItem[];
-  aboutUsIntro?: RichTextContent;
+  aboutUsIntro?: RichTextParagraph;
 }
 
 const HeroSectionMobile: React.FC<HeroSectionMobileProps> = ({ navItems, aboutUsIntro }) => {
@@ -167,7 +168,7 @@ const HeroSectionMobile: React.FC<HeroSectionMobileProps> = ({ navItems, aboutUs
             >
               <p className="text-base sm:text-lg text-gray-200 leading-relaxed max-w-lg mx-auto">
                 {aboutUsIntro ? (
-                  richTextToPlainText(aboutUsIntro)
+                  renderInlineBlock(aboutUsIntro, 1)
                 ) : (
                   <>
                     <span className="font-semibold text-white">Relevance and Alliance Capital (RAC)</span> is an independent, privately owned multi-family office and corporate-finance advisory firm. We work hand-in-hand with family groups and institutions to create lasting value and sharpen their competitive edge.

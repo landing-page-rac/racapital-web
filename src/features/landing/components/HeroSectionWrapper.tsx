@@ -50,7 +50,7 @@ const HeroSectionWrapper: React.FC<HeroSectionWrapperProps> = ({
     return (
       <HeroSectionMobile
         navItems={NAV_ITEMS}
-        aboutUsIntro={data?.aboutUsIntro}
+        aboutUsIntro={data?.aboutUsIntro[0]}
       />
     );
   }
@@ -58,7 +58,7 @@ const HeroSectionWrapper: React.FC<HeroSectionWrapperProps> = ({
   return (
     <HeroSection
       navItems={NAV_ITEMS}
-      aboutUsIntro={data?.aboutUsIntro}
+      aboutUsIntro={data?.aboutUsIntro[0]}
     />
   );
 };

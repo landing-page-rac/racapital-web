@@ -1,19 +1,7 @@
+import { RichTextContent } from '@/shared/types';
 import { StaticImageData } from 'next/image';
 
-// Base types for rich text content
-export interface RichTextChild {
-  text: string;
-  type: 'text';
-  bold?: boolean;
-  underline?: boolean;
-}
 
-export interface RichTextParagraph {
-  type: 'paragraph';
-  children: RichTextChild[];
-}
-
-export type RichTextContent = RichTextParagraph[];
 
 // Image types
 export interface ImageData {
