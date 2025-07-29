@@ -2,11 +2,11 @@
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { NavItem } from '../types';
+import { HeroSectionContentType, NavItem } from '../types';
 import Container from '../../../shared/components/ui/Container';
 import Navbar from './Navbar';
 import { RichTextParagraph } from '@/shared/types';
-import { renderInlineBlock } from '@/shared/utils/contentRenderer';
+import { renderInlineBlock, renderRichTextContent } from '@/shared/utils/contentRenderer';
 import hero1 from '../assets/hero-1.png';
 import hero2 from '../assets/hero-2.png';
 import hero3 from '../assets/hero-3.png';
@@ -15,9 +15,10 @@ import superGraphic from '../assets/super-graphic-1.png';
 interface HeroSectionMobileProps {
   navItems: NavItem[];
   aboutUsIntro?: RichTextParagraph;
+  heroContent?: HeroSectionContentType;
 }
 
-const HeroSectionMobile: React.FC<HeroSectionMobileProps> = ({ navItems, aboutUsIntro }) => {
+const HeroSectionMobile: React.FC<HeroSectionMobileProps> = ({ navItems, aboutUsIntro, heroContent }) => {
   return (
     <section className="relative bg-gradient-to-br from-[#051F42] via-[#002d72] to-[#051F42] text-white overflow-hidden min-h-screen">
       {/* Background Pattern */}
@@ -66,12 +67,18 @@ const HeroSectionMobile: React.FC<HeroSectionMobileProps> = ({ navItems, aboutUs
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
-              <h1 className="text-2xl sm:text-5xl font-bold leading-tight mb-3">
-                Building Your Tomorrow&apos;s
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-blue-100">
-                  Fortune, Today
-                </span>
-              </h1>
+              {heroContent ? (
+                <h1 className="text-2xl sm:text-5xl leading-tight mb-3 text-white">
+                  {renderRichTextContent(heroContent.headline)}
+                </h1>
+              ) : (
+                <h1 className="text-2xl sm:text-5xl font-bold leading-tight mb-3">
+                  Building Your Tomorrow&apos;s
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-blue-100">
+                    Fortune, Today
+                  </span>
+                </h1>
+              )}
             </motion.div>
 
             {/* Hero Image with Overlay */}
@@ -112,9 +119,15 @@ const HeroSectionMobile: React.FC<HeroSectionMobileProps> = ({ navItems, aboutUs
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.7 }}
             >
-              <p className="text-lg sm:text-xl text-blue-100 leading-relaxed max-w-md mx-auto">
-                You set the <span className="font-semibold text-white">goal</span>, we clear the <span className="font-semibold text-white">path</span>.
-              </p>
+              {heroContent ? (
+                <p className="text-lg sm:text-xl text-blue-100 max-w-md mx-auto">
+                  {renderRichTextContent(heroContent.tagline)}
+                </p>
+              ) : (
+                <p className="text-lg sm:text-xl text-blue-100 leading-relaxed max-w-md mx-auto">
+                  You set the <span className="font-semibold text-white">goal</span>, we clear the <span className="font-semibold text-white">path</span>.
+                </p>
+              )}
             </motion.div>
 
             {/* Supporting Images Grid */}

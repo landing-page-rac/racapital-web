@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { NavItem } from '../types';
+import { HeroSectionContentType, NavItem } from '../types';
 import Container from '../../../shared/components/ui/Container';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import Navbar from './Navbar';
@@ -11,14 +11,15 @@ import hero2 from '../assets/hero-2.png';
 import hero3 from '../assets/hero-3.png';
 import superGraphic from '../assets/super-graphic-1.png';
 import { RichTextParagraph } from '@/shared/types';
-import { renderInlineBlock } from '@/shared/utils/contentRenderer';
+import { renderInlineBlock, renderRichTextContent } from '@/shared/utils/contentRenderer';
 
 interface HeroSectionProps {
   navItems: NavItem[];
   aboutUsIntro?: RichTextParagraph;
+  heroContent?: HeroSectionContentType;
 }
 
-const HeroSection: React.FC<HeroSectionProps> = ({ navItems, aboutUsIntro }) => {
+const HeroSection: React.FC<HeroSectionProps> = ({ navItems, aboutUsIntro, heroContent }) => {
   const scrollY = useScrollAnimation();
   const { scrollYProgress } = useScroll();
 
@@ -69,7 +70,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({ navItems, aboutUsIntro }) => 
                 delay: 0.2
               }}
             >
-              Building Your Tomorrow&apos;s Fortune, <u>Today</u>.
+              {heroContent ? (
+                renderRichTextContent(heroContent.headline)
+              ) : (
+                <>
+                  Building Your Tomorrow&apos;s Fortune, <u>Today</u>.
+                </>
+              )}
             </motion.h1>
           </div>
 
@@ -190,7 +197,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({ navItems, aboutUsIntro }) => 
                 delay: 1.0
               }}
             >
-              You set the <span className="underline font-bold">goal</span>, we clear the <span className="underline font-bold">path</span>. We are here to guide your growth through strategic, hands-on advisory.
+              {heroContent ? (
+                renderRichTextContent(heroContent.tagline)
+              ) : (
+                <>
+                  You set the <span className="underline font-bold">goal</span>, we clear the <span className="underline font-bold">path</span>. We are here to guide your growth through strategic, hands-on advisory.
+                </>
+              )}
             </motion.h2>
             <motion.p
               className="text-lg md:text-xl text-gray-100 leading-relaxed max-w-4xl mx-auto"

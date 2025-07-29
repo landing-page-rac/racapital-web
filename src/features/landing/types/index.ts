@@ -23,7 +23,7 @@ export interface MediaWithAlt {
 }
 
 // Hero section types
-export interface HeroSection {
+export interface HeroSectionContentType {
   headline: RichTextContent;
   tagline: RichTextContent;
   centerImage: ImageWithAlt;
@@ -71,7 +71,7 @@ export interface LandingPageData {
   documentId: string;
   aboutUsIntro: RichTextContent;
   aspirationQuote: string;
-  hero: HeroSection;
+  hero: HeroSectionContentType;
   featuredServices: FeaturedService[];
   metrics: Metric[];
   reportBanner: ReportBanner;
@@ -92,7 +92,7 @@ export interface NavItem {
 }
 
 export interface LandingPageProps {
-  heroSection: HeroSection;
+  heroSection: HeroSectionContentType;
   navItems: NavItem[];
 }
 

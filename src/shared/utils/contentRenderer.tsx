@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { RichTextParagraph } from '../types';
+import { RichTextParagraph, RichTextContent } from '../types';
 
 // Helper function to render inline content with links
 interface InlineChild {
@@ -50,7 +50,7 @@ const renderInlineContent = (children: InlineChild[], key?: string | number) => 
 
     // Handle text formatting
     if (child.bold) {
-      return <strong key={elementKey}>{child.text}</strong>;
+      return <span key={elementKey} className='font-bold'>{child.text}</span>;
     }
     if (child.italic) {
       return <em key={elementKey}>{child.text}</em>;
@@ -80,7 +80,7 @@ export const renderBlock = (block: RichTextParagraph, index: number): ReactNode 
   switch (block.type) {
     case 'paragraph':
       return (
-        <p key={index} className="text-gray-700 mb-4 break-words">
+        <p key={index} className="break-words">
           {renderInlineContent(block.children, index)}
         </p>
       );
@@ -252,4 +252,15 @@ export const renderBlock = (block: RichTextParagraph, index: number): ReactNode 
         </p>
       );
   }
+};
+
+/**
+ * Renders an array of RichTextParagraphs (RichTextContent)
+ */
+export const renderRichTextContent = (content: RichTextContent): ReactNode => {
+  if (!content || !Array.isArray(content)) {
+    return null;
+  }
+
+  return content.map((block, index) => renderBlock(block, index));
 };

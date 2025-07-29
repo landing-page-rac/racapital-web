@@ -2,10 +2,12 @@
 
 import { LandingPageData } from '../types';
 import { NAV_ITEMS } from '@/shared/constants/navigation';
-import HeroSection from './HeroSection';
-import HeroSectionMobile from './HeroSectionMobile';
+
+
 import LoadingSpinner from '@/shared/components/ui/LoadingSpinner';
 import { useResponsiveHero } from '../hooks/useResponsiveHero';
+import HeroSection from './HeroSection';
+import { HeroSectionMobile } from '..';
 
 interface HeroSectionWrapperProps {
   data: LandingPageData | null;
@@ -51,6 +53,7 @@ const HeroSectionWrapper: React.FC<HeroSectionWrapperProps> = ({
       <HeroSectionMobile
         navItems={NAV_ITEMS}
         aboutUsIntro={data?.aboutUsIntro[0]}
+        heroContent={data?.hero}
       />
     );
   }
@@ -59,6 +62,7 @@ const HeroSectionWrapper: React.FC<HeroSectionWrapperProps> = ({
     <HeroSection
       navItems={NAV_ITEMS}
       aboutUsIntro={data?.aboutUsIntro[0]}
+      heroContent={data?.hero}
     />
   );
 };
