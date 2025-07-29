@@ -2,10 +2,11 @@
 
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { NavItem } from '../types';
+import { NavItem, RichTextContent } from '../types';
 import Container from '../../../shared/components/ui/Container';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import Navbar from './Navbar';
+import { richTextToPlainText } from '@/shared/utils/richTextUtils';
 import hero1 from '../assets/hero-1.png';
 import hero2 from '../assets/hero-2.png';
 import hero3 from '../assets/hero-3.png';
@@ -13,9 +14,10 @@ import superGraphic from '../assets/super-graphic-1.png';
 
 interface HeroSectionProps {
   navItems: NavItem[];
+  aboutUsIntro?: RichTextContent;
 }
 
-const HeroSection: React.FC<HeroSectionProps> = ({ navItems }) => {
+const HeroSection: React.FC<HeroSectionProps> = ({ navItems, aboutUsIntro }) => {
   const scrollY = useScrollAnimation();
   const { scrollYProgress } = useScroll();
 
@@ -199,7 +201,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({ navItems }) => {
                 delay: 1.2
               }}
             >
-              <span className="font-bold">Relevance and Alliance Capital (RAC)</span> is an independent, privately owned multi-family office and corporate-finance advisory firm. We work hand-in-hand with family groups and institutions to create lasting value and sharpen their competitive edge. Based in Indonesia, we&apos;re perfectly positioned to serve one of the world&apos;s fastest-growing markets.
+              {aboutUsIntro ? (
+                richTextToPlainText(aboutUsIntro)
+              ) : (
+                <>
+                  <span className="font-bold">Relevance and Alliance Capital (RAC)</span> is an independent, privately owned multi-family office and corporate-finance advisory firm. We work hand-in-hand with family groups and institutions to create lasting value and sharpen their competitive edge. Based in Indonesia, we&apos;re perfectly positioned to serve one of the world&apos;s fastest-growing markets.
+                </>
+              )}
             </motion.p>
           </motion.div>
 
