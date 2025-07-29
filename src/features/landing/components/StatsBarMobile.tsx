@@ -2,23 +2,31 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Metric } from '../types';
 
-const stats = [
-  {
-    value: '999',
-    label: 'Total Project Worth',
-  },
-  {
-    value: '999',
-    label: 'Total Clients',
-  },
-  {
-    value: '999',
-    label: 'Years of Experience',
-  },
-];
+interface StatsBarMobileProps {
+  metrics?: Metric[];
+}
 
-const StatsBarMobile: React.FC = () => {
+const StatsBarMobile: React.FC<StatsBarMobileProps> = ({ metrics }) => {
+  // Fallback data if no metrics are provided
+  const fallbackStats = [
+    {
+      value: '999',
+      label: 'Total Project Worth',
+    },
+    {
+      value: '999',
+      label: 'Total Clients',
+    },
+    {
+      value: '999',
+      label: 'Years of Experience',
+    },
+  ];
+
+  const stats = metrics || fallbackStats;
+
   return (
     <section className="bg-[#1763F7] py-10 px-4">
       <div className="flex flex-row justify-center items-center gap-8 mx-auto">

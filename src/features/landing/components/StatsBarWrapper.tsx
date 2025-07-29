@@ -13,16 +13,11 @@ interface StatsBarWrapperProps {
 }
 
 const StatsBarWrapper: React.FC<StatsBarWrapperProps> = ({
-  data, // Will be used when StatsBar components are updated to use API data
+  data,
   isLoading,
   error
 }) => {
   const isMobile = useResponsiveHero();
-
-  // Log data for debugging (will be removed when data is actually used)
-  if (data) {
-    console.log('StatsBar data available:', data.metrics);
-  }
 
   // Show loading state for this section
   if (isLoading) {
@@ -48,13 +43,14 @@ const StatsBarWrapper: React.FC<StatsBarWrapperProps> = ({
     );
   }
 
-  // For now, render the original components since they use hardcoded data
-  // In the future, we can update them to use data.metrics
+  // Pass metrics data to the appropriate component
+  const metrics = data?.metrics;
+
   if (isMobile) {
-    return <StatsBarMobile />;
+    return <StatsBarMobile metrics={metrics} />;
   }
 
-  return <StatsBar />;
+  return <StatsBar metrics={metrics} />;
 };
 
 export default StatsBarWrapper; 
