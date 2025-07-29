@@ -2,7 +2,7 @@ import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 
 interface CaseStudyCardProps {
-  image: StaticImageData;
+  image: StaticImageData | string;
   label: string;
   title: string;
   description: string;

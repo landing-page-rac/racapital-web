@@ -56,6 +56,7 @@ export interface FeaturedCaseStudy {
   title: string;
   content: RichTextContent;
   quote: RichTextContent;
+  image?: ImageWithAlt;
 }
 
 // Featured insight type

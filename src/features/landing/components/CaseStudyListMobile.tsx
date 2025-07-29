@@ -8,14 +8,19 @@ import hero2 from '../assets/hero-2.png';
 import hero3 from '../assets/hero-3.png';
 
 interface CaseStudyData {
-  image: StaticImageData;
+  image: StaticImageData | string;
   label: string;
   title: string;
   description: string;
   link: string;
 }
 
-const caseStudies: CaseStudyData[] = [
+interface CaseStudyListMobileProps {
+  caseStudies?: CaseStudyData[];
+}
+
+// Fallback case studies when no data is available
+const fallbackCaseStudies: CaseStudyData[] = [
   {
     image: hero1,
     label: 'CASE STUDY',
@@ -39,7 +44,7 @@ const caseStudies: CaseStudyData[] = [
   },
 ];
 
-const CaseStudyListMobile: React.FC = () => {
+const CaseStudyListMobile: React.FC<CaseStudyListMobileProps> = ({ caseStudies = fallbackCaseStudies }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);

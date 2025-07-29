@@ -22,7 +22,7 @@ const LandingPage: React.FC = () => {
         <StatsBarWrapper data={data} isLoading={isLoading} error={error} />
         <StewardshipCTAWrapper data={data} isLoading={isLoading} error={error} />
         <InsightCarouselWrapper data={data} isLoading={isLoading} error={error} />
-        <CaseStudyListWrapper />
+        <CaseStudyListWrapper data={data} isLoading={isLoading} error={error} />
         <EventsWrapper />
         <ContactSectionWrapper />
         <FooterWrapper />
