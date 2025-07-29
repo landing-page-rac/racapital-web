@@ -120,9 +120,7 @@ const HeroSectionMobile: React.FC<HeroSectionMobileProps> = ({ navItems, aboutUs
               transition={{ duration: 0.8, delay: 0.7 }}
             >
               {heroContent ? (
-                <p className="text-lg sm:text-xl text-blue-100 max-w-md mx-auto">
-                  {renderRichTextContent(heroContent.tagline)}
-                </p>
+                renderRichTextContent(heroContent.tagline)
               ) : (
                 <p className="text-lg sm:text-xl text-blue-100 leading-relaxed max-w-md mx-auto">
                   You set the <span className="font-semibold text-white">goal</span>, we clear the <span className="font-semibold text-white">path</span>.
