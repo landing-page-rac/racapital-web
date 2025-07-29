@@ -64,6 +64,7 @@ export interface FeaturedInsight {
   title: string;
   content: RichTextContent;
   quote: RichTextContent;
+  image?: ImageWithAlt;
 }
 
 // Main landing page data type

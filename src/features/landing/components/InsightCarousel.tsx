@@ -12,7 +12,7 @@ interface CardData {
   description?: string;
   linkText: string;
   linkHref: string;
-  image?: StaticImageData;
+  image?: StaticImageData | string;
 }
 
 const defaultCards: CardData[] = [

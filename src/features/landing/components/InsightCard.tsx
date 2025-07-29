@@ -9,7 +9,7 @@ interface InsightCardProps {
   description?: string;
   linkText: string;
   linkHref: string;
-  image?: StaticImageData;
+  image?: StaticImageData | string;
 }
 
 const InsightCard: React.FC<InsightCardProps> = ({

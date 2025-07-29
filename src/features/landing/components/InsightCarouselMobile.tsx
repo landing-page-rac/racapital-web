@@ -14,7 +14,7 @@ interface CardData {
   description?: string;
   linkText: string;
   linkHref: string;
-  image?: StaticImageData;
+  image?: StaticImageData | string;
 }
 
 const defaultCards: CardData[] = [
@@ -287,7 +287,8 @@ const InsightCarouselMobile: React.FC<{ cards?: CardData[] }> = ({ cards = defau
                       {card.title}
                     </h3>
                     <p className="text-blue-100 text-sm sm:text-base leading-relaxed">
-                      {card.description}
+                      {card.description && card.description.split(' ').slice(0, 40).join(' ')}
+                      {card.description && card.description.split(' ').length > 40 ? '...' : ''}
                     </p>
                     <motion.a
                       href={card.linkHref}
