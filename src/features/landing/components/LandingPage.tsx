@@ -74,7 +74,7 @@ const LandingPage: React.FC = () => {
         <HeroSectionWrapper data={data} isLoading={isLoading} error={error} />
         <OurServicesWrapper data={data} isLoading={isLoading} error={error} />
         <StatsBarWrapper data={data} isLoading={isLoading} error={error} />
-        <StewardshipCTAWrapper />
+        <StewardshipCTAWrapper data={data} isLoading={isLoading} error={error} />
         <InsightCarouselWrapper cards={dummyCards} />
         <CaseStudyListWrapper />
         <EventsWrapper />
