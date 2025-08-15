@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import axiosInstance from '@/shared/utils/axios';
+import { fetchWithCache } from '@/shared/utils/cache';
 import { LandingPageResponse, LandingPageData } from '../types';
 
 export const useLandingPageData = () => {
@@ -13,8 +13,9 @@ export const useLandingPageData = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const response = await axiosInstance.get<LandingPageResponse>('/home-page');
-        setData(response.data.data);
+        // Use the new caching function here
+        const responseData = await fetchWithCache<LandingPageResponse>('/home-page');
+        setData(responseData.data);
       } catch (err) {
         setError(err instanceof Error ? err : new Error('An error occurred'));
       } finally {
@@ -26,4 +27,4 @@ export const useLandingPageData = () => {
   }, []);
 
   return { data, isLoading, error };
-}; 
+};
