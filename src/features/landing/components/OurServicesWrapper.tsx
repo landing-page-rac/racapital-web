@@ -13,16 +13,11 @@ interface OurServicesWrapperProps {
 }
 
 const OurServicesWrapper: React.FC<OurServicesWrapperProps> = ({
-  data, // Will be used when OurServices components are updated to use API data
+  data,
   isLoading,
   error
 }) => {
   const isMobile = useResponsiveHero();
-
-  // Log data for debugging (will be removed when data is actually used)
-  if (data) {
-    console.log('OurServices data available:', data.featuredServices);
-  }
 
   // Show loading state for this section
   if (isLoading) {
@@ -48,13 +43,12 @@ const OurServicesWrapper: React.FC<OurServicesWrapperProps> = ({
     );
   }
 
-  // For now, render the original components since they use hardcoded data
-  // In the future, we can update them to use data.featuredServices
+  // Pass featuredServices data to the components
   if (isMobile) {
-    return <OurServicesMobile />;
+    return <OurServicesMobile featuredServices={data?.featuredServices || []} />;
   }
 
-  return <OurServices />;
+  return <OurServices featuredServices={data?.featuredServices || []} />;
 };
 
 export default OurServicesWrapper; 

@@ -45,7 +45,6 @@ export const fetchWithCache = async <T>(url: string): Promise<T> => {
         return cachedData.data;
     }
 
-    console.log(`Fetching new data for ${url}`);
     try {
         const response = await axiosInstance.get<T>(url);
         const dataToCache = response.data;
