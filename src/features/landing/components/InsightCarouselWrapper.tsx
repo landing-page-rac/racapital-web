@@ -131,10 +131,10 @@ const InsightCarouselWrapper: React.FC<InsightCarouselWrapperProps> = ({
     : fallbackCards;
 
   if (isMobile) {
-    return <InsightCarouselMobile cards={cards} />;
+    return <InsightCarouselMobile cards={cards} aspirationQuote={data?.aspirationQuote} />;
   }
 
-  return <InsightCarousel cards={cards} />;
+  return <InsightCarousel cards={cards} aspirationQuote={data?.aspirationQuote} />;
 };
 
 export default InsightCarouselWrapper; 

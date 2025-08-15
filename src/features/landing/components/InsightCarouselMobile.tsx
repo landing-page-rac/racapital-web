@@ -44,7 +44,7 @@ const defaultCards: CardData[] = [
   },
 ];
 
-const InsightCarouselMobile: React.FC<{ cards?: CardData[] }> = ({ cards = defaultCards }) => {
+const InsightCarouselMobile: React.FC<{ cards?: CardData[], aspirationQuote?: string }> = ({ cards = defaultCards, aspirationQuote }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -352,7 +352,7 @@ const InsightCarouselMobile: React.FC<{ cards?: CardData[] }> = ({ cards = defau
           viewport={{ once: true }}
         >
           <p className="text-white text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto">
-            We conduct prudent and in-depth perspectives particularly tailored to help you achieve your utmost aspiration
+            {aspirationQuote}
           </p>
         </motion.div>
       </div>
