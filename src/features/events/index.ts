@@ -9,6 +9,16 @@ export { default as EventCardMobile } from './components/EventCardMobile';
 
 // Hooks
 export { useEventsData } from './hooks/useEventsData';
+export { useEventsApiData } from './hooks/useEventsApiData';
 
 // Types
-export type { Event } from './hooks/useEventsData'; 
+export type { Event } from './hooks/useEventsData';
+export type {
+  EventData,
+  EventsApiResponse,
+  EventImageData,
+  EventImageWithAlt,
+  EventMediaWithAlt,
+  EventService,
+  EventCollapsibleItem
+} from './types/api'; 
