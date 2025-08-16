@@ -56,7 +56,7 @@ export interface FeaturedCaseStudy {
   title: string;
   content: RichTextContent;
   quote: RichTextContent;
-  image?: ImageWithAlt;
+  mainImage?: ImageWithAlt;
 }
 
 // Featured insight type
@@ -65,7 +65,7 @@ export interface FeaturedInsight {
   title: string;
   content: RichTextContent;
   quote: RichTextContent;
-  image?: ImageWithAlt;
+  mainImage?: ImageWithAlt;
 }
 
 // Featured event type
