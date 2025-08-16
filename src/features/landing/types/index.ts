@@ -68,6 +68,17 @@ export interface FeaturedInsight {
   image?: ImageWithAlt;
 }
 
+// Featured event type
+export interface FeaturedEvent {
+  documentId: string;
+  title: string;
+  content: RichTextContent;
+  quote: RichTextContent;
+  location: string;
+  date: string;
+  image: ImageWithAlt;
+}
+
 // Main landing page data type
 export interface LandingPageData {
   documentId: string;
@@ -79,6 +90,7 @@ export interface LandingPageData {
   reportBanner: ReportBanner;
   featuredCaseStudies: FeaturedCaseStudy[];
   featuredInsights: FeaturedInsight[];
+  featuredEvents: FeaturedEvent[];
 }
 
 // API response type
@@ -116,10 +128,8 @@ export interface ContainerProps {
 }
 
 export interface Event {
-  id: string;
-  type: string;
   title: string;
-  location: string;
   date: string;
-  image: string | StaticImageData;
-} 
+  image: string; // URL string from API
+  location: string;
+}
