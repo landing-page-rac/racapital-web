@@ -5,49 +5,13 @@ import { Event } from '../types';
 import event1 from '../assets/event-1.png';
 import event2 from '../assets/event-2.png';
 
-// Dummy data for events
-const dummyEvents: Event[] = [
-  {
-    id: '1',
-    type: 'EVENT',
-    title: 'Advancing Corporate Stewardship: Best Practices for ESG Integration',
-    location: 'JAKARTA',
-    date: '1 FEBRUARY 2022',
-    image: event1,
-  },
-  {
-    id: '2',
-    type: 'EVENT',
-    title: 'Strategic Agility in the Digital Era: Driving Growth through Innovation',
-    location: 'JAKARTA',
-    date: '1 FEBRUARY 2022',
-    image: event2,
-  },
-  {
-    id: '3',
-    type: 'EVENT',
-    title: 'Sustainable Finance Summit: Building Resilient Portfolios',
-    location: 'SINGAPORE',
-    date: '15 MARCH 2022',
-    image: event1,
-  },
-  {
-    id: '4',
-    type: 'EVENT',
-    title: 'Digital Transformation in Capital Markets',
-    location: 'HONG KONG',
-    date: '22 APRIL 2022',
-    image: event2,
-  },
-];
-
 interface EventsProps {
-  events?: Event[];
+  events: Event[];
   showMoreButton?: boolean;
 }
 
 const Events: React.FC<EventsProps> = ({
-  events = dummyEvents,
+  events,
   showMoreButton = true
 }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
