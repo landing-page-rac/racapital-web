@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'images.unsplash.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'rac-content-bucket.s3.ap-southeast-3.amazonaws.com',
+      },
     ],
   },
 };
