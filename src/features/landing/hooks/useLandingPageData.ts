@@ -13,7 +13,6 @@ export const useLandingPageData = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        // Use the new caching function here
         const responseData = await fetchWithCache<LandingPageResponse>('/home-page');
         setData(responseData.data);
       } catch (err) {
