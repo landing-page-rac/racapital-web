@@ -40,7 +40,7 @@ const ContactForm: React.FC = () => {
             name="fullName"
             value={formData.fullName}
             onChange={handleInputChange}
-            className="w-full px-4 py-3 border border-[#0D52E5] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-[#0D52E5]"
+            className="w-full px-4 py-3 border border-[#0D52E5] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-[#0D52E5] text-black"
             required
             placeholder='FULL NAME'
           />
@@ -55,7 +55,7 @@ const ContactForm: React.FC = () => {
               name="email"
               value={formData.email}
               onChange={handleInputChange}
-              className="w-full px-4 py-3 border border-[#0D52E5] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-[#0D52E5]"
+              className="w-full px-4 py-3 border border-[#0D52E5] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-[#0D52E5] text-black"
               required
               placeholder='EMAIL ADDRESS'
 
@@ -70,7 +70,7 @@ const ContactForm: React.FC = () => {
               name="phone"
               value={formData.phone}
               onChange={handleInputChange}
-              className="w-full px-4 py-3 border border-[#0D52E5] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-[#0D52E5]"
+              className="w-full px-4 py-3 border border-[#0D52E5] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-[#0D52E5] text-black"
               required
               placeholder='PHONE NUMBER'
             />
@@ -85,7 +85,7 @@ const ContactForm: React.FC = () => {
             value={formData.message}
             onChange={handleInputChange}
             rows={4}
-            className="w-full px-4 py-3 border border-[#0D52E5] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-[#0D52E5]"
+            className="w-full px-4 py-3 border border-[#0D52E5] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-[#0D52E5] text-black"
             required
             placeholder='MESSAGE'
           />
