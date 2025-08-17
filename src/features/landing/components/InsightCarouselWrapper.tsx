@@ -78,10 +78,12 @@ const transformInsightsToCards = (insights: FeaturedInsight[]): CardData[] => {
   const imageOptions = [hero1, hero2, hero3]; // Fallback images
 
   return insights.map((insight, index) => {
-    // Use the actual image URL from API if available, otherwise fallback to hero images
-    const image = insight.image?.image?.url
-      ? insight.image.image.url
-      : imageOptions[index % imageOptions.length];
+    // Use the actual image data from API if available, otherwise fallback to hero images
+    const imageData = insight.mainImage?.image;
+    const image =
+      imageData && imageData.url
+        ? imageData.url
+        : imageOptions[index % imageOptions.length];
 
     return {
       title: insight.title,

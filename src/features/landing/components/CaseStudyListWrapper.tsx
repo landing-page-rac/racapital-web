@@ -12,7 +12,7 @@ import hero2 from '../assets/hero-2.png';
 import hero3 from '../assets/hero-3.png';
 
 interface CaseStudyData {
-  image: StaticImageData | string;
+  image: string | StaticImageData;
   label: string;
   title: string;
   description: string;
@@ -25,30 +25,6 @@ interface CaseStudyListWrapperProps {
   error: Error | null;
 }
 
-// Fallback case studies when no data is available
-const fallbackCaseStudies: CaseStudyData[] = [
-  {
-    image: hero1,
-    label: 'CASE STUDY',
-    title: 'GlobeBank leverages machine learning to cut fraud losses in real time.',
-    description: 'How GlobeBank stopped threats before they struck',
-    link: '#',
-  },
-  {
-    image: hero2,
-    label: 'CASE STUDY',
-    title: 'AutoMotion scaled its EV production by deploying a digital twin of its assembly line.',
-    description: 'See how AutoMotion accelerated output',
-    link: '#',
-  },
-  {
-    image: hero3,
-    label: 'CASE STUDY',
-    title: 'HealthSync uses advanced analytics to personalize patient care journeys.',
-    description: 'Discover HealthSync\'s data-driven approach',
-    link: '#',
-  },
-];
 
 // Function to extract plain text from RichTextContent
 const extractPlainText = (content: RichTextContent): string => {
@@ -69,15 +45,18 @@ const extractPlainText = (content: RichTextContent): string => {
     .trim();
 };
 
-// Function to transform FeaturedCaseStudy to CaseStudyData
 const transformCaseStudiesToCards = (caseStudies: FeaturedCaseStudy[]): CaseStudyData[] => {
-  const imageOptions = [hero1, hero2, hero3]; // Fallback images
-
-  return caseStudies.map((caseStudy, index) => {
-    // Use the actual image URL from API if available, otherwise fallback to hero images
-    const image = caseStudy.image?.image?.url
-      ? caseStudy.image.image.url
-      : imageOptions[index % imageOptions.length];
+  return caseStudies.map((caseStudy, idx) => {
+    // Use the actual image data from API, fallback to static images if not present
+    const imageData = caseStudy.mainImage?.image;
+    let image: string | StaticImageData;
+    if (imageData && imageData.url) {
+      image = imageData.url;
+    } else {
+      // fallback to static images if needed
+      const staticImages = [hero1, hero2, hero3];
+      image = staticImages[idx % staticImages.length];
+    }
 
     return {
       title: caseStudy.title,
@@ -120,10 +99,10 @@ const CaseStudyListWrapper: React.FC<CaseStudyListWrapperProps> = ({
     );
   }
 
-  // Transform featuredCaseStudies to cards or use fallback
+  // Transform featuredCaseStudies to cards - only use API data
   const caseStudies = data?.featuredCaseStudies
     ? transformCaseStudiesToCards(data.featuredCaseStudies)
-    : fallbackCaseStudies;
+    : [];
 
   if (isMobile) {
     return <CaseStudyListMobile caseStudies={caseStudies} />;
