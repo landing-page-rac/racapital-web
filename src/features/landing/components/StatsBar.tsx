@@ -5,23 +5,23 @@ interface StatsBarProps {
   metrics?: Metric[];
 }
 
-const StatsBar: React.FC<StatsBarProps> = ({ metrics }) => {
-  // Fallback data if no metrics are provided
-  const fallbackStats = [
-    {
-      value: '999',
-      label: 'Total Project Worth',
-    },
-    {
-      value: '999',
-      label: 'Total Clients',
-    },
-    {
-      value: '999',
-      label: 'Years of Experience',
-    },
-  ];
+// Fallback data if no metrics are provided
+export const fallbackStats = [
+  {
+    value: '999',
+    label: 'Total Project Worth',
+  },
+  {
+    value: '999',
+    label: 'Total Clients',
+  },
+  {
+    value: '999',
+    label: 'Years of Experience',
+  },
+];
 
+const StatsBar: React.FC<StatsBarProps> = ({ metrics }) => {
   const stats = metrics || fallbackStats;
 
   return (

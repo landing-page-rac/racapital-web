@@ -70,7 +70,9 @@ const FooterMobile: React.FC = () => {
             </svg>
           </a>
           <a
-            href="#"
+            href="https://www.linkedin.com/company/ra-capital-management-llc"
+            target="_blank"
+            rel="noopener noreferrer"
             className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-white hover:text-[#041E42] transition-all duration-300 border border-white/20"
             aria-label="LinkedIn"
           >

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Navbar from '../../landing/components/Navbar';
-import { stats } from '../../landing/components/StatsBar';
+import { fallbackStats as stats } from '../../landing/components/StatsBar';
 import PrinciplesWidget from './PrinciplesWidget';
 import { NAV_ITEMS } from '@/shared/constants/navigation';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
