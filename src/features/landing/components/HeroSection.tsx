@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { NavItem } from '../types';
+import { HeroSectionContentType, NavItem } from '../types';
 import Container from '../../../shared/components/ui/Container';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import Navbar from './Navbar';
@@ -10,12 +10,16 @@ import hero1 from '../assets/hero-1.png';
 import hero2 from '../assets/hero-2.png';
 import hero3 from '../assets/hero-3.png';
 import superGraphic from '../assets/super-graphic-1.png';
+import { RichTextParagraph } from '@/shared/types';
+import { renderInlineBlock, renderRichTextContent } from '@/shared/utils/contentRenderer';
 
 interface HeroSectionProps {
   navItems: NavItem[];
+  aboutUsIntro?: RichTextParagraph;
+  heroContent?: HeroSectionContentType;
 }
 
-const HeroSection: React.FC<HeroSectionProps> = ({ navItems }) => {
+const HeroSection: React.FC<HeroSectionProps> = ({ navItems, aboutUsIntro, heroContent }) => {
   const scrollY = useScrollAnimation();
   const { scrollYProgress } = useScroll();
 
@@ -66,7 +70,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({ navItems }) => {
                 delay: 0.2
               }}
             >
-              Building Your Tomorrow&apos;s Fortune, <u>Today</u>.
+              {heroContent ? (
+                renderRichTextContent(heroContent.headline)
+              ) : (
+                <>
+                  Building Your Tomorrow&apos;s Fortune, <u>Today</u>.
+                </>
+              )}
             </motion.h1>
           </div>
 
@@ -187,7 +197,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({ navItems }) => {
                 delay: 1.0
               }}
             >
-              You set the <span className="underline font-bold">goal</span>, we clear the <span className="underline font-bold">path</span>. We are here to guide your growth through strategic, hands-on advisory.
+              {heroContent ? (
+                renderRichTextContent(heroContent.tagline)
+              ) : (
+                <>
+                  You set the <span className="underline font-bold">goal</span>, we clear the <span className="underline font-bold">path</span>. We are here to guide your growth through strategic, hands-on advisory.
+                </>
+              )}
             </motion.h2>
             <motion.p
               className="text-lg md:text-xl text-gray-100 leading-relaxed max-w-4xl mx-auto"
@@ -199,7 +215,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({ navItems }) => {
                 delay: 1.2
               }}
             >
-              <span className="font-bold">Relevance and Alliance Capital (RAC)</span> is an independent, privately owned multi-family office and corporate-finance advisory firm. We work hand-in-hand with family groups and institutions to create lasting value and sharpen their competitive edge. Based in Indonesia, we&apos;re perfectly positioned to serve one of the world&apos;s fastest-growing markets.
+              {aboutUsIntro ? (
+                renderInlineBlock(aboutUsIntro, 1)
+              ) : (
+                <>
+                  <span className="font-bold">Relevance and Alliance Capital (RAC)</span> is an independent, privately owned multi-family office and corporate-finance advisory firm. We work hand-in-hand with family groups and institutions to create lasting value and sharpen their competitive edge. Based in Indonesia, we&apos;re perfectly positioned to serve one of the world&apos;s fastest-growing markets.
+                </>
+              )}
             </motion.p>
           </motion.div>
 

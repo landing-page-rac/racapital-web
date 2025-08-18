@@ -1,36 +1,18 @@
 'use client';
 
 import React, { useState } from 'react';
+import { AboutUsFlagshipService } from '../types';
+import { renderRichTextContent } from '@/shared/utils/contentRenderer';
 
-interface ServiceItem {
-  id: number;
-  title: string;
-  description: string;
+interface FlagshipServiceProps {
+  flagshipServices?: AboutUsFlagshipService[];
 }
 
-const serviceItems: ServiceItem[] = [
-  {
-    id: 1,
-    title: "Strategic Advisory",
-    description: "We provide comprehensive strategic advisory services to help businesses navigate complex financial landscapes, optimize capital structure, and achieve sustainable growth through expert guidance and market insights."
-  },
-  {
-    id: 2,
-    title: "Capital Raising",
-    description: "Our capital raising expertise spans across debt and equity financing, helping companies secure the funding they need to scale operations, expand market presence, and achieve their strategic objectives."
-  },
-  {
-    id: 3,
-    title: "M&A Advisory",
-    description: "We guide clients through complex mergers and acquisitions, providing end-to-end advisory services from initial strategy and target identification to due diligence, valuation, and successful transaction closure."
-  }
-];
+const FlagshipService: React.FC<FlagshipServiceProps> = ({ flagshipServices = [] }) => {
+  const [openCard, setOpenCard] = useState<number | null>(0); // Auto-open first card (index: 0)
 
-const FlagshipService: React.FC = () => {
-  const [openCard, setOpenCard] = useState<number | null>(1); // Auto-open first card (id: 1)
-
-  const handleCardClick = (id: number) => {
-    setOpenCard(openCard === id ? null : id);
+  const handleCardClick = (index: number) => {
+    setOpenCard(openCard === index ? null : index);
   };
 
   return (
@@ -45,8 +27,8 @@ const FlagshipService: React.FC = () => {
 
         {/* Accordion Cards */}
         <div className="flex flex-col lg:flex-row items-end">
-          {serviceItems.map((item, index) => {
-            const isOpen = openCard === item.id;
+          {flagshipServices.map((item, index) => {
+            const isOpen = openCard === index;
             // Calculate height based on index - higher index = smaller height
             const baseHeight = 500;
             const heightReduction = index * 50; // Reduce by 50px for each index
@@ -54,7 +36,7 @@ const FlagshipService: React.FC = () => {
 
             return (
               <div
-                key={item.id}
+                key={index}
                 className={`
                   relative cursor-pointer transition-all duration-500 ease-in-out
                   ${isOpen
@@ -67,7 +49,7 @@ const FlagshipService: React.FC = () => {
                   backgroundColor: isOpen ? 'white' : '#0D52E5',
                   height: `${dynamicHeight}px`
                 }}
-                onClick={() => handleCardClick(item.id)}
+                onClick={() => handleCardClick(index)}
               >
                 <div className="p-6 lg:p-8 h-full flex flex-col">
                   {/* Title */}
@@ -90,9 +72,9 @@ const FlagshipService: React.FC = () => {
                       }
                     `}
                   >
-                    <p className="text-gray-700 leading-relaxed">
-                      {item.description}
-                    </p>
+                    <div className="text-gray-700 leading-relaxed">
+                      {renderRichTextContent(item.description)}
+                    </div>
                   </div>
                 </div>
 

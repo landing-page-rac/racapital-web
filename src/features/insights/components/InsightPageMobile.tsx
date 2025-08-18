@@ -4,21 +4,20 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Navbar from '../../landing/components/Navbar';
-import { useLandingPageData } from '../../landing/hooks/useLandingPageData';
-import { useInsightsData } from '../hooks/useInsightsData';
+import Container from '../../../shared/components/ui/Container';
 import InsightListCard from './InsightListCard';
+import { useInsightsData } from '../hooks/useInsightsData';
+import { NAV_ITEMS } from '@/shared/constants/navigation';
 import { ContactSectionMobile } from '@/shared/components';
 import { FooterMobile } from '@/features/landing';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
-import Container from '../../../shared/components/ui/Container';
 
 const InsightPageMobile: React.FC = () => {
-  const { navItems } = useLandingPageData();
-  const { insights } = useInsightsData();
+  const { insights, isLoading, error } = useInsightsData();
 
   return (
     <section className="relative bg-gradient-to-br from-[#051F42] via-[#002d72] to-[#051F42] text-white overflow-hidden" >
-      <Navbar navItems={navItems} />
+      <Navbar navItems={NAV_ITEMS} />
       {/* Background Pattern */}
       <motion.div
         className="absolute inset-0"
@@ -60,20 +59,40 @@ const InsightPageMobile: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            {insights && insights.length > 0 ? (
+            {isLoading ? (
+              <motion.div
+                className="text-center text-gray-200 bg-white/10 backdrop-blur-sm rounded-2xl p-8"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                <p className="text-lg">Loading insights...</p>
+              </motion.div>
+            ) : error ? (
+              <motion.div
+                className="text-center text-gray-200 bg-white/10 backdrop-blur-sm rounded-2xl p-8"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                <p className="text-lg">Error loading insights</p>
+                <p className="text-sm text-gray-300 mt-2">
+                  Please try again later.
+                </p>
+              </motion.div>
+            ) : insights && insights.length > 0 ? (
               insights.map((insight) => (
                 <motion.div
-                  key={insight.id}
+                  key={insight.documentId}
                   className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mx-auto"
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5 }}
                 >
                   <InsightListCard
-                    image={insight.image}
-                    title={insight.title}
-                    linkText={insight.linkText}
-                    linkHref={insight.linkHref}
+                    insight={insight}
+                    linkText="Read more"
+                    linkHref={`/insights/${insight.documentId}`}
                   />
                 </motion.div>
               ))

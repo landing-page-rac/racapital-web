@@ -1,13 +1,13 @@
 'use client'
 import React, { useState } from 'react';
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
+import { CaseStudyData } from '../types';
 
 interface CaseStudyCardProps {
-  image: StaticImageData;
-  title: string;
+  caseStudy: CaseStudyData;
 }
 
-const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ image, title }) => {
+const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -25,8 +25,8 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ image, title }) => {
         }}
       >
         <Image
-          src={image}
-          alt={title}
+          src={caseStudy.image.image.url}
+          alt={caseStudy.image.alternativeText || caseStudy.title}
           fill
           style={{ objectFit: 'cover', objectPosition: 'center' }}
         />
@@ -42,7 +42,7 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ image, title }) => {
         }}
       >
         <div className="uppercase text-sm tracking-widest text-gray-300 mb-2">Case Study</div>
-        <div className="text-white text-2xl font-light mb-2 leading-snug">{title}</div>
+        <div className="text-white text-2xl font-light mb-2 leading-snug">{caseStudy.title}</div>
         <div className="text-white underline text-base font-medium mt-auto hover:text-blue-300 transition-colors">
           Explore Approaches &rarr;
         </div>

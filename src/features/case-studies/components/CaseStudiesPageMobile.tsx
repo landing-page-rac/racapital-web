@@ -4,20 +4,19 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Navbar from '../../landing/components/Navbar';
-import { useLandingPageData } from '../../landing/hooks/useLandingPageData';
 import { useCaseStudiesData } from '../hooks/useCaseStudiesData';
 import { ContactSection } from '@/shared/components';
 import { Footer } from '@/features/landing';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
+import { NAV_ITEMS } from '@/shared/constants/navigation';
 
 const CaseStudiesPageMobile: React.FC = () => {
-  const { navItems } = useLandingPageData();
-  const { caseStudies } = useCaseStudiesData();
+  const { caseStudies, isLoading, error } = useCaseStudiesData();
 
   return (
     <div className="min-h-screen">
       <div className="relative bg-gradient-to-br from-[#051F42] via-[#002d72] to-[#051F42] text-white overflow-hidden">
-        <Navbar navItems={navItems} />
+        <Navbar navItems={NAV_ITEMS} />
 
         {/* Background Pattern */}
         <motion.div
@@ -60,10 +59,38 @@ const CaseStudiesPageMobile: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              {caseStudies && caseStudies.length > 0 ? (
+              {isLoading ? (
+                <motion.div
+                  className="text-center py-12"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                >
+                  <div className="text-gray-200 mb-4">
+                    <p className="text-xl font-semibold mb-2">Loading case studies...</p>
+                  </div>
+                </motion.div>
+              ) : error ? (
+                <motion.div
+                  className="text-center py-12"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                >
+                  <div className="text-gray-200 mb-4">
+                    <svg className="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                    </svg>
+                    <p className="text-xl font-semibold mb-2">Error loading case studies</p>
+                    <p className="text-base text-gray-300">
+                      Please try again later.
+                    </p>
+                  </div>
+                </motion.div>
+              ) : caseStudies && caseStudies.length > 0 ? (
                 caseStudies.map((caseStudy, index) => (
                   <motion.div
-                    key={caseStudy.id}
+                    key={caseStudy.documentId}
                     className="relative"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -73,9 +100,11 @@ const CaseStudiesPageMobile: React.FC = () => {
                       {/* Image */}
                       <div className="absolute inset-0">
                         <Image
-                          src={caseStudy.image}
-                          alt={caseStudy.title}
+                          src={caseStudy.image.image.url}
+                          alt={caseStudy.image.alternativeText || caseStudy.title}
                           fill
+                          width={caseStudy.image.image.width}
+                          height={caseStudy.image.image.height}
                           className="object-cover transition-transform duration-300 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />

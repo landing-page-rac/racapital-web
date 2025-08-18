@@ -12,7 +12,7 @@ interface CardData {
   description?: string;
   linkText: string;
   linkHref: string;
-  image?: StaticImageData;
+  image?: StaticImageData | string;
 }
 
 const defaultCards: CardData[] = [
@@ -47,7 +47,7 @@ const CARD_GAP = 24; // px
 const AUTO_PLAY_INTERVAL = 30; // 30ms for smoother animation
 const SCROLL_INCREMENT = 1; // pixels per interval for smoother scrolling
 
-const InsightCarousel: React.FC<{ cards?: CardData[] }> = ({ cards = defaultCards }) => {
+const InsightCarousel: React.FC<{ cards?: CardData[], aspirationQuote?: string }> = ({ cards = defaultCards, aspirationQuote }) => {
   const [activeIdx, setActiveIdx] = useState(0);
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -252,7 +252,7 @@ const InsightCarousel: React.FC<{ cards?: CardData[] }> = ({ cards = defaultCard
           </button>
         </div>
 
-        <p className='text-center mt-10 text-3xl px-44'>We conduct prudent and in-depth perspectives particulary tailored to help you achieve your utmost aspiration</p>
+        <p className='text-center mt-10 text-3xl px-44'>{aspirationQuote}</p>
 
         <CaseStudyButton />
       </div>

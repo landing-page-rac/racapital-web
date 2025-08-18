@@ -1,24 +1,23 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Navbar from '../../landing/components/Navbar';
-import { useLandingPageData } from '../../landing/hooks/useLandingPageData';
-import { useEventsData } from '../hooks/useEventsData';
 import EventCardEnhanced from './EventCardEnhanced';
+import { useEventsData } from '../hooks/useEventsData';
+import { NAV_ITEMS } from '@/shared/constants/navigation';
 import { ContactSection } from '@/shared/components';
 import { Footer } from '@/features/landing';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
 
 const EventsPageDesktop: React.FC = () => {
-  const { navItems } = useLandingPageData();
-  const { events } = useEventsData();
-
-  console.log('Events data:', events);
+  const { events, isLoading, error } = useEventsData();
 
   return (
     <div className="min-h-screen">
       <div className="relative bg-gradient-to-br from-[#051F42] via-[#002d72] to-[#051F42] text-white overflow-hidden">
-        <Navbar navItems={navItems} />
+        <Navbar navItems={NAV_ITEMS} />
         {/* Background Pattern */}
         <motion.div
           className="absolute inset-0"
@@ -60,10 +59,21 @@ const EventsPageDesktop: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              {events && events.length > 0 ? (
+              {isLoading ? (
+                <div className="text-center text-gray-200">
+                  <p className="text-2xl mb-4">Loading events...</p>
+                </div>
+              ) : error ? (
+                <div className="text-center text-gray-200">
+                  <p className="text-2xl mb-4">Error loading events</p>
+                  <p className="text-lg text-gray-300">
+                    Please try again later.
+                  </p>
+                </div>
+              ) : events && events.length > 0 ? (
                 events.map((event, index) => (
                   <motion.div
-                    key={event.id}
+                    key={event.documentId}
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}

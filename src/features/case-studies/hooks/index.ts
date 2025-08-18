@@ -1,0 +1,1 @@
+export { useCaseStudiesData } from './useCaseStudiesData';

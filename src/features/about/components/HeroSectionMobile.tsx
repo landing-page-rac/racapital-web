@@ -1,20 +1,29 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Navbar from '../../landing/components/Navbar';
-import { stats } from '../../landing/components/StatsBar';
+// Remove the hardcoded stats import - will use API data instead
 import PrinciplesWidget from './PrinciplesWidget';
-import { useLandingPageData } from '../../landing/hooks/useLandingPageData';
+import { NAV_ITEMS } from '@/shared/constants/navigation';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
 import Container from '../../../shared/components/ui/Container';
+import { AboutUsData } from '../types';
 
-const HeroSectionMobile: React.FC = () => {
-  const { navItems } = useLandingPageData();
-  const [animatedStats, setAnimatedStats] = useState(stats.map(() => 0));
+interface HeroSectionMobileProps {
+  data?: AboutUsData | null;
+  isLoading?: boolean;
+  error?: Error | null;
+}
+
+const HeroSectionMobile: React.FC<HeroSectionMobileProps> = ({ data }) => {
+  const metrics = useMemo(() => data?.hero?.metrics || [], [data?.hero?.metrics]);
+  const [animatedStats, setAnimatedStats] = useState(metrics.map(() => 0));
 
   useEffect(() => {
+    if (metrics.length === 0) return;
+
     const animateNumbers = () => {
       const duration = 2000; // 2 seconds
       const steps = 60;
@@ -26,7 +35,7 @@ const HeroSectionMobile: React.FC = () => {
         currentStep++;
         const progress = currentStep / steps;
 
-        setAnimatedStats(stats.map((stat) => {
+        setAnimatedStats(metrics.map((stat) => {
           const targetValue = parseInt(stat.value);
           const currentValue = Math.floor(targetValue * progress);
           return currentValue;
@@ -34,7 +43,7 @@ const HeroSectionMobile: React.FC = () => {
 
         if (currentStep >= steps) {
           clearInterval(interval);
-          setAnimatedStats(stats.map(stat => parseInt(stat.value)));
+          setAnimatedStats(metrics.map(stat => parseInt(stat.value)));
         }
       }, stepDuration);
 
@@ -44,7 +53,7 @@ const HeroSectionMobile: React.FC = () => {
     // Start animation after a delay
     const timer = setTimeout(animateNumbers, 800);
     return () => clearTimeout(timer);
-  }, []);
+  }, [metrics]);
 
   return (
     <section className="relative bg-gradient-to-br from-[#051F42] via-[#002d72] to-[#051F42] text-white overflow-hidden min-h-screen">
@@ -67,7 +76,7 @@ const HeroSectionMobile: React.FC = () => {
       </motion.div>
 
       {/* Navbar */}
-      <Navbar navItems={navItems} />
+      <Navbar navItems={NAV_ITEMS} />
 
       <Container maxWidth="7xl" className="relative z-10">
         <div className="pt-8 pb-8 px-4">
@@ -98,7 +107,7 @@ const HeroSectionMobile: React.FC = () => {
                 delay: 0.2
               }}
             >
-              Relevance and Alliance Capital (RAC)
+              {data?.hero?.title || "Relevance and Alliance Capital (RAC)"}
             </motion.h1>
 
             {/* Description - Fade in up */}
@@ -112,7 +121,7 @@ const HeroSectionMobile: React.FC = () => {
                 delay: 0.4
               }}
             >
-              is an independent and privately owned multi-family office, investment & corporate finance advisory firm. We partner with leading family groups and institutions to promote value creation and competitive edge. Headquartered in Indonesia, RAC operates in the key market of one of the most promising region
+              {data?.hero?.body || "is an independent and privately owned multi-family office, investment & corporate finance advisory firm. We partner with leading family groups and institutions to promote value creation and competitive edge. Headquartered in Indonesia, RAC operates in the key market of one of the most promising region"}
             </motion.p>
 
             {/* Stats with number animation - Mobile optimized grid */}
@@ -126,7 +135,7 @@ const HeroSectionMobile: React.FC = () => {
                 delay: 0.6
               }}
             >
-              {stats.map((stat, index) => (
+              {metrics.map((stat, index) => (
                 <motion.div
                   key={stat.label}
                   className="text-center bg-white/10 backdrop-blur-sm rounded-xl p-4"
@@ -172,7 +181,7 @@ const HeroSectionMobile: React.FC = () => {
 
       {/* Principles Widget - Mobile optimized */}
       <div className="relative z-20">
-        <PrinciplesWidget />
+        <PrinciplesWidget principles={data?.principles} />
       </div>
     </section>
   );

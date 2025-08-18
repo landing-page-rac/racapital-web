@@ -1,11 +1,25 @@
 import React from 'react';
 import CaseStudyCard from './CaseStudyCard';
 import CaseStudyButton from './CaseStudyButton';
+import { StaticImageData } from 'next/image';
 import hero1 from '../assets/hero-1.png';
 import hero2 from '../assets/hero-2.png';
 import hero3 from '../assets/hero-3.png';
 
-const caseStudies = [
+interface CaseStudyData {
+  image: StaticImageData | string;
+  label: string;
+  title: string;
+  description: string;
+  link: string;
+}
+
+interface CaseStudyListProps {
+  caseStudies?: CaseStudyData[];
+}
+
+// Fallback case studies when no data is available
+const fallbackCaseStudies: CaseStudyData[] = [
   {
     image: hero1,
     label: 'CASE STUDY',
@@ -24,12 +38,12 @@ const caseStudies = [
     image: hero3,
     label: 'CASE STUDY',
     title: 'HealthSync uses advanced analytics to personalize patient care journeys.',
-    description: 'Discover HealthSync’s data-driven approach',
+    description: 'Discover HealthSync\'s data-driven approach',
     link: '#',
   },
 ];
 
-const CaseStudyList: React.FC = () => (
+const CaseStudyList: React.FC<CaseStudyListProps> = ({ caseStudies = fallbackCaseStudies }) => (
   <section className="bg-[#1763F7] py-16 px-4">
     <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
       {caseStudies.map((cs, idx) => (

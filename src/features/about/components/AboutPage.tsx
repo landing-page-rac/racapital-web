@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useAboutUsData } from '../hooks/useAboutUsData';
 import HeroSection from './HeroSection';
 import HeroSectionMobile from './HeroSectionMobile';
 import OurPeople from './OurPeople';
@@ -32,21 +33,22 @@ const useResponsiveHero = () => {
 
 const AboutPage: React.FC = () => {
   const isMobile = useResponsiveHero();
+  const { data, isLoading, error } = useAboutUsData();
 
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
       {isMobile ? (
-        <HeroSectionMobile />
+        <HeroSectionMobile data={data} isLoading={isLoading} error={error} />
       ) : (
-        <HeroSection />
+        <HeroSection data={data} isLoading={isLoading} error={error} />
       )}
 
       {/* Our People Section */}
       {isMobile ? (
-        <OurPeopleMobile />
+        <OurPeopleMobile teamMembers={data?.teamMembers} flagshipServices={data?.flagshipServices} />
       ) : (
-        <OurPeople />
+        <OurPeople teamMembers={data?.teamMembers} flagshipServices={data?.flagshipServices} />
       )}
 
       {/* Contact Section */}
@@ -55,6 +57,8 @@ const AboutPage: React.FC = () => {
       ) : (
         <ContactSection />
       )}
+
+      {/* Footer */}
       {isMobile ? (
         <FooterMobile />
       ) : (

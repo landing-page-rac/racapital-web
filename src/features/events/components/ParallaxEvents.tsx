@@ -1,10 +1,10 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import EventCardEnhanced from './EventCardEnhanced';
-import { Event } from '../hooks/useEventsData';
+import { EventData } from '../types';
 
 interface ParallaxEventsProps {
-  events: Event[];
+  events: EventData[];
 }
 
 const ParallaxEvents: React.FC<ParallaxEventsProps> = ({ events }) => {
@@ -43,7 +43,7 @@ const ParallaxEvents: React.FC<ParallaxEventsProps> = ({ events }) => {
 
           return (
             <div
-              key={event.id}
+              key={event.documentId}
               className="relative py-16 overflow-hidden"
               style={{
                 background: index % 2 === 0 ? '#f8fafc' : 'white',

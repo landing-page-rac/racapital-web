@@ -3,13 +3,19 @@ import React, { useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import hero1 from '../assets/hero-1.png';
 
+interface ApiImageData {
+  url: string;
+  width: number;
+  height: number;
+}
+
 interface InsightCardProps {
   title: string;
   subtitle?: string;
   description?: string;
   linkText: string;
   linkHref: string;
-  image?: StaticImageData;
+  image?: StaticImageData | ApiImageData | string;
 }
 
 const InsightCard: React.FC<InsightCardProps> = ({
@@ -21,6 +27,26 @@ const InsightCard: React.FC<InsightCardProps> = ({
   image = hero1,
 }) => {
   const [hovered, setHovered] = useState(false);
+
+  // Determine the image source, width, and height based on the image type
+  let src: string;
+  let width: number | undefined;
+  let height: number | undefined;
+  
+  if (typeof image === 'string') {
+    // Local image or simple URL
+    src = image;
+  } else if ('url' in image) {
+    // API image data
+    src = image.url;
+    width = image.width;
+    height = image.height;
+  } else {
+    // StaticImageData
+    src = image.src;
+    width = image.width;
+    height = image.height;
+  }
 
   return (
     <div
@@ -36,12 +62,22 @@ const InsightCard: React.FC<InsightCardProps> = ({
           zIndex: 1,
         }}
       >
-        <Image
-          src={image}
-          alt={title}
-          fill
-          style={{ objectFit: 'cover', objectPosition: 'center' }}
-        />
+        {width && height ? (
+          <Image
+            src={src}
+            alt={title}
+            width={width}
+            height={height}
+            style={{ objectFit: 'cover', objectPosition: 'center' }}
+          />
+        ) : (
+          <Image
+            src={src}
+            alt={title}
+            fill
+            style={{ objectFit: 'cover', objectPosition: 'center' }}
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/40" />
       </div>
       {/* Overlay/Content */}

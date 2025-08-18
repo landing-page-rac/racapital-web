@@ -3,14 +3,25 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Event } from '../hooks/useEventsData';
+import { EventData } from '../types';
 
 interface EventCardMobileProps {
-  event: Event;
+  event: EventData;
   index?: number;
 }
 
 const EventCardMobile: React.FC<EventCardMobileProps> = ({ event, index = 0 }) => {
+  // Format date from API format (YYYY-MM-DD) to display format
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const options: Intl.DateTimeFormatOptions = {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    };
+    return date.toLocaleDateString('en-US', options).toUpperCase();
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -33,8 +44,8 @@ const EventCardMobile: React.FC<EventCardMobileProps> = ({ event, index = 0 }) =
           transition={{ duration: 0.3 }}
         >
           <Image
-            src={event.image}
-            alt={event.title}
+            src={event.image.image.url}
+            alt={event.image.alternativeText || event.title}
             fill
             className="object-cover"
           />
@@ -49,7 +60,7 @@ const EventCardMobile: React.FC<EventCardMobileProps> = ({ event, index = 0 }) =
           transition={{ delay: 0.3 + index * 0.1, duration: 0.4 }}
         >
           <span className="bg-[#041E42] text-white px-3 py-1 rounded-full text-xs font-medium uppercase tracking-wider">
-            {event.type}
+            EVENT
           </span>
         </motion.div>
       </div>
@@ -84,7 +95,7 @@ const EventCardMobile: React.FC<EventCardMobileProps> = ({ event, index = 0 }) =
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </motion.div>
-              <span className="font-medium text-sm">{event.date}</span>
+              <span className="font-medium text-sm">{formatDate(event.date)}</span>
             </motion.div>
 
             <motion.div
@@ -103,7 +114,7 @@ const EventCardMobile: React.FC<EventCardMobileProps> = ({ event, index = 0 }) =
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
               </motion.div>
-              <span className="font-medium text-sm">{event.location}</span>
+              <span className="font-medium text-sm">{event.location.toUpperCase()}</span>
             </motion.div>
           </div>
 
