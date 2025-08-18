@@ -1,71 +1,31 @@
 'use client';
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
-import peopleImage from '../assets/people.png';
+import { AboutUsTeamMember, AboutUsFlagshipService } from '../types';
 import FlagshipService from './FlagshipService';
 
-interface Person {
-  id: number;
-  name: string;
-  position: string;
-  image: StaticImageData;
+interface OurPeopleProps {
+  teamMembers?: AboutUsTeamMember[];
+  flagshipServices?: AboutUsFlagshipService[];
 }
 
-// Sample data - you can replace this with your actual data
-const people: Person[] = [
-  {
-    id: 1,
-    name: "John Doe",
-    position: "Chief Executive Officer",
-    image: peopleImage
-  },
-  {
-    id: 2,
-    name: "Jane Smith",
-    position: "Chief Financial Officer",
-    image: peopleImage
-  },
-  {
-    id: 3,
-    name: "Mike Johnson",
-    position: "Chief Investment Officer",
-    image: peopleImage
-  },
-  {
-    id: 4,
-    name: "Sarah Wilson",
-    position: "Head of Operations",
-    image: peopleImage
-  },
-  {
-    id: 5,
-    name: "David Brown",
-    position: "Head of Strategy",
-    image: peopleImage
-  },
-  {
-    id: 6,
-    name: "Lisa Davis",
-    position: "Head of Client Relations",
-    image: peopleImage
-  }
-];
+// Remove old interface and data - will use props instead
 
 const CARD_WIDTH = 240; // px - smaller cards
 const CARD_GAP = 24; // px
 const AUTO_PLAY_INTERVAL = 30; // 30ms for smoother animation
 const SCROLL_INCREMENT = 1; // pixels per interval for smoother scrolling
 
-const OurPeople: React.FC = () => {
+const OurPeople: React.FC<OurPeopleProps> = ({ teamMembers = [], flagshipServices = [] }) => {
   const [activeIdx, setActiveIdx] = useState(0);
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
-  const total = people.length;
+  const total = teamMembers.length;
 
   // Scroll to the card at the given index
   const scrollToIndex = (i: number) => {
@@ -188,7 +148,7 @@ const OurPeople: React.FC = () => {
         />
       </motion.div>
 
-      <FlagshipService />
+      <FlagshipService flagshipServices={flagshipServices} />
       {/* Content */}
       <div className="relative z-10">
         {/* Section Header */}
@@ -223,11 +183,11 @@ const OurPeople: React.FC = () => {
             display: none;
           }
         `}</style>
-          {people.map((person, index) => {
+          {teamMembers.map((person, index) => {
             const isZoomed = hoveredIdx === index;
             return (
               <div
-                key={person.id}
+                key={index}
                 className={`flex-shrink-0 transition-all duration-300 mx-3 cursor-pointer ${isPlaying ? '' : 'snap-center'} ${isZoomed ? 'w-[260px] h-[350px] z-20' : 'w-[240px] h-[320px] z-10'}`}
                 style={{ scrollSnapAlign: isPlaying ? 'none' : 'center' }}
                 onMouseEnter={() => setHoveredIdx(index)}
@@ -240,8 +200,8 @@ const OurPeople: React.FC = () => {
                   {/* Image */}
                   <div className="relative w-full h-48 mb-4 overflow-hidden">
                     <Image
-                      src={person.image}
-                      alt={person.name}
+                      src={person.photo.image.url}
+                      alt={person.photo.alternativeText || person.name}
                       fill
                       className="object-cover transition-transform duration-300 group-hover:scale-105"
                     />
@@ -253,7 +213,7 @@ const OurPeople: React.FC = () => {
                       {person.name}
                     </h3>
                     <p className="text-gray-200 group-hover:text-gray-700 transition-colors duration-300 text-sm">
-                      {person.position}
+                      {person.role}
                     </p>
                   </div>
                 </div>

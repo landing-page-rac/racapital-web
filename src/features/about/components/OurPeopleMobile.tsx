@@ -1,62 +1,25 @@
 'use client';
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
-import peopleImage from '../assets/people.png';
+import { AboutUsTeamMember, AboutUsFlagshipService } from '../types';
 import Container from '../../../shared/components/ui/Container';
 import FlagshipServiceMobile from './FlagshipServiceMobile';
 
-interface Person {
-  id: number;
-  name: string;
-  position: string;
-  image: StaticImageData;
+interface OurPeopleMobileProps {
+  teamMembers?: AboutUsTeamMember[];
+  flagshipServices?: AboutUsFlagshipService[];
 }
 
-// Sample data - you can replace this with your actual data
-const people: Person[] = [
-  {
-    id: 1,
-    name: "John Doe",
-    position: "Chief Executive Officer",
-    image: peopleImage
-  },
-  {
-    id: 2,
-    name: "Jane Smith",
-    position: "Chief Financial Officer",
-    image: peopleImage
-  },
-  {
-    id: 3,
-    name: "Mike Johnson",
-    position: "Chief Investment Officer",
-    image: peopleImage
-  },
-  {
-    id: 4,
-    name: "Sarah Wilson",
-    position: "Head of Operations",
-    image: peopleImage
-  },
-  {
-    id: 5,
-    name: "David Brown",
-    position: "Head of Strategy",
-    image: peopleImage
-  },
-  {
-    id: 6,
-    name: "Lisa Davis",
-    position: "Head of Client Relations",
-    image: peopleImage
-  }
-];
+// Remove old interface and data - will use props instead
 
-const OurPeopleMobile: React.FC = () => {
+const OurPeopleMobile: React.FC<OurPeopleMobileProps> = ({ teamMembers = [], flagshipServices = [] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Ensure currentIndex is within bounds
+  const safeCurrentIndex = teamMembers.length > 0 ? Math.min(currentIndex, teamMembers.length - 1) : 0;
   const [isPlaying, setIsPlaying] = useState(false);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -67,9 +30,9 @@ const OurPeopleMobile: React.FC = () => {
     }
 
     autoPlayRef.current = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % people.length);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % teamMembers.length);
     }, 3000); // 3 seconds per person
-  }, []);
+  }, [teamMembers.length]);
 
   const stopAutoPlay = useCallback(() => {
     if (autoPlayRef.current) {
@@ -89,22 +52,24 @@ const OurPeopleMobile: React.FC = () => {
   };
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % people.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % teamMembers.length);
   };
 
   const handlePrev = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + people.length) % people.length);
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + teamMembers.length) % teamMembers.length);
   };
 
   useEffect(() => {
-    // Start auto-play on mount
-    startAutoPlay();
-    setIsPlaying(true);
+    // Start auto-play on mount only if there are team members
+    if (teamMembers.length > 0) {
+      startAutoPlay();
+      setIsPlaying(true);
+    }
 
     return () => {
       stopAutoPlay();
     };
-  }, [startAutoPlay, stopAutoPlay]);
+  }, [startAutoPlay, stopAutoPlay, teamMembers.length]);
 
   return (
     <section className="relative bg-gradient-to-br from-[#051F42] via-[#002d72] to-[#051F42] text-white overflow-hidden py-16">
@@ -145,42 +110,44 @@ const OurPeopleMobile: React.FC = () => {
           {/* Mobile-optimized carousel */}
           <div className="relative">
             {/* Main Card */}
-            <motion.div
-              key={currentIndex}
-              className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mb-8 mx-auto max-w-sm"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              {/* Image */}
-              <div className="relative w-full h-64 mb-6 overflow-hidden rounded-xl">
-                <Image
-                  src={people[currentIndex].image}
-                  alt={people[currentIndex].name}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-              </div>
+            {teamMembers.length > 0 && teamMembers[safeCurrentIndex] && (
+              <motion.div
+                key={safeCurrentIndex}
+                className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mb-8 mx-auto max-w-sm"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                {/* Image */}
+                <div className="relative w-full h-64 mb-6 overflow-hidden rounded-xl">
+                  <Image
+                    src={teamMembers[safeCurrentIndex].photo.image.url}
+                    alt={teamMembers[safeCurrentIndex].photo.alternativeText || teamMembers[safeCurrentIndex].name}
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                </div>
 
-              {/* Name and Position */}
-              <div className="text-center">
-                <h3 className="text-xl font-semibold text-white mb-2">
-                  {people[currentIndex].name}
-                </h3>
-                <p className="text-gray-200 text-base">
-                  {people[currentIndex].position}
-                </p>
-              </div>
-            </motion.div>
+                {/* Name and Position */}
+                <div className="text-center">
+                  <h3 className="text-xl font-semibold text-white mb-2">
+                    {teamMembers[safeCurrentIndex].name}
+                  </h3>
+                  <p className="text-gray-200 text-base">
+                    {teamMembers[safeCurrentIndex].role}
+                  </p>
+                </div>
+              </motion.div>
+            )}
 
             {/* Progress Indicators */}
             <div className="flex justify-center gap-2 mb-8">
-              {people.map((_, index) => (
+              {teamMembers.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentIndex(index)}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${index === safeCurrentIndex
                     ? 'bg-white w-6'
                     : 'bg-white/40 hover:bg-white/60'
                     }`}
@@ -250,7 +217,7 @@ const OurPeopleMobile: React.FC = () => {
       </Container>
 
       {/* Flagship Services Section */}
-      <FlagshipServiceMobile />
+      <FlagshipServiceMobile flagshipServices={flagshipServices} />
     </section>
   );
 };

@@ -1,36 +1,18 @@
 'use client';
 
 import React, { useState } from 'react';
+import { AboutUsFlagshipService } from '../types';
+import { renderRichTextContent } from '@/shared/utils/contentRenderer';
 
-interface ServiceItem {
-  id: number;
-  title: string;
-  description: string;
+interface FlagshipServiceMobileProps {
+  flagshipServices?: AboutUsFlagshipService[];
 }
 
-const serviceItems: ServiceItem[] = [
-  {
-    id: 1,
-    title: "Strategic Advisory",
-    description: "We provide comprehensive strategic advisory services to help businesses navigate complex financial landscapes, optimize capital structure, and achieve sustainable growth through expert guidance and market insights."
-  },
-  {
-    id: 2,
-    title: "Capital Raising",
-    description: "Our capital raising expertise spans across debt and equity financing, helping companies secure the funding they need to scale operations, expand market presence, and achieve their strategic objectives."
-  },
-  {
-    id: 3,
-    title: "M&A Advisory",
-    description: "We guide clients through complex mergers and acquisitions, providing end-to-end advisory services from initial strategy and target identification to due diligence, valuation, and successful transaction closure."
-  }
-];
+const FlagshipServiceMobile: React.FC<FlagshipServiceMobileProps> = ({ flagshipServices = [] }) => {
+  const [openCard, setOpenCard] = useState<number | null>(0); // Auto-open first card
 
-const FlagshipServiceMobile: React.FC = () => {
-  const [openCard, setOpenCard] = useState<number | null>(1); // Auto-open first card
-
-  const handleCardClick = (id: number) => {
-    setOpenCard(openCard === id ? null : id);
+  const handleCardClick = (index: number) => {
+    setOpenCard(openCard === index ? null : index);
   };
 
   return (
@@ -45,18 +27,18 @@ const FlagshipServiceMobile: React.FC = () => {
 
         {/* Service Cards */}
         <div className="space-y-3">
-          {serviceItems.map((item) => {
-            const isOpen = openCard === item.id;
+          {flagshipServices.map((item, index) => {
+            const isOpen = openCard === index;
 
             return (
               <div
-                key={item.id}
+                key={index}
                 className={`
                   relative cursor-pointer transition-all duration-500 ease-in-out
                   overflow-hidden min-h-[120px] p-4
                   ${isOpen ? 'bg-white' : 'bg-[#0D52E5]'}
                 `}
-                onClick={() => handleCardClick(item.id)}
+                onClick={() => handleCardClick(index)}
               >
                 {/* Title */}
                 <h3
@@ -78,9 +60,9 @@ const FlagshipServiceMobile: React.FC = () => {
                     }
                   `}
                 >
-                  <p className="text-gray-700 leading-relaxed text-sm">
-                    {item.description}
-                  </p>
+                  <div className="text-gray-700 leading-relaxed text-sm">
+                    {renderRichTextContent(item.description)}
+                  </div>
                 </div>
               </div>
             );

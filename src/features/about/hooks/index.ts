@@ -1,0 +1,1 @@
+export { useAboutUsData } from './useAboutUsData';

@@ -9,8 +9,15 @@ import PrinciplesWidget from './PrinciplesWidget';
 import { NAV_ITEMS } from '@/shared/constants/navigation';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
 import Container from '../../../shared/components/ui/Container';
+import { AboutUsData } from '../types';
 
-const HeroSectionMobile: React.FC = () => {
+interface HeroSectionMobileProps {
+  data?: AboutUsData | null;
+  isLoading?: boolean;
+  error?: Error | null;
+}
+
+const HeroSectionMobile: React.FC<HeroSectionMobileProps> = ({ data }) => {
   const [animatedStats, setAnimatedStats] = useState(stats.map(() => 0));
 
   useEffect(() => {
@@ -171,7 +178,7 @@ const HeroSectionMobile: React.FC = () => {
 
       {/* Principles Widget - Mobile optimized */}
       <div className="relative z-20">
-        <PrinciplesWidget />
+        <PrinciplesWidget principles={data?.principles} />
       </div>
     </section>
   );

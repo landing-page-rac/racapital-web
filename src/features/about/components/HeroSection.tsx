@@ -8,8 +8,15 @@ import { fallbackStats as stats } from '../../landing/components/StatsBar';
 import PrinciplesWidget from './PrinciplesWidget';
 import { NAV_ITEMS } from '@/shared/constants/navigation';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
+import { AboutUsData } from '../types';
 
-const HeroSection: React.FC = () => {
+interface HeroSectionProps {
+  data?: AboutUsData | null;
+  isLoading?: boolean;
+  error?: Error | null;
+}
+
+const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
   const [animatedStats, setAnimatedStats] = useState(stats.map(() => 0));
 
   useEffect(() => {
@@ -45,23 +52,17 @@ const HeroSection: React.FC = () => {
   }, []);
 
   return (
-    <section className="relative bg-gradient-to-br from-[#051F42] via-[#002d72] to-[#051F42] text-white overflow-hidden">
+    <section className="relative bg-[#051F42] text-white overflow-hidden">
       {/* Background Pattern */}
-      <motion.div
-        className="absolute inset-0"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
+      <div className="absolute inset-0">
         <Image
           src={superGraphic}
           alt="Background Graphic"
           fill
-          className="object-cover"
+          className="object-cover opacity-20"
           priority
         />
-        <div className="absolute inset-0"></div>
-      </motion.div>
+      </div>
 
       {/* Navbar */}
       <Navbar navItems={NAV_ITEMS} />
@@ -131,7 +132,7 @@ const HeroSection: React.FC = () => {
           ))}
         </motion.div>
       </div>
-      <PrinciplesWidget />
+      <PrinciplesWidget principles={data?.principles} />
     </section>
   );
 };

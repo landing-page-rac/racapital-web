@@ -5,4 +5,10 @@ export { default as HeroSectionMobile } from './components/HeroSectionMobile';
 export { default as FlagshipService } from './components/FlagshipService';
 export { default as OurPeople } from './components/OurPeople';
 export { default as OurPeopleMobile } from './components/OurPeopleMobile';
-export { default as FlagshipServiceMobile } from './components/FlagshipServiceMobile'; 
+export { default as FlagshipServiceMobile } from './components/FlagshipServiceMobile';
+
+// Hooks
+export * from './hooks';
+
+// Types
+export * from './types'; 
