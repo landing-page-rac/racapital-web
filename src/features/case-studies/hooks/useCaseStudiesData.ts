@@ -1,48 +1,27 @@
-import { useMemo } from 'react';
-import { StaticImageData } from 'next/image';
-import hero1 from '../../landing/assets/hero-1.png';
-import hero2 from '../../landing/assets/hero-2.png';
-import hero3 from '../../landing/assets/hero-3.png';
-
-export interface CaseStudy {
-  id: string;
-  title: string;
-  image: StaticImageData;
-}
+'use client';
+import { useEffect, useState } from 'react';
+import axiosInstance from '@/shared/utils/axios';
+import { CaseStudiesResponse, CaseStudyData } from '../types';
 
 export const useCaseStudiesData = () => {
-  const caseStudies = useMemo<CaseStudy[]>(() => [
-    {
-      id: '1',
-      title: 'The future of finance: Decoding digital treasury',
-      image: hero1,
-    },
-    {
-      id: '2',
-      title: 'Reimagining resilience: Building adaptive organizations',
-      image: hero2,
-    },
-    {
-      id: '3',
-      title: 'Unlocking value: The rise of alternative investments',
-      image: hero3,
-    },
-    {
-      id: '4',
-      title: 'Sustainable finance: The next frontier',
-      image: hero1,
-    },
-    {
-      id: '5',
-      title: 'Digital assets: Navigating the new landscape',
-      image: hero2,
-    },
-    {
-      id: '6',
-      title: 'Risk management in a volatile world',
-      image: hero3,
-    },
-  ], []);
+  const [caseStudies, setCaseStudies] = useState<CaseStudyData[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<Error | null>(null);
 
-  return { caseStudies };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const response = await axiosInstance.get<CaseStudiesResponse>('/case-studies');
+        setCaseStudies(response.data.data);
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error('An error occurred'));
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  return { caseStudies, isLoading, error };
 }; 

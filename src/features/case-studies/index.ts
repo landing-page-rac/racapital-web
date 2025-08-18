@@ -5,7 +5,7 @@ export { default as CaseStudiesPageMobile } from './components/CaseStudiesPageMo
 export { default as CaseStudyCard } from './components/CaseStudyCard';
 
 // Hooks
-export { useCaseStudiesData } from './hooks/useCaseStudiesData';
+export * from './hooks';
 
 // Types
-export type { CaseStudy } from './hooks/useCaseStudiesData'; 
+export * from './types'; 

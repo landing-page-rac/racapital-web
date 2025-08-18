@@ -12,9 +12,7 @@ import superGraphic from '../../landing/assets/super-graphic-1.png';
 import { NAV_ITEMS } from '@/shared/constants/navigation';
 
 const CaseStudiesPageDesktop: React.FC = () => {
-  const { caseStudies } = useCaseStudiesData();
-
-  console.log('Case studies data:', caseStudies);
+  const { caseStudies, isLoading, error } = useCaseStudiesData();
 
   return (
     <div className="min-h-screen">
@@ -59,12 +57,22 @@ const CaseStudiesPageDesktop: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              {caseStudies && caseStudies.length > 0 ? (
+              {isLoading ? (
+                <div className="text-center text-gray-200">
+                  <p className="text-2xl mb-4">Loading case studies...</p>
+                </div>
+              ) : error ? (
+                <div className="text-center text-gray-200">
+                  <p className="text-2xl mb-4">Error loading case studies</p>
+                  <p className="text-lg text-gray-300">
+                    Please try again later.
+                  </p>
+                </div>
+              ) : caseStudies && caseStudies.length > 0 ? (
                 caseStudies.map((caseStudy) => (
                   <CaseStudyCard
-                    key={caseStudy.id}
-                    image={caseStudy.image}
-                    title={caseStudy.title}
+                    key={caseStudy.documentId}
+                    caseStudy={caseStudy}
                   />
                 ))
               ) : (
