@@ -7,19 +7,20 @@ import { NavItem } from '@/features/landing/types';
 import Container from '@/shared/components/ui/Container';
 import Navbar from '@/features/landing/components/Navbar';
 import { Footer } from '@/features/landing';
-import { JobListing } from '../hooks/useCareersData';
+import { useCareersData } from '../hooks/useCareersData';
+import { renderRichTextContent } from '@/shared/utils/contentRenderer';
 import superGraphic from '@/features/landing/assets/super-graphic-white.png';
 
 interface CareersPageDesktopProps {
   navItems: NavItem[];
-  jobListings: JobListing[];
 }
 
 const JobAccordionItem: React.FC<{
-  job: JobListing;
+  job: any;
   isOpen: boolean;
   onToggle: () => void;
-}> = ({ job, isOpen, onToggle }) => {
+  index: number;
+}> = ({ job, isOpen, onToggle, index }) => {
   return (
     <motion.div
       className="border-t border-b border-white/20 last:border-b-0 py-10"
@@ -33,7 +34,7 @@ const JobAccordionItem: React.FC<{
       >
         <div className="flex items-center space-x-8">
           <span className="text-2xl font-bold text-white/60 min-w-[3rem]">
-            {job.order}
+            {String(index + 1).padStart(2, '0')}
           </span>
           <div>
             <h3 className="text-xl font-semibold text-white">
@@ -63,13 +64,18 @@ const JobAccordionItem: React.FC<{
         className="overflow-hidden"
       >
         <div className="px-6 pb-6 pl-20">
-          <p className="text-white/80 text-lg leading-relaxed mb-6">
-            {job.description}
-          </p>
+          <div className="text-white/80 text-lg leading-relaxed mb-6">
+            {renderRichTextContent(job.description)}
+          </div>
           <motion.button
             className="bg-white text-[#0D52E5] px-8 py-3 rounded-lg font-semibold hover:bg-white/90 transition-colors duration-200 cursor-pointer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              const subject = encodeURIComponent(job.applySubject || 'Job Application');
+              const body = encodeURIComponent(`I am interested in applying for the ${job.title} position.`);
+              window.location.href = `mailto:${job.applyEmail}?subject=${subject}&body=${body}`;
+            }}
           >
             Apply Now
           </motion.button>
@@ -81,8 +87,8 @@ const JobAccordionItem: React.FC<{
 
 const CareersPageDesktop: React.FC<CareersPageDesktopProps> = ({
   navItems,
-  jobListings,
 }) => {
+  const { careers, isLoading, error } = useCareersData();
   const [openJobId, setOpenJobId] = useState<string | null>(null);
 
   const handleJobToggle = (jobId: string) => {
@@ -157,16 +163,35 @@ const CareersPageDesktop: React.FC<CareersPageDesktopProps> = ({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}
           >
-            <div className="overflow-hidden">
-              {jobListings.map((job) => (
-                <JobAccordionItem
-                  key={job.id}
-                  job={job}
-                  isOpen={openJobId === job.id}
-                  onToggle={() => handleJobToggle(job.id)}
-                />
-              ))}
-            </div>
+            {isLoading ? (
+              <div className="text-center text-white/80 py-12">
+                <p className="text-xl">Loading career opportunities...</p>
+              </div>
+            ) : error ? (
+              <div className="text-center text-white/80 py-12">
+                <p className="text-xl">Error loading career opportunities</p>
+                <p className="text-lg mt-2">Please try again later.</p>
+              </div>
+            ) : careers && careers.length > 0 ? (
+              <div className="overflow-hidden">
+                {careers
+                  .filter(job => job.isActive)
+                  .map((job, index) => (
+                    <JobAccordionItem
+                      key={job.documentId}
+                      job={job}
+                      isOpen={openJobId === job.documentId}
+                      onToggle={() => handleJobToggle(job.documentId)}
+                      index={index}
+                    />
+                  ))}
+              </div>
+            ) : (
+              <div className="text-center text-white/80 py-12">
+                <p className="text-xl">No career opportunities available at the moment</p>
+                <p className="text-lg mt-2">Please check back later for new openings.</p>
+              </div>
+            )}
           </motion.div>
         </div>
       </Container>

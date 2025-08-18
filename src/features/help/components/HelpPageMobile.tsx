@@ -15,9 +15,7 @@ import { Footer } from '@/features/landing';
 const HelpPageMobile: React.FC = () => {
   return (
     <main className="bg-[#0D52E5] relative min-h-screen">
-      <div className="sticky top-0 z-50">
-        <Navbar navItems={NAV_ITEMS} />
-      </div>
+      <Navbar navItems={NAV_ITEMS} />
       <div className="absolute inset-0">
         <Image
           src={superGraphic.src}

@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import CareersPageDesktop from './CareersPageDesktop';
 import CareersPageMobile from './CareersPageMobile';
-import { useCareersData } from '../hooks/useCareersData';
 import { NAV_ITEMS } from '@/shared/constants/navigation';
 
 // Custom hook for responsive rendering
@@ -30,14 +29,13 @@ const useResponsive = () => {
 
 const CareersPage: React.FC = () => {
   const isMobile = useResponsive();
-  const { jobListings } = useCareersData();
 
   return (
     <div className="min-h-screen">
       {isMobile ? (
-        <CareersPageMobile navItems={NAV_ITEMS} jobListings={jobListings} />
+        <CareersPageMobile navItems={NAV_ITEMS} />
       ) : (
-        <CareersPageDesktop navItems={NAV_ITEMS} jobListings={jobListings} />
+        <CareersPageDesktop navItems={NAV_ITEMS} />
       )}
     </div>
   );
