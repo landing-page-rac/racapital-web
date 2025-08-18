@@ -12,7 +12,7 @@ import superGraphic from '../../landing/assets/super-graphic-1.png';
 import { NAV_ITEMS } from '@/shared/constants/navigation';
 
 const EventsPageMobile: React.FC = () => {
-  const { events } = useEventsData();
+  const { events, isLoading, error } = useEventsData();
 
   const headerVariants = {
     hidden: { opacity: 0, y: -30 },
@@ -63,7 +63,6 @@ const EventsPageMobile: React.FC = () => {
   };
 
   return (
-
     <div className="relative bg-gradient-to-br from-[#051F42] via-[#002d72] to-[#051F42] text-white overflow-hidden">
       <Navbar navItems={NAV_ITEMS} />
 
@@ -109,10 +108,54 @@ const EventsPageMobile: React.FC = () => {
             className="space-y-6 mx-4"
             variants={eventsListVariants}
           >
-            {events && events.length > 0 ? (
-              events.map((event) => (
+            {isLoading ? (
+              <motion.div
+                className="text-center py-12"
+                variants={emptyStateVariants}
+              >
+                <div className="text-gray-200 mb-4">
+                  <p className="text-xl font-semibold mb-2">Loading events...</p>
+                </div>
+              </motion.div>
+            ) : error ? (
+              <motion.div
+                className="text-center py-12"
+                variants={emptyStateVariants}
+              >
+                <div className="text-gray-200 mb-4">
+                  <motion.svg
+                    className="w-16 h-16 mx-auto mb-4 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                  </motion.svg>
+                  <motion.p
+                    className="text-xl font-semibold mb-2"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                  >
+                    Error loading events
+                  </motion.p>
+                  <motion.p
+                    className="text-base text-gray-300"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.6 }}
+                  >
+                    Please try again later.
+                  </motion.p>
+                </div>
+              </motion.div>
+            ) : events && events.length > 0 ? (
+              events.map((event, index) => (
                 <motion.div
-                  key={event.id}
+                  key={event.documentId}
                   variants={eventCardVariants}
                   whileHover={{
                     scale: 1.02,
@@ -123,7 +166,7 @@ const EventsPageMobile: React.FC = () => {
                     transition: { duration: 0.1 }
                   }}
                 >
-                  <EventCardMobile event={event} />
+                  <EventCardMobile event={event} index={index} />
                 </motion.div>
               ))
             ) : (
@@ -172,7 +215,6 @@ const EventsPageMobile: React.FC = () => {
       <ContactSection />
       <Footer />
     </div>
-
   );
 };
 

@@ -2,23 +2,11 @@
 export { default as EventsPage } from './components/EventsPage';
 export { default as EventsPageDesktop } from './components/EventsPageDesktop';
 export { default as EventsPageMobile } from './components/EventsPageMobile';
-export { default as ParallaxEvents } from './components/ParallaxEvents';
-export { default as ParallaxEventsList } from './components/ParallaxEventsList';
 export { default as EventCardEnhanced } from './components/EventCardEnhanced';
 export { default as EventCardMobile } from './components/EventCardMobile';
 
 // Hooks
-export { useEventsData } from './hooks/useEventsData';
-export { useEventsApiData } from './hooks/useEventsApiData';
+export * from './hooks';
 
 // Types
-export type { Event } from './hooks/useEventsData';
-export type {
-  EventData,
-  EventsApiResponse,
-  EventImageData,
-  EventImageWithAlt,
-  EventMediaWithAlt,
-  EventService,
-  EventCollapsibleItem
-} from './types/api'; 
+export * from './types'; 

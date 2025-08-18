@@ -1,13 +1,24 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Event } from '../hooks/useEventsData';
+import { EventData } from '../types';
 
 interface EventCardEnhancedProps {
-  event: Event;
+  event: EventData;
   isReversed?: boolean;
 }
 
 const EventCardEnhanced: React.FC<EventCardEnhancedProps> = ({ event, isReversed = false }) => {
+  // Format date from API format (YYYY-MM-DD) to display format
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const options: Intl.DateTimeFormatOptions = {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    };
+    return date.toLocaleDateString('en-US', options).toUpperCase();
+  };
+
   return (
     <motion.div
       className={`bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex ${isReversed ? 'flex-row-reverse' : 'flex-row'} max-w-4xl mx-auto`}
@@ -27,8 +38,8 @@ const EventCardEnhanced: React.FC<EventCardEnhancedProps> = ({ event, isReversed
         transition={{ duration: 0.3 }}
       >
         <Image
-          src={event.image}
-          alt={event.title}
+          src={event.image.image.url}
+          alt={event.image.alternativeText || event.title}
           fill
           className="object-cover"
         />
@@ -53,7 +64,7 @@ const EventCardEnhanced: React.FC<EventCardEnhancedProps> = ({ event, isReversed
             transition={{ duration: 0.4, delay: 0.3 }}
           >
             <span className="bg-[#041E42] text-white px-3 py-1 rounded-full text-sm font-medium uppercase tracking-wider">
-              {event.type}
+              EVENT
             </span>
           </motion.div>
 
@@ -84,7 +95,7 @@ const EventCardEnhanced: React.FC<EventCardEnhancedProps> = ({ event, isReversed
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
-              <span className="font-medium">{event.date}</span>
+              <span className="font-medium">{formatDate(event.date)}</span>
             </motion.div>
             <motion.div
               className="flex items-center gap-2"
@@ -95,7 +106,7 @@ const EventCardEnhanced: React.FC<EventCardEnhancedProps> = ({ event, isReversed
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
-              <span className="font-medium">{event.location}</span>
+              <span className="font-medium">{event.location.toUpperCase()}</span>
             </motion.div>
           </motion.div>
 

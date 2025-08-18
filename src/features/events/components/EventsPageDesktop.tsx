@@ -11,12 +11,8 @@ import { ContactSection } from '@/shared/components';
 import { Footer } from '@/features/landing';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
 
-
-
 const EventsPageDesktop: React.FC = () => {
-  const { events } = useEventsData();
-
-  console.log('Events data:', events);
+  const { events, isLoading, error } = useEventsData();
 
   return (
     <div className="min-h-screen">
@@ -63,10 +59,21 @@ const EventsPageDesktop: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              {events && events.length > 0 ? (
+              {isLoading ? (
+                <div className="text-center text-gray-200">
+                  <p className="text-2xl mb-4">Loading events...</p>
+                </div>
+              ) : error ? (
+                <div className="text-center text-gray-200">
+                  <p className="text-2xl mb-4">Error loading events</p>
+                  <p className="text-lg text-gray-300">
+                    Please try again later.
+                  </p>
+                </div>
+              ) : events && events.length > 0 ? (
                 events.map((event, index) => (
                   <motion.div
-                    key={event.id}
+                    key={event.documentId}
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
