@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Navbar from '../../landing/components/Navbar';
-import { fallbackStats as stats } from '../../landing/components/StatsBar';
+// Remove the hardcoded stats import - will use API data instead
 import PrinciplesWidget from './PrinciplesWidget';
 import { NAV_ITEMS } from '@/shared/constants/navigation';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
@@ -17,9 +17,12 @@ interface HeroSectionProps {
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
-  const [animatedStats, setAnimatedStats] = useState(stats.map(() => 0));
+  const metrics = useMemo(() => data?.hero?.metrics || [], [data?.hero?.metrics]);
+  const [animatedStats, setAnimatedStats] = useState(metrics.map(() => 0));
 
   useEffect(() => {
+    if (metrics.length === 0) return;
+
     const animateNumbers = () => {
       const duration = 2000; // 2 seconds
       const steps = 60;
@@ -31,7 +34,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
         currentStep++;
         const progress = currentStep / steps;
 
-        setAnimatedStats(stats.map((stat) => {
+        setAnimatedStats(metrics.map((stat) => {
           const targetValue = parseInt(stat.value);
           const currentValue = Math.floor(targetValue * progress);
           return currentValue;
@@ -39,7 +42,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
 
         if (currentStep >= steps) {
           clearInterval(interval);
-          setAnimatedStats(stats.map(stat => parseInt(stat.value)));
+          setAnimatedStats(metrics.map(stat => parseInt(stat.value)));
         }
       }, stepDuration);
 
@@ -49,7 +52,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
     // Start animation after a delay
     const timer = setTimeout(animateNumbers, 800);
     return () => clearTimeout(timer);
-  }, []);
+  }, [metrics]);
 
   return (
     <section className="relative bg-[#051F42] text-white overflow-hidden">
@@ -82,7 +85,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
                 delay: 0.2
               }}
             >
-              Relevance and Alliance Capital (RAC)
+              {data?.hero?.title || "Relevance and Alliance Capital (RAC)"}
             </motion.h1>
 
             {/* Description - Fade in left */}
@@ -96,7 +99,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
                 delay: 0.4
               }}
             >
-              is an independent and privately owned multi-family office, investment & corporate finance advisory firm. We partner with leading family groups and institutions to promote value creation and competitive edge. Headquartered in Indonesia, RAC operates in the key market of one of the most promising region
+              {data?.hero?.body || "is an independent and privately owned multi-family office, investment & corporate finance advisory firm. We partner with leading family groups and institutions to promote value creation and competitive edge. Headquartered in Indonesia, RAC operates in the key market of one of the most promising region"}
             </motion.p>
           </div>
         </div>
@@ -112,7 +115,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
             delay: 0.6
           }}
         >
-          {stats.map((stat, index) => (
+          {metrics.map((stat, index) => (
             <motion.div
               key={stat.label}
               className="text-center"
