@@ -48,8 +48,8 @@ export const useContactForm = () => {
       });
 
       return response.data;
-    } catch (error: any) {
-      const errorMessage = error?.message || 'An error occurred while submitting the form';
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'An error occurred while submitting the form';
 
       setState({
         isLoading: false,

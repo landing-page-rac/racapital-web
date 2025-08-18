@@ -11,7 +11,9 @@ import { NAV_ITEMS } from '@/shared/constants/navigation';
 const HelpPageDesktop: React.FC = () => {
   return (
     <main className="bg-[#0D52E5] relative min-h-screen">
-      <Navbar navItems={NAV_ITEMS} />
+      <div className="sticky top-0 z-50">
+        <Navbar navItems={NAV_ITEMS} />
+      </div>
       <div className="absolute inset-0">
         <Image
           src={superGraphic.src}
@@ -23,7 +25,7 @@ const HelpPageDesktop: React.FC = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto mt-20">
+      <div className="relative z-10 max-w-7xl mx-auto mt-20 mb-10">
         <div className="grid md:grid-cols-2 gap-12">
           {/* Left Column */}
           <div className="text-white">
