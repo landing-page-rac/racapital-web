@@ -1,2 +1,2 @@
 export { default as axiosInstance } from './axios';
-export * from './richTextUtils'; 
+export * from './validation'; 

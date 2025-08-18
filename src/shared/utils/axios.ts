@@ -4,6 +4,9 @@ import type { AxiosInstance, AxiosError } from 'axios';
 // Base API URL from environment variable or default to local development
 const baseURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
 
+// API Token from environment variable
+const apiToken = process.env.NEXT_PUBLIC_API_TOKEN || 'QUd7tg34F3VGfFuCpGRVXiIuLkjSo34I';
+
 // Create axios instance with default configuration
 const axiosInstance: AxiosInstance = axios.create({
   baseURL,
@@ -17,6 +20,11 @@ const axiosInstance: AxiosInstance = axios.create({
 // Request interceptor
 axiosInstance.interceptors.request.use(
   (config) => {
+    // Add x-api-token header only for POST requests
+    if (config.method?.toLowerCase() === 'post' && config.headers) {
+      config.headers['x-api-token'] = apiToken;
+    }
+
     // Get token from localStorage (if available in browser environment)
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('auth_token');

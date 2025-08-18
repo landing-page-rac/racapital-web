@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import superGraphic from "../../../features/landing/assets/super-graphic-white.png";
 import Image from "next/image";
+import { useContactForm } from '@/shared/hooks';
 
 interface FormData {
   fullName: string;
@@ -20,6 +21,8 @@ const ContactSectionMobile: React.FC = () => {
     message: ''
   });
 
+  const { submitContactForm, isLoading, isSuccess, isError, error } = useContactForm();
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -28,9 +31,20 @@ const ContactSectionMobile: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    try {
+      await submitContactForm(formData);
+      // Reset form on success
+      setFormData({
+        fullName: '',
+        email: '',
+        phone: '',
+        message: ''
+      });
+    } catch (error) {
+      console.error('Form submission error:', error);
+    }
   };
 
   return (
@@ -72,6 +86,29 @@ const ContactSectionMobile: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
         >
+          {/* Success/Error Messages */}
+          {isSuccess && (
+            <motion.div
+              className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              Thank you! Your message has been sent successfully.
+            </motion.div>
+          )}
+
+          {isError && error && (
+            <motion.div
+              className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {error}
+            </motion.div>
+          )}
+
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Full Name */}
             <motion.div
@@ -152,13 +189,14 @@ const ContactSectionMobile: React.FC = () => {
             {/* Submit Button */}
             <motion.button
               type="submit"
-              className="w-full bg-[#0D52E5] text-white py-4 px-6 font-medium hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              disabled={isLoading}
+              className="w-full bg-[#0D52E5] text-white py-4 px-6 font-medium hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
               viewport={{ once: true }}
             >
-              SEND
+              {isLoading ? 'SENDING...' : 'SEND'}
             </motion.button>
           </form>
         </motion.div>

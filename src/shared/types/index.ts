@@ -30,3 +30,6 @@ export interface RichTextParagraph {
 }
 
 export type RichTextContent = RichTextParagraph[];
+
+// Contact form types
+export * from './contact';
