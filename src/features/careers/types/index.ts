@@ -13,5 +13,5 @@ export interface CareerData {
 
 export interface CareersResponse {
   data: CareerData[];
-  meta: any;
+  meta: Record<string, unknown>;
 }

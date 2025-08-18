@@ -15,7 +15,7 @@ interface FormData {
 }
 
 const HelpFormMobile: React.FC = () => {
-  const { submitContactForm, isLoading, isSuccess, isError, error, resetState } = useContactForm();
+  const { submitContactForm, isLoading, isSuccess, isError, error } = useContactForm();
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
 
   const [formData, setFormData] = useState<FormData>({
@@ -90,13 +90,13 @@ const HelpFormMobile: React.FC = () => {
         location: ''
       });
       setValidationErrors({});
-    } catch (err) {
+    } catch {
       // Error is handled by the hook
     }
   };
 
   const interestOptions = [
-    "Passing on our wealth in line with our family's purpose, wishes and values",
+    "Passing on our wealth in line with our family&apos;s purpose, wishes and values",
     "Raising capital for my business or seeking advice on the pre- and post-sale of my business",
     "Seeking interesting investment ideas or looking to appoint a trusted investment manager",
     "Moving to another country and would like help planning both the financial and lifestyle aspects",
@@ -120,7 +120,7 @@ const HelpFormMobile: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            Thank you! Your message has been sent successfully. We'll get back to you soon.
+            Thank you! Your message has been sent successfully. We&apos;ll get back to you soon.
           </motion.div>
         )}
 

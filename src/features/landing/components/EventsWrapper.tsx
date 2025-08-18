@@ -21,7 +21,7 @@ const mapApiEventsToEvents = (apiEvents: FeaturedEvent[]): Event[] => {
   }));
 };
 
-const EventsWrapper: React.FC<EventsWrapperProps> = ({ data, isLoading, error }) => {
+const EventsWrapper: React.FC<EventsWrapperProps> = ({ data }) => {
   const isMobile = useResponsiveHero();
 
   // Convert API events to display events

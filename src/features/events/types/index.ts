@@ -49,5 +49,5 @@ export interface EventData {
 
 export interface EventsResponse {
   data: EventData[];
-  meta: any;
+  meta: Record<string, unknown>;
 }

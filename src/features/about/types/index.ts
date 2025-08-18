@@ -57,5 +57,5 @@ export interface AboutUsData {
 
 export interface AboutUsResponse {
   data: AboutUsData;
-  meta: any;
+  meta: Record<string, unknown>;
 }

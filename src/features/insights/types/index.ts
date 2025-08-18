@@ -47,5 +47,5 @@ export interface InsightData {
 
 export interface InsightsResponse {
   data: InsightData[];
-  meta: any;
+  meta: Record<string, unknown>;
 }

@@ -47,5 +47,5 @@ export interface CaseStudyData {
 
 export interface CaseStudiesResponse {
   data: CaseStudyData[];
-  meta: any;
+  meta: Record<string, unknown>;
 }

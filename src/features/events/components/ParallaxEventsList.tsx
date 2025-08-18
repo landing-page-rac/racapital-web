@@ -2,14 +2,14 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
-import { Event } from '../hooks/useEventsData';
+import { EventData } from '../types';
 
 interface ParallaxEventsListProps {
-  events: Event[];
+  events: EventData[];
 }
 
 interface ParallaxEventCardProps {
-  event: Event;
+  event: EventData;
   isReversed: boolean;
 }
 
@@ -44,8 +44,8 @@ const ParallaxEventCard: React.FC<ParallaxEventCardProps> = ({ event, isReversed
           className="relative w-full h-full"
         >
           <Image
-            src={event.image}
-            alt={event.title}
+            src={event.image.image.url}
+            alt={event.image.alternativeText || event.title}
             fill
             className="object-cover"
           />
@@ -71,7 +71,7 @@ const ParallaxEventCard: React.FC<ParallaxEventCardProps> = ({ event, isReversed
             transition={{ duration: 0.4, delay: 0.3 }}
           >
             <span className="bg-[#041E42] text-white px-3 py-1 rounded-full text-sm font-medium uppercase tracking-wider">
-              {event.type}
+              EVENT
             </span>
           </motion.div>
 
@@ -171,7 +171,7 @@ const ParallaxEventsList: React.FC<ParallaxEventsListProps> = ({ events }) => {
 
           return (
             <div
-              key={event.id}
+              key={event.documentId}
               className="relative py-16 overflow-hidden"
               style={{
                 background: index % 2 === 0 ? '#f8fafc' : 'white',

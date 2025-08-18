@@ -1,5 +1,5 @@
 import { RichTextContent } from '@/shared/types';
-import { StaticImageData } from 'next/image';
+
 
 
 

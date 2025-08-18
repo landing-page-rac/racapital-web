@@ -13,7 +13,7 @@ interface FormData {
 }
 
 const HelpForm: React.FC = () => {
-  const { submitContactForm, isLoading, isSuccess, isError, error, resetState } = useContactForm();
+  const { submitContactForm, isLoading, isSuccess, isError, error } = useContactForm();
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
 
   const [formData, setFormData] = useState<FormData>({
@@ -88,13 +88,13 @@ const HelpForm: React.FC = () => {
         location: ''
       });
       setValidationErrors({});
-    } catch (err) {
+    } catch {
       // Error is handled by the hook
     }
   };
 
   const interestOptions = [
-    "Passing on our wealth in line with our family's purpose, wishes and values",
+    "Passing on our wealth in line with our family&apos;s purpose, wishes and values",
     "Raising capital for my business or seeking advice on the pre- and post-sale of my business",
     "Seeking interesting investment ideas or looking to appoint a trusted investment manager",
     "Moving to another country and would like help planning both the financial and lifestyle aspects",
@@ -113,7 +113,7 @@ const HelpForm: React.FC = () => {
         {/* Success/Error Messages */}
         {isSuccess && (
           <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
-            Thank you! Your message has been sent successfully. We'll get back to you soon.
+            Thank you! Your message has been sent successfully. We&apos;ll get back to you soon.
           </div>
         )}
 
@@ -126,7 +126,7 @@ const HelpForm: React.FC = () => {
         {/* What's on your mind section */}
         <div>
           <h3 className="text-xl font-medium text-[#0D52E5] mb-6">
-            WHAT&apos;S ON UR MIND?
+            WHAT&apos;S ON YOUR MIND?
           </h3>
           <div className="space-y-4">
             {interestOptions.map((option, index) => (

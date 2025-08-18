@@ -16,7 +16,7 @@ interface CareersPageMobileProps {
 }
 
 const JobAccordionItem: React.FC<{
-  job: any;
+  job: import('../types').CareerData;
   isOpen: boolean;
   onToggle: () => void;
   index: number;

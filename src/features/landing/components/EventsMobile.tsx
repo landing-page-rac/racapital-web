@@ -4,8 +4,7 @@ import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import EventCardMobile from './EventCardMobile';
 import { Event } from '../types';
-import event1 from '../assets/event-1.png';
-import event2 from '../assets/event-2.png';
+
 
 interface EventsMobileProps {
   events: Event[];

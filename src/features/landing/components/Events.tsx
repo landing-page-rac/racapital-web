@@ -2,8 +2,7 @@
 import React, { useRef } from 'react';
 import EventCard from './EventCard';
 import { Event } from '../types';
-import event1 from '../assets/event-1.png';
-import event2 from '../assets/event-2.png';
+
 
 interface EventsProps {
   events: Event[];
