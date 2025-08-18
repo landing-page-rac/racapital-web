@@ -5,7 +5,7 @@ export { default as InsightPageMobile } from './components/InsightPageMobile';
 export { default as InsightListCard } from './components/InsightListCard';
 
 // Hooks
-export { useInsightsData } from './hooks/useInsightsData';
+export * from './hooks';
 
 // Types
-export type { Insight } from './hooks/useInsightsData'; 
+export * from './types'; 

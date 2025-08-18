@@ -12,9 +12,7 @@ import superGraphic from '../../landing/assets/super-graphic-1.png';
 import { NAV_ITEMS } from '@/shared/constants/navigation';
 
 const InsightPageDesktop: React.FC = () => {
-  const { insights } = useInsightsData();
-
-  console.log('Insights data:', insights);
+  const { insights, isLoading, error } = useInsightsData();
 
   return (
     <div className="min-h-screen">
@@ -59,14 +57,24 @@ const InsightPageDesktop: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              {insights && insights.length > 0 ? (
+              {isLoading ? (
+                <div className="text-center text-gray-200 col-span-full">
+                  <p className="text-2xl mb-4">Loading insights...</p>
+                </div>
+              ) : error ? (
+                <div className="text-center text-gray-200 col-span-full">
+                  <p className="text-2xl mb-4">Error loading insights</p>
+                  <p className="text-lg text-gray-300">
+                    Please try again later.
+                  </p>
+                </div>
+              ) : insights && insights.length > 0 ? (
                 insights.map((insight) => (
                   <InsightListCard
-                    key={insight.id}
-                    image={insight.image}
-                    title={insight.title}
-                    linkText={insight.linkText}
-                    linkHref={insight.linkHref}
+                    key={insight.documentId}
+                    insight={insight}
+                    linkText="Read more"
+                    linkHref={`/insights/${insight.documentId}`}
                   />
                 ))
               ) : (

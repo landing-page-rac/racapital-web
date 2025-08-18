@@ -1,16 +1,15 @@
 import React from 'react';
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
+import { InsightData } from '../types';
 
 interface InsightListCardProps {
-  image: StaticImageData;
-  title: string;
+  insight: InsightData;
   linkText?: string;
   linkHref?: string;
 }
 
 const InsightListCard: React.FC<InsightListCardProps> = ({
-  image,
-  title,
+  insight,
   linkText = "Read more",
   linkHref = "#"
 }) => {
@@ -19,8 +18,10 @@ const InsightListCard: React.FC<InsightListCardProps> = ({
       {/* Image */}
       <div className="w-full h-48 mb-6 overflow-hidden">
         <Image
-          src={image}
-          alt={title}
+          src={insight.image.image.url}
+          alt={insight.image.alternativeText || insight.title}
+          width={insight.image.image.width}
+          height={insight.image.image.height}
           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
       </div>
@@ -33,7 +34,7 @@ const InsightListCard: React.FC<InsightListCardProps> = ({
 
         {/* Title */}
         <h3 className="text-2xl font-light text-white mb-4 leading-snug group-hover:text-[#0C52E6] transition-colors">
-          {title}
+          {insight.title}
         </h3>
 
         {/* Clickable Link */}
