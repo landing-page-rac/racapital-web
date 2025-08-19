@@ -4,14 +4,14 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Navbar from '../../landing/components/Navbar';
-import { useCaseStudiesData } from '../hooks/useCaseStudiesData';
+import { useCaseStudiesDataCached } from '../hooks/useCaseStudiesDataCached';
 import { ContactSection } from '@/shared/components';
 import { Footer } from '@/features/landing';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
 import { NAV_ITEMS } from '@/shared/constants/navigation';
 
 const CaseStudiesPageMobile: React.FC = () => {
-  const { caseStudies, isLoading, error } = useCaseStudiesData();
+  const { caseStudies, isLoading, error } = useCaseStudiesDataCached();
 
   return (
     <div className="min-h-screen">
