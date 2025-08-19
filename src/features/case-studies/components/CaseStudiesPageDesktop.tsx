@@ -4,15 +4,24 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Navbar from '../../landing/components/Navbar';
-import { useCaseStudiesDataCached } from '../hooks/useCaseStudiesDataCached';
 import CaseStudyCard from './CaseStudyCard';
 import { ContactSection } from '@/shared/components';
 import { Footer } from '@/features/landing';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
 import { NAV_ITEMS } from '@/shared/constants/navigation';
+import { CaseStudyData } from '../types';
 
-const CaseStudiesPageDesktop: React.FC = () => {
-  const { caseStudies, isLoading, error } = useCaseStudiesDataCached();
+interface CaseStudiesPageDesktopProps {
+  caseStudies: CaseStudyData[];
+  isLoading: boolean;
+  error: Error | null;
+}
+
+const CaseStudiesPageDesktop: React.FC<CaseStudiesPageDesktopProps> = ({
+  caseStudies,
+  isLoading,
+  error
+}) => {
 
   return (
     <div className="min-h-screen">

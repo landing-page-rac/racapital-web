@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import CaseStudiesPageMobile from './CaseStudiesPageMobile';
 import CaseStudiesPageDesktop from './CaseStudiesPageDesktop';
+import { useCaseStudiesDataCached } from '../hooks/useCaseStudiesDataCached';
 
 // Custom hook for responsive rendering
 const useResponsiveCaseStudies = () => {
@@ -28,13 +29,14 @@ const useResponsiveCaseStudies = () => {
 
 const CaseStudiesPage: React.FC = () => {
   const isMobile = useResponsiveCaseStudies();
+  const { caseStudies, isLoading, error } = useCaseStudiesDataCached();
 
   return (
     <div className="min-h-screen">
       {isMobile ? (
-        <CaseStudiesPageMobile />
+        <CaseStudiesPageMobile caseStudies={caseStudies} isLoading={isLoading} error={error} />
       ) : (
-        <CaseStudiesPageDesktop />
+        <CaseStudiesPageDesktop caseStudies={caseStudies} isLoading={isLoading} error={error} />
       )}
     </div>
   );
