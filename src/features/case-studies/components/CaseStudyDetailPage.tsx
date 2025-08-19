@@ -158,6 +158,25 @@ const CaseStudyDetailPage: React.FC<CaseStudyDetailPageProps> = ({ documentId })
               </motion.div>
             )}
 
+            {/* Service Section */}
+            {caseStudy.service && (
+              <motion.div
+                className="flex items-center gap-5 mb-8"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+              >
+                <div className="text-xl text-blue-300 font-medium">
+                  Services
+                </div>
+                <div className="inline-block border border-blue-500 px-4 py-2">
+                  <span className="text-white font-medium">
+                    {caseStudy.service.name}
+                  </span>
+                </div>
+              </motion.div>
+            )}
+
             {/* Content */}
             <motion.div
               className="max-w-none w-2/3"
