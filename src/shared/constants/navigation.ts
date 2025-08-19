@@ -27,6 +27,10 @@ export const NAV_ITEMS: NavItem[] = [
     href: '/how-we-can-help',
   },
   {
+    label: 'Services',
+    href: '/services',
+  },
+  {
     label: 'Careers',
     href: '/careers',
   },
