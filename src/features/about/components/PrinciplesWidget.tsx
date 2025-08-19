@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AboutUsPrinciple } from '../types';
@@ -8,12 +8,20 @@ import { renderRichTextContent } from '@/shared/utils/contentRenderer';
 
 interface PrinciplesWidgetProps {
   principles?: AboutUsPrinciple[];
+  isLoading?: boolean;
 }
 
-const PrinciplesWidget: React.FC<PrinciplesWidgetProps> = ({ principles = [] }) => {
+const PrinciplesWidget: React.FC<PrinciplesWidgetProps> = ({ principles = [], isLoading = false }) => {
   const [activePrinciple, setActivePrinciple] = useState<AboutUsPrinciple | null>(
     principles.length > 0 ? principles[0] : null
   );
+
+  // Auto-select index 0 when data is successfully loaded
+  useEffect(() => {
+    if (!isLoading && principles.length > 0) {
+      setActivePrinciple(principles[0]);
+    }
+  }, [isLoading, principles]);
 
   return (
     <section className="relative z-20">

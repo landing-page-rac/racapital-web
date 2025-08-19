@@ -16,7 +16,7 @@ interface HeroSectionProps {
   error?: Error | null;
 }
 
-const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
+const HeroSection: React.FC<HeroSectionProps> = ({ data, isLoading }) => {
   const metrics = useMemo(() => data?.hero?.metrics || [], [data?.hero?.metrics]);
   const [animatedStats, setAnimatedStats] = useState(metrics.map(() => 0));
 
@@ -135,7 +135,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
           ))}
         </motion.div>
       </div>
-      <PrinciplesWidget principles={data?.principles} />
+      <PrinciplesWidget principles={data?.principles} isLoading={isLoading} />
     </section>
   );
 };

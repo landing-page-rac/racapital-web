@@ -17,7 +17,7 @@ interface HeroSectionMobileProps {
   error?: Error | null;
 }
 
-const HeroSectionMobile: React.FC<HeroSectionMobileProps> = ({ data }) => {
+const HeroSectionMobile: React.FC<HeroSectionMobileProps> = ({ data, isLoading }) => {
   const metrics = useMemo(() => data?.hero?.metrics || [], [data?.hero?.metrics]);
   const [animatedStats, setAnimatedStats] = useState(metrics.map(() => 0));
 
@@ -181,7 +181,7 @@ const HeroSectionMobile: React.FC<HeroSectionMobileProps> = ({ data }) => {
 
       {/* Principles Widget - Mobile optimized */}
       <div className="relative z-20">
-        <PrinciplesWidget principles={data?.principles} />
+        <PrinciplesWidget principles={data?.principles} isLoading={isLoading} />
       </div>
     </section>
   );
