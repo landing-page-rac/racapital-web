@@ -13,7 +13,7 @@ export const useServicesData = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const response = await axiosInstance.get<ServicesResponse>('/services/');
+        const response = await axiosInstance.get<ServicesResponse>('/services');
         setServices(response.data.data);
       } catch (err) {
         setError(err instanceof Error ? err : new Error('An error occurred'));
