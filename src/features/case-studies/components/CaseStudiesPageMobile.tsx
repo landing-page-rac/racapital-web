@@ -103,8 +103,6 @@ const CaseStudiesPageMobile: React.FC = () => {
                           src={caseStudy.image.image.url}
                           alt={caseStudy.image.alternativeText || caseStudy.title}
                           fill
-                          width={caseStudy.image.image.width}
-                          height={caseStudy.image.image.height}
                           className="object-cover transition-transform duration-300 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
