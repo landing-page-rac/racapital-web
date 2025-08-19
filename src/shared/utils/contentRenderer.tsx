@@ -80,7 +80,7 @@ export const renderBlock = (block: RichTextParagraph, index: number): ReactNode 
   switch (block.type) {
     case 'paragraph':
       return (
-        <p key={index} className="break-words">
+        <p key={index} className="break-words mb-6">
           {renderInlineContent(block.children, index)}
         </p>
       );
@@ -89,25 +89,25 @@ export const renderBlock = (block: RichTextParagraph, index: number): ReactNode 
       switch (block.level) {
         case 1:
           return (
-            <h1 key={index} className="text-3xl font-bold my-4 break-words">
+            <h1 key={index} className="text-3xl font-bold my-8 break-words">
               {renderInlineContent(block.children, index)}
             </h1>
           );
         case 2:
           return (
-            <h2 key={index} className="text-2xl font-bold my-4 break-words">
+            <h2 key={index} className="text-2xl font-bold my-8 break-words">
               {renderInlineContent(block.children, index)}
             </h2>
           );
         case 3:
           return (
-            <h3 key={index} className="text-xl font-bold my-4 break-words">
+            <h3 key={index} className="text-xl font-bold my-8 break-words">
               {renderInlineContent(block.children, index)}
             </h3>
           );
         default:
           return (
-            <h4 key={index} className="text-lg font-bold my-4 break-words">
+            <h4 key={index} className="text-lg font-bold my-8 break-words">
               {renderInlineContent(block.children, index)}
             </h4>
           );
@@ -116,7 +116,7 @@ export const renderBlock = (block: RichTextParagraph, index: number): ReactNode 
     case 'link':
       // Block-level link
       return (
-        <p key={index} className="mb-4 break-words">
+        <p key={index} className="mb-8 break-words">
           <a
             href={block.url}
             target="_blank"
@@ -131,7 +131,7 @@ export const renderBlock = (block: RichTextParagraph, index: number): ReactNode 
     case 'list':
       if (block.format === 'ordered') {
         return (
-          <ol key={index} className="list-decimal pl-5 mb-4">
+          <ol key={index} className="list-decimal pl-5 mb-8">
             {block.children.map((child, childIndex) => {
               if (child.type === 'list-item') {
                 return (
@@ -180,7 +180,7 @@ export const renderBlock = (block: RichTextParagraph, index: number): ReactNode 
         );
       } else {
         return (
-          <ul key={index} className="list-disc pl-5 mb-4">
+          <ul key={index} className="list-disc pl-5 mb-8">
             {block.children.map((child, childIndex) => {
               if (child.type === 'list-item') {
                 return (
@@ -231,14 +231,14 @@ export const renderBlock = (block: RichTextParagraph, index: number): ReactNode 
 
     case 'quote':
       return (
-        <blockquote key={index} className="border-l-4 border-gray-300 pl-4 italic my-4 break-words">
+        <blockquote key={index} className="border-l-4 border-gray-300 pl-4 italic my-8 break-words">
           {renderInlineContent(block.children, index)}
         </blockquote>
       );
 
     case 'code':
       return (
-        <pre key={index} className="bg-gray-100 p-4 rounded my-4 overflow-x-auto break-words">
+        <pre key={index} className="bg-gray-100 p-4 rounded my-8 overflow-x-auto break-words">
           <code>
             {renderInlineContent(block.children, index)}
           </code>
@@ -247,7 +247,7 @@ export const renderBlock = (block: RichTextParagraph, index: number): ReactNode 
 
     default:
       return (
-        <p key={index} className="text-gray-700 mb-4 break-words">
+        <p key={index} className="text-gray-700 mb-8 break-words">
           {renderInlineContent(block.children, index)}
         </p>
       );
