@@ -26,10 +26,10 @@ const CaseStudyDetailPage: React.FC<CaseStudyDetailPageProps> = ({ documentId })
     const fetchCaseStudy = () => {
       try {
         setIsLoading(true);
-        
+
         // Get cached case studies data
         const cachedData = SimpleCache.get<CaseStudiesResponse>('case-studies');
-        
+
         if (!cachedData) {
           setError(new Error('Case study data not found in cache'));
           setIsLoading(false);
@@ -82,7 +82,7 @@ const CaseStudyDetailPage: React.FC<CaseStudyDetailPageProps> = ({ documentId })
             <div className="text-center">
               <p className="text-2xl mb-4">Case study not found</p>
               <p className="text-lg text-gray-300">
-                The case study you're looking for doesn't exist or has been removed.
+                The case study you&apos;re looking for doesn&apos;t exist or has been removed.
               </p>
             </div>
           </div>
@@ -95,7 +95,7 @@ const CaseStudyDetailPage: React.FC<CaseStudyDetailPageProps> = ({ documentId })
     <div className="min-h-screen">
       <div className="relative bg-gradient-to-br from-[#051F42] via-[#002d72] to-[#051F42] text-white overflow-hidden">
         <Navbar navItems={NAV_ITEMS} />
-        
+
         {/* Background Pattern */}
         <motion.div
           className="absolute inset-0"
@@ -114,36 +114,45 @@ const CaseStudyDetailPage: React.FC<CaseStudyDetailPageProps> = ({ documentId })
         </motion.div>
 
         <main className="relative z-10 pt-5">
-          <div className="mx-auto px-4 sm:px-6 lg:px-8 py-16 max-w-4xl">
-            {/* Header Section */}
+          <div className="mx-auto px-4 sm:px-6 lg:px-8 pt-16">
+            {/* CASE STUDY Label */}
             <motion.div
-              className="text-center mb-16"
+              className="mb-2"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <div className="text-xs uppercase tracking-widest text-blue-300 font-medium mb-4">
-                Case Study
+              <div className="text-2xl uppercase tracking-widest text-blue-300 font-medium">
+                CASE STUDY
               </div>
-              <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+            </motion.div>
+
+            {/* Title */}
+            <motion.div
+              className="mb-8"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <h1 className="text-xl md:text-4xl text-white">
                 {caseStudy.title}
               </h1>
             </motion.div>
 
-            {/* Main Image */}
+            {/* Main Image - Full Width */}
             {caseStudy.mainImage && (
               <motion.div
-                className="mb-12"
+                className="mb-8 -mx-4 sm:-mx-6 lg:-mx-8 px-8"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
               >
-                <div className="relative w-full h-96 rounded-xl overflow-hidden shadow-lg">
+                <div className="relative w-full h-96 md:h-[350px]">
                   <Image
                     src={caseStudy.mainImage.image.url}
                     alt={caseStudy.mainImage.alternativeText || caseStudy.title}
                     fill
-                    className="object-cover"
+                    className="object-cover object-center"
                   />
                 </div>
               </motion.div>
@@ -151,72 +160,13 @@ const CaseStudyDetailPage: React.FC<CaseStudyDetailPageProps> = ({ documentId })
 
             {/* Content */}
             <motion.div
-              className="prose prose-lg prose-invert max-w-none"
+              className="max-w-none w-2/3"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
             >
               {renderRichTextContent(caseStudy.content)}
             </motion.div>
-
-            {/* Quote Section */}
-            {caseStudy.quote && (
-              <motion.div
-                className="mt-16 p-8 bg-white/10 rounded-xl border border-white/20"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-              >
-                <div className="text-center">
-                  <div className="text-2xl font-semibold text-white mb-4">
-                    {renderRichTextContent(caseStudy.quote)}
-                  </div>
-                </div>
-              </motion.div>
-            )}
-
-            {/* Collapsible List */}
-            {caseStudy.collapsibleList && caseStudy.collapsibleList.length > 0 && (
-              <motion.div
-                className="mt-16"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.8 }}
-              >
-                <h2 className="text-3xl font-bold text-white mb-8 text-center">
-                  Key Insights
-                </h2>
-                <div className="space-y-4">
-                  {caseStudy.collapsibleList.map((item, index) => (
-                    <div
-                      key={index}
-                      className="bg-white/10 rounded-lg p-6 border border-white/20"
-                    >
-                      <div className="prose prose-invert max-w-none">
-                        {renderRichTextContent(item.content)}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-
-            {/* Service Information */}
-            {caseStudy.service && (
-              <motion.div
-                className="mt-16 p-8 bg-white/10 rounded-xl border border-white/20"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.0 }}
-              >
-                <h3 className="text-2xl font-bold text-white mb-4">
-                  Service: {caseStudy.service.title}
-                </h3>
-                <div className="prose prose-invert max-w-none">
-                  {renderRichTextContent(caseStudy.service.description)}
-                </div>
-              </motion.div>
-            )}
           </div>
         </main>
       </div>
