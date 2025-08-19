@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import Navbar from '../../landing/components/Navbar';
 import { ContactSection } from '@/shared/components';
 import { Footer } from '@/features/landing';
@@ -21,6 +22,11 @@ const CaseStudiesPageMobile: React.FC<CaseStudiesPageMobileProps> = ({
   isLoading,
   error
 }) => {
+  const router = useRouter();
+
+  const handleCaseStudyClick = (documentId: string) => {
+    router.push(`/case-studies/${documentId}`);
+  };
 
   return (
     <div className="min-h-screen">
@@ -105,7 +111,10 @@ const CaseStudiesPageMobile: React.FC<CaseStudiesPageMobileProps> = ({
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
                   >
-                    <div className="relative w-full h-64 rounded-xl overflow-hidden shadow-lg bg-[#0a2342] group cursor-pointer">
+                    <div
+                      className="relative w-full h-64 rounded-xl overflow-hidden shadow-lg bg-[#0a2342] group cursor-pointer"
+                      onClick={() => handleCaseStudyClick(caseStudy.documentId)}
+                    >
                       {/* Image */}
                       <div className="absolute inset-0">
                         <Image

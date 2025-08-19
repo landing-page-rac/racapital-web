@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { CaseStudyData } from '../types';
 
 interface CaseStudyCardProps {
@@ -9,12 +10,18 @@ interface CaseStudyCardProps {
 
 const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
   const [hovered, setHovered] = useState(false);
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/case-studies/${caseStudy.documentId}`);
+  };
 
   return (
     <div
       className="relative w-full max-w-sm h-[500px] flex flex-col rounded-xl overflow-hidden shadow-lg bg-[#0a2342] group cursor-pointer transition-all duration-300"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onClick={handleClick}
     >
       {/* Image */}
       <div
