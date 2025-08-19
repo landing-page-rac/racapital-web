@@ -27,7 +27,7 @@ export interface ServiceData {
   documentId: string;
   name: string;
   content: RichTextContent;
-  attachment: any[]; // You can define a more specific type if needed
+  attachment: ServiceAttachment[]; // You can define a more specific type if needed
   case_studies: ServiceCaseStudy[];
   insights: ServiceInsight[];
   events: ServiceEvent[];
@@ -36,4 +36,15 @@ export interface ServiceData {
 export interface ServicesResponse {
   data: ServiceData[];
   meta: Record<string, unknown>;
+}
+
+export interface ServiceAttachment {
+  alternativeText: string;
+  media: {
+    documentId: string;
+    name: string;
+    width: number;
+    height: number;
+    url: string;
+  };
 }
