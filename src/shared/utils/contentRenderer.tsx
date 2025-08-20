@@ -48,18 +48,25 @@ const renderInlineContent = (children: InlineChild[], key?: string | number) => 
       );
     }
 
-    // Handle text formatting
+    // Handle text formatting - support multiple formats
+    const formattedText = child.text;
+    let className = '';
+
     if (child.bold) {
-      return <span key={elementKey} className='font-bold'>{child.text}</span>;
+      className += 'font-bold ';
     }
     if (child.italic) {
-      return <em key={elementKey}>{child.text}</em>;
+      className += 'italic ';
     }
     if (child.underline) {
-      return <u key={elementKey}>{child.text}</u>;
+      className += 'underline ';
     }
 
-    return <span key={elementKey}>{child.text}</span>;
+    if (className) {
+      return <span key={elementKey} className={className.trim()}>{formattedText}</span>;
+    }
+
+    return <span key={elementKey}>{formattedText}</span>;
   });
 };
 
