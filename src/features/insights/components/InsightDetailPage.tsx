@@ -11,6 +11,7 @@ import { NAV_ITEMS } from '@/shared/constants/navigation';
 import { InsightData } from '../types';
 import SimpleCache from '@/shared/utils/simpleCache';
 import { InsightsResponse } from '../types';
+import { LandingPageResponse, FeaturedInsight } from '../../landing/types';
 import {
   InsightHeader,
   InsightMainImage,
@@ -26,6 +27,74 @@ interface InsightDetailPageProps {
   documentId: string;
 }
 
+// Function to convert FeaturedInsight to InsightData
+const convertFeaturedInsightToInsightData = (featuredInsight: FeaturedInsight): InsightData => {
+  return {
+    documentId: featuredInsight.documentId,
+    title: featuredInsight.title,
+    content: featuredInsight.content,
+    quote: featuredInsight.quote,
+    mainImage: {
+      alternativeText: featuredInsight.mainImage?.alternativeText || '',
+      image: {
+        documentId: featuredInsight.mainImage?.image.documentId || '',
+        name: featuredInsight.mainImage?.image.name || '',
+        width: featuredInsight.mainImage?.image.width || 0,
+        height: featuredInsight.mainImage?.image.height || 0,
+        url: featuredInsight.mainImage?.image.url || '',
+      }
+    },
+    service: {
+      documentId: '', // Not available in featured insight
+      name: '', // Not available in featured insight
+      content: [] // Not available in featured insight
+    },
+    image: {
+      alternativeText: featuredInsight.mainImage?.alternativeText || '',
+      image: {
+        documentId: featuredInsight.mainImage?.image.documentId || '',
+        name: featuredInsight.mainImage?.image.name || '',
+        width: featuredInsight.mainImage?.image.width || 0,
+        height: featuredInsight.mainImage?.image.height || 0,
+        url: featuredInsight.mainImage?.image.url || '',
+      }
+    },
+    collapsibleList: [], // Not available in featured insight
+    attachment: {
+      alternativeText: '',
+      media: {
+        documentId: '',
+        name: '',
+        width: 0,
+        height: 0,
+        url: '',
+      }
+    }
+  };
+};
+
+// Function to determine the source page
+const getSourcePage = (): 'landing' | 'insights' | 'unknown' => {
+  if (typeof document === 'undefined') return 'unknown';
+
+  const referrer = document.referrer;
+  const currentHost = window.location.host;
+
+  // If referrer is from the same domain
+  if (referrer && referrer.includes(currentHost)) {
+    // Check if user came from landing page
+    if (referrer.includes('/') && !referrer.includes('/insights') && !referrer.includes('/case-studies') && !referrer.includes('/events')) {
+      return 'landing';
+    }
+    // Check if user came from insights page
+    if (referrer.includes('/insights')) {
+      return 'insights';
+    }
+  }
+
+  return 'unknown';
+};
+
 const InsightDetailPage: React.FC<InsightDetailPageProps> = ({ documentId }) => {
   const [insight, setInsight] = useState<InsightData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -36,30 +105,74 @@ const InsightDetailPage: React.FC<InsightDetailPageProps> = ({ documentId }) => 
       try {
         setIsLoading(true);
 
-        // Get cached insights data
-        const cachedData = SimpleCache.get<InsightsResponse>('insights');
+        const sourcePage = getSourcePage();
 
-        if (!cachedData) {
-          setError(new Error('Insight data not found in cache'));
-          setIsLoading(false);
-          return;
+        // Strategy 1: If user came from landing page, check landing page cache first
+        if (sourcePage === 'landing') {
+          const landingPageCache = SimpleCache.get<LandingPageResponse>('landing-page');
+
+          if (landingPageCache && landingPageCache.data.featuredInsights) {
+            const foundFeaturedInsight = landingPageCache.data.featuredInsights.find(
+              (ins) => ins.documentId === documentId
+            );
+
+            if (foundFeaturedInsight) {
+              const convertedInsight = convertFeaturedInsightToInsightData(foundFeaturedInsight);
+              setInsight(convertedInsight);
+              setIsLoading(false);
+              return;
+            }
+          }
+
+          // If not found in landing page cache, fall back to insights cache
+          const insightsCache = SimpleCache.get<InsightsResponse>('insights');
+          if (insightsCache) {
+            const foundInsight = insightsCache.data.find(
+              (ins) => ins.documentId === documentId
+            );
+            if (foundInsight) {
+              setInsight(foundInsight);
+              setIsLoading(false);
+              return;
+            }
+          }
         }
 
-        // Find the specific insight by documentId
-        const foundInsight = cachedData.data.find(
-          (ins) => ins.documentId === documentId
-        );
+        // Strategy 2: If user came from insights page or unknown source, check insights cache first
+        else {
+          const insightsCache = SimpleCache.get<InsightsResponse>('insights');
 
-        if (!foundInsight) {
-          setError(new Error('Insight not found'));
-          setIsLoading(false);
-          return;
+          if (insightsCache) {
+            const foundInsight = insightsCache.data.find(
+              (ins) => ins.documentId === documentId
+            );
+            if (foundInsight) {
+              setInsight(foundInsight);
+              setIsLoading(false);
+              return;
+            }
+          }
+
+          // If not found in insights cache, try landing page cache as fallback
+          const landingPageCache = SimpleCache.get<LandingPageResponse>('landing-page');
+          if (landingPageCache && landingPageCache.data.featuredInsights) {
+            const foundFeaturedInsight = landingPageCache.data.featuredInsights.find(
+              (ins) => ins.documentId === documentId
+            );
+            if (foundFeaturedInsight) {
+              const convertedInsight = convertFeaturedInsightToInsightData(foundFeaturedInsight);
+              setInsight(convertedInsight);
+              setIsLoading(false);
+              return;
+            }
+          }
         }
 
-        setInsight(foundInsight);
+        // If we get here, the insight was not found in any cache
+        setError(new Error('Insight not found in cache'));
+        setIsLoading(false);
       } catch (err) {
         setError(err instanceof Error ? err : new Error('An error occurred'));
-      } finally {
         setIsLoading(false);
       }
     };
