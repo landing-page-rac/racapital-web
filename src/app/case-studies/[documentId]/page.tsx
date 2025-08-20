@@ -1,11 +1,12 @@
 import { CaseStudyDetailPage } from '../../../features/case-studies';
 
 interface CaseStudyDetailPageProps {
-  params: {
+  params: Promise<{
     documentId: string;
-  };
+  }>;
 }
 
-export default function CaseStudyDetail({ params }: CaseStudyDetailPageProps) {
-  return <CaseStudyDetailPage documentId={params.documentId} />;
+export default async function CaseStudyDetail({ params }: CaseStudyDetailPageProps) {
+  const { documentId } = await params;
+  return <CaseStudyDetailPage documentId={documentId} />;
 }

@@ -1,11 +1,12 @@
 import { InsightDetailPage } from '../../../features/insights';
 
 interface InsightDetailPageProps {
-  params: {
+  params: Promise<{
     documentId: string;
-  };
+  }>;
 }
 
-export default function InsightDetail({ params }: InsightDetailPageProps) {
-  return <InsightDetailPage documentId={params.documentId} />;
+export default async function InsightDetail({ params }: InsightDetailPageProps) {
+  const { documentId } = await params;
+  return <InsightDetailPage documentId={documentId} />;
 }

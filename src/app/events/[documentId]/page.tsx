@@ -1,11 +1,12 @@
 import { EventDetailPage } from '../../../features/events';
 
 interface EventDetailPageProps {
-  params: {
+  params: Promise<{
     documentId: string;
-  };
+  }>;
 }
 
-export default function EventDetail({ params }: EventDetailPageProps) {
-  return <EventDetailPage documentId={params.documentId} />;
+export default async function EventDetail({ params }: EventDetailPageProps) {
+  const { documentId } = await params;
+  return <EventDetailPage documentId={documentId} />;
 }

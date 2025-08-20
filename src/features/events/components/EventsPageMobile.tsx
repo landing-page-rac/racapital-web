@@ -131,7 +131,7 @@ const EventsPageMobile: React.FC<EventsPageMobileProps> = ({ events, isLoading, 
                 <p className="text-sm text-gray-300">Please try again later.</p>
               </motion.div>
             ) : events && events.length > 0 ? (
-              events.map((event, index) => (
+              events.map((event) => (
                 <motion.div
                   key={event.documentId}
                   variants={eventCardVariants}
