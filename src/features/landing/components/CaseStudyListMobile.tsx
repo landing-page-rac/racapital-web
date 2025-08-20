@@ -3,6 +3,7 @@
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Image, { StaticImageData } from 'next/image';
+import { useRouter } from 'next/navigation';
 import hero1 from '../assets/hero-1.png';
 import hero2 from '../assets/hero-2.png';
 import hero3 from '../assets/hero-3.png';
@@ -13,6 +14,7 @@ interface CaseStudyData {
   title: string;
   description: string;
   link: string;
+  documentId?: string;
 }
 
 interface CaseStudyListMobileProps {
@@ -27,6 +29,7 @@ const fallbackCaseStudies: CaseStudyData[] = [
     title: 'GlobeBank leverages machine learning to cut fraud losses in real time.',
     description: 'How GlobeBank stopped threats before they struck',
     link: '#',
+    documentId: 'fallback-1',
   },
   {
     image: hero2,
@@ -34,6 +37,7 @@ const fallbackCaseStudies: CaseStudyData[] = [
     title: 'AutoMotion scaled its EV production by deploying a digital twin of its assembly line.',
     description: 'See how AutoMotion accelerated output',
     link: '#',
+    documentId: 'fallback-2',
   },
   {
     image: hero3,
@@ -41,10 +45,12 @@ const fallbackCaseStudies: CaseStudyData[] = [
     title: 'HealthSync uses advanced analytics to personalize patient care journeys.',
     description: 'Discover HealthSync\'s data-driven approach',
     link: '#',
+    documentId: 'fallback-3',
   },
 ];
 
 const CaseStudyListMobile: React.FC<CaseStudyListMobileProps> = ({ caseStudies = fallbackCaseStudies }) => {
+  const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -178,6 +184,12 @@ const CaseStudyListMobile: React.FC<CaseStudyListMobileProps> = ({ caseStudies =
     goToCard(prev);
   };
 
+  const handleCardClick = (documentId?: string) => {
+    if (documentId) {
+      router.push(`/case-studies/${documentId}`);
+    }
+  };
+
   return (
     <section className="bg-gradient-to-br from-[#1763F7] to-[#0F4CD1] py-12 px-4 overflow-hidden">
       <div className="max-w-4xl mx-auto overflow-hidden">
@@ -233,7 +245,7 @@ const CaseStudyListMobile: React.FC<CaseStudyListMobileProps> = ({ caseStudies =
                 style={{ minWidth: 'calc(100vw - 2rem)' }}
               >
                 <motion.div
-                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-xl h-full"
+                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-xl h-full cursor-pointer"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: index * 0.2 }}
@@ -243,6 +255,7 @@ const CaseStudyListMobile: React.FC<CaseStudyListMobileProps> = ({ caseStudies =
                     backgroundColor: 'rgba(255, 255, 255, 0.15)',
                     transition: { duration: 0.3 }
                   }}
+                  onClick={() => handleCardClick(caseStudy.documentId)}
                 >
                   {/* Image */}
                   <div className="relative mb-4">
@@ -270,7 +283,8 @@ const CaseStudyListMobile: React.FC<CaseStudyListMobileProps> = ({ caseStudies =
                       className="inline-flex items-center text-blue-200 hover:text-white font-semibold text-sm transition-colors duration-300"
                       whileHover={{ x: 5 }}
                     >
-                      {caseStudy.description}
+                      {caseStudy.description.split(' ').slice(0, 30).join(' ')}
+                      {caseStudy.description.split(' ').length > 30 ? '...' : ''}
                       <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>

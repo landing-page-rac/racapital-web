@@ -7,6 +7,7 @@ import hero1 from '../assets/hero-1.png';
 import hero2 from '../assets/hero-2.png';
 import hero3 from '../assets/hero-3.png';
 import superGraphic from '../assets/super-graphic-1.png';
+import InsightsButton from './InsightButton';
 
 interface CardData {
   title: string;
@@ -168,8 +169,7 @@ const InsightCarouselMobile: React.FC<{ cards?: CardData[], aspirationQuote?: st
   };
 
   // Navigation functions
-  const goToCard = (index: number) => {
-    setActiveIndex(index);
+  const scrollToIndex = (index: number) => {
     if (scrollContainerRef.current) {
       const cardWidth = scrollContainerRef.current.offsetWidth;
       scrollContainerRef.current.scrollTo({
@@ -179,14 +179,21 @@ const InsightCarouselMobile: React.FC<{ cards?: CardData[], aspirationQuote?: st
     }
   };
 
+  const goToCard = (index: number) => {
+    setActiveIndex(index);
+    scrollToIndex(index);
+  };
+
   const nextCard = () => {
     const next = (activeIndex + 1) % cards.length;
-    goToCard(next);
+    setActiveIndex(next);
+    scrollToIndex(next);
   };
 
   const prevCard = () => {
     const prev = (activeIndex - 1 + cards.length) % cards.length;
-    goToCard(prev);
+    setActiveIndex(prev);
+    scrollToIndex(prev);
   };
 
   return (
@@ -355,6 +362,17 @@ const InsightCarouselMobile: React.FC<{ cards?: CardData[], aspirationQuote?: st
           <p className="text-white text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto">
             {aspirationQuote}
           </p>
+        </motion.div>
+
+        {/* More Insights Button */}
+        <motion.div
+          className="text-center mt-8"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <InsightsButton />
         </motion.div>
       </div>
     </section>
