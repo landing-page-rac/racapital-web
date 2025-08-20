@@ -14,6 +14,7 @@ interface EventsWrapperProps {
 // Map API event data to Event type
 const mapApiEventsToEvents = (apiEvents: FeaturedEvent[]): Event[] => {
   return apiEvents.map((event) => ({
+    documentId: event.documentId,
     title: event.title,
     date: event.date,
     image: event.image.image.url, // Extract URL from nested image object
@@ -26,7 +27,6 @@ const EventsWrapper: React.FC<EventsWrapperProps> = ({ data }) => {
 
   // Convert API events to display events
   const events = data?.featuredEvents ? mapApiEventsToEvents(data.featuredEvents) : [];
-  console.log('events', events)
 
   if (isMobile) {
     return <EventsMobile events={events} />;

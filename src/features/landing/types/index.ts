@@ -128,6 +128,7 @@ export interface ContainerProps {
 }
 
 export interface Event {
+  documentId: string;
   title: string;
   date: string;
   image: string; // URL string from API

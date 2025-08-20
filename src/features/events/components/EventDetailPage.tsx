@@ -11,6 +11,7 @@ import { NAV_ITEMS } from '@/shared/constants/navigation';
 import { EventData } from '../types';
 import SimpleCache from '@/shared/utils/simpleCache';
 import { EventsResponse } from '../types';
+import { LandingPageResponse, FeaturedEvent } from '../../landing/types';
 import {
   EventHeader,
   EventMainImage,
@@ -26,6 +27,76 @@ interface EventDetailPageProps {
   documentId: string;
 }
 
+// Function to convert FeaturedEvent to EventData
+const convertFeaturedEventToEventData = (featuredEvent: FeaturedEvent): EventData => {
+  return {
+    documentId: featuredEvent.documentId,
+    title: featuredEvent.title,
+    content: featuredEvent.content,
+    quote: featuredEvent.quote,
+    location: featuredEvent.location,
+    date: featuredEvent.date,
+    mainImage: {
+      alternativeText: featuredEvent.image.alternativeText,
+      image: {
+        documentId: featuredEvent.image.image.documentId,
+        name: featuredEvent.image.image.name,
+        width: featuredEvent.image.image.width,
+        height: featuredEvent.image.image.height,
+        url: featuredEvent.image.image.url,
+      }
+    },
+    service: {
+      documentId: '', // Not available in featured event
+      name: '', // Not available in featured event
+      content: [] // Not available in featured event
+    },
+    image: {
+      alternativeText: featuredEvent.image.alternativeText,
+      image: {
+        documentId: featuredEvent.image.image.documentId,
+        name: featuredEvent.image.image.name,
+        width: featuredEvent.image.image.width,
+        height: featuredEvent.image.image.height,
+        url: featuredEvent.image.image.url,
+      }
+    },
+    collapsibleList: [], // Not available in featured event
+    attachment: {
+      alternativeText: '',
+      media: {
+        documentId: '',
+        name: '',
+        width: 0,
+        height: 0,
+        url: '',
+      }
+    }
+  };
+};
+
+// Function to determine the source page
+const getSourcePage = (): 'landing' | 'events' | 'unknown' => {
+  if (typeof document === 'undefined') return 'unknown';
+
+  const referrer = document.referrer;
+  const currentHost = window.location.host;
+
+  // If referrer is from the same domain
+  if (referrer && referrer.includes(currentHost)) {
+    // Check if user came from landing page
+    if (referrer.includes('/') && !referrer.includes('/events') && !referrer.includes('/insights') && !referrer.includes('/case-studies')) {
+      return 'landing';
+    }
+    // Check if user came from events page
+    if (referrer.includes('/events')) {
+      return 'events';
+    }
+  }
+
+  return 'unknown';
+};
+
 const EventDetailPage: React.FC<EventDetailPageProps> = ({ documentId }) => {
   const [event, setEvent] = useState<EventData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -36,30 +107,74 @@ const EventDetailPage: React.FC<EventDetailPageProps> = ({ documentId }) => {
       try {
         setIsLoading(true);
 
-        // Get cached events data
-        const cachedData = SimpleCache.get<EventsResponse>('events');
+        const sourcePage = getSourcePage();
 
-        if (!cachedData) {
-          setError(new Error('Event data not found in cache'));
-          setIsLoading(false);
-          return;
+        // Strategy 1: If user came from landing page, check landing page cache first
+        if (sourcePage === 'landing') {
+          const landingPageCache = SimpleCache.get<LandingPageResponse>('landing-page');
+
+          if (landingPageCache && landingPageCache.data.featuredEvents) {
+            const foundFeaturedEvent = landingPageCache.data.featuredEvents.find(
+              (evt) => evt.documentId === documentId
+            );
+
+            if (foundFeaturedEvent) {
+              const convertedEvent = convertFeaturedEventToEventData(foundFeaturedEvent);
+              setEvent(convertedEvent);
+              setIsLoading(false);
+              return;
+            }
+          }
+
+          // If not found in landing page cache, fall back to events cache
+          const eventsCache = SimpleCache.get<EventsResponse>('events');
+          if (eventsCache) {
+            const foundEvent = eventsCache.data.find(
+              (evt) => evt.documentId === documentId
+            );
+            if (foundEvent) {
+              setEvent(foundEvent);
+              setIsLoading(false);
+              return;
+            }
+          }
         }
 
-        // Find the specific event by documentId
-        const foundEvent = cachedData.data.find(
-          (evt) => evt.documentId === documentId
-        );
+        // Strategy 2: If user came from events page or unknown source, check events cache first
+        else {
+          const eventsCache = SimpleCache.get<EventsResponse>('events');
 
-        if (!foundEvent) {
-          setError(new Error('Event not found'));
-          setIsLoading(false);
-          return;
+          if (eventsCache) {
+            const foundEvent = eventsCache.data.find(
+              (evt) => evt.documentId === documentId
+            );
+            if (foundEvent) {
+              setEvent(foundEvent);
+              setIsLoading(false);
+              return;
+            }
+          }
+
+          // If not found in events cache, try landing page cache as fallback
+          const landingPageCache = SimpleCache.get<LandingPageResponse>('landing-page');
+          if (landingPageCache && landingPageCache.data.featuredEvents) {
+            const foundFeaturedEvent = landingPageCache.data.featuredEvents.find(
+              (evt) => evt.documentId === documentId
+            );
+            if (foundFeaturedEvent) {
+              const convertedEvent = convertFeaturedEventToEventData(foundFeaturedEvent);
+              setEvent(convertedEvent);
+              setIsLoading(false);
+              return;
+            }
+          }
         }
 
-        setEvent(foundEvent);
+        // If we get here, the event was not found in any cache
+        setError(new Error('Event not found in cache'));
+        setIsLoading(false);
       } catch (err) {
         setError(err instanceof Error ? err : new Error('An error occurred'));
-      } finally {
         setIsLoading(false);
       }
     };

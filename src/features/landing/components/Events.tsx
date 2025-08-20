@@ -1,5 +1,6 @@
 'use client'
 import React, { useRef } from 'react';
+import Link from 'next/link';
 import EventCard from './EventCard';
 import { Event } from '../types';
 
@@ -66,7 +67,7 @@ const Events: React.FC<EventsProps> = ({
           msOverflowStyle: 'none'
         }}
       >
-        {[...events, ...events].map((event, idx) => (
+        {events.map((event, idx) => (
           <div
             key={idx}
             className="snap-center"
@@ -79,11 +80,13 @@ const Events: React.FC<EventsProps> = ({
 
       {showMoreButton && (
         <div className="text-center">
-          <button
-            className="mx-auto block mt-10 px-10 py-4 border-2 border-white text-white text-xl rounded transition-colors hover:bg-white hover:text-[#1763F7] font-light hover:cursor-pointer"
-          >
-            MORE EVENTS
-          </button>
+          <Link href="/events">
+            <button
+              className="mx-auto block mt-10 px-10 py-4 border-2 border-white text-white text-xl rounded transition-colors hover:bg-white hover:text-[#1763F7] font-light hover:cursor-pointer"
+            >
+              MORE EVENTS
+            </button>
+          </Link>
         </div>
       )}
     </section>

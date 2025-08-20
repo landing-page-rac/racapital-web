@@ -2,6 +2,7 @@
 
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import EventCardMobile from './EventCardMobile';
 import { Event } from '../types';
 
@@ -261,9 +262,11 @@ const EventsMobile: React.FC<EventsMobileProps> = ({
             transition={{ duration: 0.8, delay: 0.6 }}
             viewport={{ once: true }}
           >
-            <button className="mx-auto block px-10 py-4 border-2 border-white text-white text-xl rounded transition-colors hover:bg-white hover:text-[#1763F7] font-light hover:cursor-pointer">
-              MORE EVENTS
-            </button>
+            <Link href="/events">
+              <button className="mx-auto block px-10 py-4 border-2 border-white text-white text-xl rounded transition-colors hover:bg-white hover:text-[#1763F7] font-light hover:cursor-pointer">
+                MORE EVENTS
+              </button>
+            </Link>
           </motion.div>
         )}
       </div>
