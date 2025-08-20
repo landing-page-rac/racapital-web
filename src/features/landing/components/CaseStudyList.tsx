@@ -12,6 +12,7 @@ interface CaseStudyData {
   title: string;
   description: string;
   link: string;
+  documentId?: string;
 }
 
 interface CaseStudyListProps {
@@ -26,6 +27,7 @@ const fallbackCaseStudies: CaseStudyData[] = [
     title: 'GlobeBank leverages machine learning to cut fraud losses in real time.',
     description: 'How GlobeBank stopped threats before they struck',
     link: '#',
+    documentId: 'fallback-1',
   },
   {
     image: hero2,
@@ -33,6 +35,7 @@ const fallbackCaseStudies: CaseStudyData[] = [
     title: 'AutoMotion scaled its EV production by deploying a digital twin of its assembly line.',
     description: 'See how AutoMotion accelerated output',
     link: '#',
+    documentId: 'fallback-2',
   },
   {
     image: hero3,
@@ -40,6 +43,7 @@ const fallbackCaseStudies: CaseStudyData[] = [
     title: 'HealthSync uses advanced analytics to personalize patient care journeys.',
     description: 'Discover HealthSync\'s data-driven approach',
     link: '#',
+    documentId: 'fallback-3',
   },
 ];
 

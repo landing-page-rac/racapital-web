@@ -17,6 +17,7 @@ interface CaseStudyData {
   title: string;
   description: string;
   link: string;
+  documentId?: string;
 }
 
 interface CaseStudyListWrapperProps {
@@ -64,6 +65,7 @@ const transformCaseStudiesToCards = (caseStudies: FeaturedCaseStudy[]): CaseStud
       description: extractPlainText(caseStudy.content),
       link: `#case-study-${caseStudy.documentId}`,
       image: image,
+      documentId: caseStudy.documentId,
     };
   });
 };
