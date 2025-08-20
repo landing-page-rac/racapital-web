@@ -11,7 +11,8 @@ class SimpleCache {
    * Get data from cache if it exists and is still fresh (within 10 minutes)
    */
   static get<T>(key: string): T | null {
-    if (typeof window === 'undefined') return null;
+    const isUseCache = process.env.NEXT_PUBLIC_API_USE_CACHE === 'true';
+    if (typeof window === 'undefined' || !isUseCache) return null;
 
     try {
       const cacheKey = this.CACHE_PREFIX + key;
