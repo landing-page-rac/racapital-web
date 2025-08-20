@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import EventsPageMobile from './EventsPageMobile';
 import EventsPageDesktop from './EventsPageDesktop';
+import { useEventsApiDataCached } from '../hooks/useEventsApiDataCached';
 
 // Custom hook for responsive rendering
 const useResponsiveEvents = () => {
@@ -28,13 +29,14 @@ const useResponsiveEvents = () => {
 
 const EventsPage: React.FC = () => {
   const isMobile = useResponsiveEvents();
+  const { events, isLoading, error } = useEventsApiDataCached();
 
   return (
     <div className="min-h-screen">
       {isMobile ? (
-        <EventsPageMobile />
+        <EventsPageMobile events={events} isLoading={isLoading} error={error} />
       ) : (
-        <EventsPageDesktop />
+        <EventsPageDesktop events={events} isLoading={isLoading} error={error} />
       )}
     </div>
   );

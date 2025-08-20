@@ -1,5 +1,8 @@
+'use client';
+
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import { EventData } from '../types';
 
 interface EventCardEnhancedProps {
@@ -8,6 +11,8 @@ interface EventCardEnhancedProps {
 }
 
 const EventCardEnhanced: React.FC<EventCardEnhancedProps> = ({ event, isReversed = false }) => {
+  const router = useRouter();
+
   // Format date from API format (YYYY-MM-DD) to display format
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -19,9 +24,13 @@ const EventCardEnhanced: React.FC<EventCardEnhancedProps> = ({ event, isReversed
     return date.toLocaleDateString('en-US', options).toUpperCase();
   };
 
+  const handleClick = () => {
+    router.push(`/events/${event.documentId}`);
+  };
+
   return (
     <motion.div
-      className={`bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex ${isReversed ? 'flex-row-reverse' : 'flex-row'} max-w-4xl mx-auto`}
+      className={`bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex ${isReversed ? 'flex-row-reverse' : 'flex-row'} max-w-4xl mx-auto cursor-pointer`}
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
@@ -30,6 +39,7 @@ const EventCardEnhanced: React.FC<EventCardEnhancedProps> = ({ event, isReversed
         scale: 1.02,
         transition: { duration: 0.2 }
       }}
+      onClick={handleClick}
     >
       {/* Image Section */}
       <motion.div
@@ -106,11 +116,11 @@ const EventCardEnhanced: React.FC<EventCardEnhancedProps> = ({ event, isReversed
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
-              <span className="font-medium">{event.location.toUpperCase()}</span>
+              <span className="font-medium">{event.location}</span>
             </motion.div>
           </motion.div>
 
-          {/* Action Button */}
+          {/* Read More Link */}
           <motion.div
             className="pt-4"
             initial={{ opacity: 0, y: 20 }}
@@ -118,27 +128,16 @@ const EventCardEnhanced: React.FC<EventCardEnhancedProps> = ({ event, isReversed
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            <motion.button
-              className="bg-[#0C52E6] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#041E42] transition-colors duration-200 flex items-center gap-2"
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 10px 25px rgba(12, 82, 230, 0.3)"
-              }}
-              whileTap={{ scale: 0.95 }}
+            <motion.div
+              className="inline-flex items-center text-[#041E42] font-semibold hover:text-[#1763F7] transition-colors duration-200"
+              whileHover={{ x: 5 }}
               transition={{ duration: 0.2 }}
             >
-              Learn More
-              <motion.svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                whileHover={{ x: 3 }}
-                transition={{ duration: 0.2 }}
-              >
+              Read more
+              <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </motion.svg>
-            </motion.button>
+              </svg>
+            </motion.div>
           </motion.div>
         </div>
       </motion.div>

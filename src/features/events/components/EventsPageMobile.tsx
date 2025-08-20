@@ -4,16 +4,20 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Navbar from '../../landing/components/Navbar';
-import { useEventsData } from '../hooks/useEventsData';
 import EventCardMobile from './EventCardMobile';
 import { ContactSection } from '@/shared/components';
 import { Footer } from '@/features/landing';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
 import { NAV_ITEMS } from '@/shared/constants/navigation';
+import { EventData } from '../types';
 
-const EventsPageMobile: React.FC = () => {
-  const { events, isLoading, error } = useEventsData();
+interface EventsPageMobileProps {
+  events: EventData[] | null;
+  isLoading: boolean;
+  error: Error | null;
+}
 
+const EventsPageMobile: React.FC<EventsPageMobileProps> = ({ events, isLoading, error }) => {
   const headerVariants = {
     hidden: { opacity: 0, y: -30 },
     visible: {
@@ -105,68 +109,34 @@ const EventsPageMobile: React.FC = () => {
 
           {/* Events List */}
           <motion.div
-            className="space-y-6 mx-4"
+            className="space-y-6"
             variants={eventsListVariants}
+            initial="hidden"
+            animate="visible"
           >
             {isLoading ? (
               <motion.div
                 className="text-center py-12"
                 variants={emptyStateVariants}
               >
-                <div className="text-gray-200 mb-4">
-                  <p className="text-xl font-semibold mb-2">Loading events...</p>
-                </div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+                <p className="text-lg text-gray-200">Loading events...</p>
               </motion.div>
             ) : error ? (
               <motion.div
                 className="text-center py-12"
                 variants={emptyStateVariants}
               >
-                <div className="text-gray-200 mb-4">
-                  <motion.svg
-                    className="w-16 h-16 mx-auto mb-4 text-gray-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
-                  </motion.svg>
-                  <motion.p
-                    className="text-xl font-semibold mb-2"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                  >
-                    Error loading events
-                  </motion.p>
-                  <motion.p
-                    className="text-base text-gray-300"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.6 }}
-                  >
-                    Please try again later.
-                  </motion.p>
-                </div>
+                <p className="text-lg text-red-200 mb-2">Error loading events</p>
+                <p className="text-sm text-gray-300">Please try again later.</p>
               </motion.div>
             ) : events && events.length > 0 ? (
               events.map((event, index) => (
                 <motion.div
                   key={event.documentId}
                   variants={eventCardVariants}
-                  whileHover={{
-                    scale: 1.02,
-                    transition: { duration: 0.2 }
-                  }}
-                  whileTap={{
-                    scale: 0.98,
-                    transition: { duration: 0.1 }
-                  }}
                 >
-                  <EventCardMobile event={event} index={index} />
+                  <EventCardMobile event={event} />
                 </motion.div>
               ))
             ) : (
@@ -174,41 +144,13 @@ const EventsPageMobile: React.FC = () => {
                 className="text-center py-12"
                 variants={emptyStateVariants}
               >
-                <div className="text-gray-200 mb-4">
-                  <motion.svg
-                    className="w-16 h-16 mx-auto mb-4 text-gray-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </motion.svg>
-                  <motion.p
-                    className="text-xl font-semibold mb-2"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                  >
-                    No events available
-                  </motion.p>
-                  <motion.p
-                    className="text-base text-gray-300"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.6 }}
-                  >
-                    Check back soon for our upcoming events and activities.
-                  </motion.p>
-                </div>
+                <p className="text-lg text-gray-200 mb-2">No events available</p>
+                <p className="text-sm text-gray-300">
+                  Check back soon for our upcoming events and activities.
+                </p>
               </motion.div>
             )}
           </motion.div>
-
-          {/* Bottom Spacing */}
-          <div className="h-8"></div>
         </div>
       </main>
 

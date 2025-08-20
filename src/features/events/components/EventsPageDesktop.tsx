@@ -5,15 +5,19 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Navbar from '../../landing/components/Navbar';
 import EventCardEnhanced from './EventCardEnhanced';
-import { useEventsData } from '../hooks/useEventsData';
 import { NAV_ITEMS } from '@/shared/constants/navigation';
 import { ContactSection } from '@/shared/components';
 import { Footer } from '@/features/landing';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
+import { EventData } from '../types';
 
-const EventsPageDesktop: React.FC = () => {
-  const { events, isLoading, error } = useEventsData();
+interface EventsPageDesktopProps {
+  events: EventData[] | null;
+  isLoading: boolean;
+  error: Error | null;
+}
 
+const EventsPageDesktop: React.FC<EventsPageDesktopProps> = ({ events, isLoading, error }) => {
   return (
     <div className="min-h-screen">
       <div className="relative bg-gradient-to-br from-[#051F42] via-[#002d72] to-[#051F42] text-white overflow-hidden">

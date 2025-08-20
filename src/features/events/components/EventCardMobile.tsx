@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import { EventData } from '../types';
 
 interface EventCardMobileProps {
@@ -11,6 +12,8 @@ interface EventCardMobileProps {
 }
 
 const EventCardMobile: React.FC<EventCardMobileProps> = ({ event, index = 0 }) => {
+  const router = useRouter();
+
   // Format date from API format (YYYY-MM-DD) to display format
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -20,6 +23,10 @@ const EventCardMobile: React.FC<EventCardMobileProps> = ({ event, index = 0 }) =
       year: 'numeric'
     };
     return date.toLocaleDateString('en-US', options).toUpperCase();
+  };
+
+  const handleClick = () => {
+    router.push(`/events/${event.documentId}`);
   };
 
   return (
@@ -35,7 +42,8 @@ const EventCardMobile: React.FC<EventCardMobileProps> = ({ event, index = 0 }) =
         y: -8,
         transition: { duration: 0.3, ease: "easeOut" }
       }}
-      className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
+      className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer"
+      onClick={handleClick}
     >
       {/* Image Section */}
       <div className="relative w-full h-48 overflow-hidden">
@@ -114,41 +122,27 @@ const EventCardMobile: React.FC<EventCardMobileProps> = ({ event, index = 0 }) =
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
               </motion.div>
-              <span className="font-medium text-sm">{event.location.toUpperCase()}</span>
+              <span className="font-medium text-sm">{event.location}</span>
             </motion.div>
           </div>
 
-          {/* Action Button */}
+          {/* Read More Link */}
           <motion.div
             className="pt-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 + index * 0.1, duration: 0.4 }}
           >
-            <motion.button
-              whileHover={{
-                scale: 1.02,
-                backgroundColor: "#041E42"
-              }}
-              whileTap={{ scale: 0.98 }}
-              transition={{
-                duration: 0.2,
-                ease: "easeInOut"
-              }}
-              className="w-full bg-[#0C52E6] text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 flex items-center justify-center gap-2"
+            <motion.div
+              className="inline-flex items-center text-[#041E42] font-semibold text-sm hover:text-[#1763F7] transition-colors duration-200"
+              whileHover={{ x: 5 }}
+              transition={{ duration: 0.2 }}
             >
-              <span>Learn More</span>
-              <motion.svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                whileHover={{ x: 3 }}
-                transition={{ duration: 0.2 }}
-              >
+              Read more
+              <svg className="ml-2 w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </motion.svg>
-            </motion.button>
+              </svg>
+            </motion.div>
           </motion.div>
         </div>
       </div>
