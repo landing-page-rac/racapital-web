@@ -18,6 +18,7 @@ interface CardData {
   linkText: string;
   linkHref: string;
   image?: StaticImageData | string;
+  documentId?: string;
 }
 
 interface InsightCarouselWrapperProps {
@@ -90,8 +91,9 @@ const transformInsightsToCards = (insights: FeaturedInsight[]): CardData[] => {
       subtitle: 'INSIGHT',
       description: extractPlainText(insight.content),
       linkText: 'Read more',
-      linkHref: `#insight-${insight.documentId}`,
+      linkHref: `/insights/${insight.documentId}`,
       image: image,
+      documentId: insight.documentId,
     };
   });
 };

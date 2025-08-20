@@ -4,7 +4,7 @@ import InsightCard from './InsightCard';
 import Image, { StaticImageData } from 'next/image';
 import hero1 from '../assets/hero-1.png';
 import superGraphic from '../assets/super-graphic-1.png';
-import CaseStudyButton from './CaseStudyButton';
+import InsightsButton from './InsightButton';
 
 interface CardData {
   title: string;
@@ -13,6 +13,7 @@ interface CardData {
   linkText: string;
   linkHref: string;
   image?: StaticImageData | string;
+  documentId?: string;
 }
 
 const defaultCards: CardData[] = [
@@ -254,7 +255,7 @@ const InsightCarousel: React.FC<{ cards?: CardData[], aspirationQuote?: string }
 
         <p className='text-center mt-10 text-3xl px-44'>{aspirationQuote}</p>
 
-        <CaseStudyButton />
+        <InsightsButton />
       </div>
     </div>
   );
