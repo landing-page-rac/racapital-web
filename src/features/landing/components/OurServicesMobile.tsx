@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { motion } from 'framer-motion';
 import { FeaturedService } from '../types';
 
 interface OurServicesMobileProps {
@@ -8,38 +9,118 @@ interface OurServicesMobileProps {
 }
 
 const OurServicesMobile: React.FC<OurServicesMobileProps> = ({ featuredServices }) => {
-  // Transform API data to match the component's expected format - only using name like desktop version
-  const services = featuredServices.map((service, index) => ({
-    number: String(index + 1).padStart(2, '0'),
-    lines: service.name.split(' ').length === 1
-      ? [service.name]
-      : service.name.split(' ').reduce((acc: string[], word: string, i: number, arr: string[]) => {
-        // Split service name into two lines for better display
-        const midPoint = Math.ceil(arr.length / 2);
-        if (i < midPoint) {
-          acc[0] = (acc[0] || '') + (acc[0] ? ' ' : '') + word;
-        } else {
-          acc[1] = (acc[1] || '') + (acc[1] ? ' ' : '') + word;
-        }
-        return acc;
-      }, ['', ''])
-  }));
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: {
+      opacity: 0,
+      y: 20,
+      scale: 0.95
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const hoverVariants = {
+    hover: {
+      scale: 1.05,
+      transition: {
+        duration: 0.2,
+        ease: "easeInOut"
+      }
+    }
+  };
+
   return (
-    <section className="bg-[#06306B] py-8 px-4">
-      <h2 className="text-white text-2xl md:text-3xl font-bold text-center mb-5">Our Services</h2>
-      <div className="flex flex-col justify-center gap-8 max-w-md mx-auto">
-        {services.map((service) => (
-          <div key={service.number} className="flex gap-3">
-            <div className="text-white text-lg md:text-xl mb-2 opacity-80">{service.number}</div>
-            <div>
-              {service.lines.filter(line => line.trim()).map((line, idx) => (
-                <div key={idx} className="text-white text-lg md:text-2xl font-light leading-snug">
-                  {line}
+    <section className="bg-gradient-to-br from-[#06306B] via-[#0a4a8a] to-[#06306B] py-16 px-6 relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30px_30px,rgba(255,255,255,0.1)_2px,transparent_2px)] bg-[length:60px_60px]"></div>
+      </div>
+
+      <div className="max-w-md mx-auto relative z-10">
+        <motion.h2
+          className="text-white text-3xl font-bold text-center mb-12"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
+          Our Services
+        </motion.h2>
+
+        <motion.div
+          className="space-y-4"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          {featuredServices.map((service) => (
+            <motion.div
+              key={service.documentId}
+              className="relative"
+              variants={itemVariants}
+              whileHover="hover"
+            >
+              <motion.div
+                className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 shadow-lg"
+                variants={hoverVariants}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex-1">
+                    <div className="text-white text-lg font-semibold leading-relaxed">
+                      {service.name}
+                    </div>
+                  </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        ))}
+              </motion.div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Decorative Elements */}
+        <motion.div
+          className="absolute top-8 right-8 w-16 h-16 bg-white/5 rounded-full"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.6, 0.3]
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div
+          className="absolute bottom-8 left-8 w-12 h-12 bg-white/5 rounded-full"
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.2, 0.5, 0.2]
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1
+          }}
+        />
       </div>
     </section>
   );
