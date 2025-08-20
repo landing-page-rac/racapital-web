@@ -62,6 +62,11 @@ const InsightCard: React.FC<InsightCardProps> = ({
     }
   };
 
+  // Truncate description to 30 words
+  const truncatedDescription = description && description.split(' ').length > 30
+    ? `${description.split(' ').slice(0, 30).join(' ')}...`
+    : description;
+
   return (
     <div
       className="relative w-full max-w-md h-full flex flex-col rounded-xl overflow-hidden shadow-lg bg-[#0a2342] group cursor-pointer transition-all duration-300"
@@ -108,8 +113,8 @@ const InsightCard: React.FC<InsightCardProps> = ({
           <div className="uppercase text-sm tracking-widest text-gray-300 mb-2">{subtitle}</div>
         )}
         <div className="text-white text-2xl font-light mb-2 leading-snug">{title}</div>
-        {description && (
-          <div className={`text-gray-200 text-base mb-4 transition-opacity duration-300 ${hovered ? 'opacity-100' : 'opacity-0 h-0 overflow-hidden'}`}>{description}</div>
+        {truncatedDescription && (
+          <div className={`text-gray-200 text-base mb-4 transition-opacity duration-300 ${hovered ? 'opacity-100' : 'opacity-0 h-0 overflow-hidden'}`}>{truncatedDescription}</div>
         )}
         <div className="text-white underline text-base font-medium mt-auto hover:text-blue-300 transition-colors">
           {linkText} &rarr;
