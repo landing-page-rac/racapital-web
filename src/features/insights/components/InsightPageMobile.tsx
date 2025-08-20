@@ -6,14 +6,23 @@ import { motion } from 'framer-motion';
 import Navbar from '../../landing/components/Navbar';
 import Container from '../../../shared/components/ui/Container';
 import InsightListCard from './InsightListCard';
-import { useInsightsData } from '../hooks/useInsightsData';
 import { NAV_ITEMS } from '@/shared/constants/navigation';
 import { ContactSectionMobile } from '@/shared/components';
 import { FooterMobile } from '@/features/landing';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
+import { InsightData } from '../types';
 
-const InsightPageMobile: React.FC = () => {
-  const { insights, isLoading, error } = useInsightsData();
+interface InsightPageMobileProps {
+  insights: InsightData[];
+  isLoading: boolean;
+  error: Error | null;
+}
+
+const InsightPageMobile: React.FC<InsightPageMobileProps> = ({
+  insights,
+  isLoading,
+  error
+}) => {
 
   return (
     <section className="relative bg-gradient-to-br from-[#051F42] via-[#002d72] to-[#051F42] text-white overflow-hidden" >

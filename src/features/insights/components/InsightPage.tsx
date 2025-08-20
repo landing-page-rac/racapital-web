@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import InsightPageMobile from './InsightPageMobile';
 import InsightPageDesktop from './InsightPageDesktop';
+import { useInsightsDataCached } from '../hooks/useInsightsDataCached';
 
 // Custom hook for responsive rendering
 const useResponsiveInsights = () => {
@@ -28,13 +29,14 @@ const useResponsiveInsights = () => {
 
 const InsightPage: React.FC = () => {
   const isMobile = useResponsiveInsights();
+  const { insights, isLoading, error } = useInsightsDataCached();
 
   return (
     <div className="min-h-screen">
       {isMobile ? (
-        <InsightPageMobile />
+        <InsightPageMobile insights={insights} isLoading={isLoading} error={error} />
       ) : (
-        <InsightPageDesktop />
+        <InsightPageDesktop insights={insights} isLoading={isLoading} error={error} />
       )}
     </div>
   );

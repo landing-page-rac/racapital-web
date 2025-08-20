@@ -5,14 +5,23 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Navbar from '../../landing/components/Navbar';
 import InsightListCard from './InsightListCard';
-import { useInsightsData } from '../hooks/useInsightsData';
 import { ContactSection } from '@/shared/components';
 import { Footer } from '@/features/landing';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
 import { NAV_ITEMS } from '@/shared/constants/navigation';
+import { InsightData } from '../types';
 
-const InsightPageDesktop: React.FC = () => {
-  const { insights, isLoading, error } = useInsightsData();
+interface InsightPageDesktopProps {
+  insights: InsightData[];
+  isLoading: boolean;
+  error: Error | null;
+}
+
+const InsightPageDesktop: React.FC<InsightPageDesktopProps> = ({
+  insights,
+  isLoading,
+  error
+}) => {
 
   return (
     <div className="min-h-screen">
