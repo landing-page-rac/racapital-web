@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
+import { useRouter } from 'next/navigation';
 import hero1 from '../assets/hero-1.png';
 
 interface ApiImageData {
@@ -16,6 +17,7 @@ interface InsightCardProps {
   linkText: string;
   linkHref: string;
   image?: StaticImageData | ApiImageData | string;
+  documentId?: string;
 }
 
 const InsightCard: React.FC<InsightCardProps> = ({
@@ -25,14 +27,16 @@ const InsightCard: React.FC<InsightCardProps> = ({
   linkText,
   linkHref,
   image = hero1,
+  documentId,
 }) => {
   const [hovered, setHovered] = useState(false);
+  const router = useRouter();
 
   // Determine the image source, width, and height based on the image type
   let src: string;
   let width: number | undefined;
   let height: number | undefined;
-  
+
   if (typeof image === 'string') {
     // Local image or simple URL
     src = image;
@@ -48,11 +52,22 @@ const InsightCard: React.FC<InsightCardProps> = ({
     height = image.height;
   }
 
+  const handleClick = () => {
+    if (documentId) {
+      // Navigate to insight detail page
+      router.push(`/insights/${documentId}`);
+    } else if (linkHref) {
+      // Use custom linkHref if provided
+      router.push(linkHref);
+    }
+  };
+
   return (
     <div
       className="relative w-full max-w-md h-full flex flex-col rounded-xl overflow-hidden shadow-lg bg-[#0a2342] group cursor-pointer transition-all duration-300"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onClick={handleClick}
     >
       {/* Image */}
       <div
@@ -96,12 +111,9 @@ const InsightCard: React.FC<InsightCardProps> = ({
         {description && (
           <div className={`text-gray-200 text-base mb-4 transition-opacity duration-300 ${hovered ? 'opacity-100' : 'opacity-0 h-0 overflow-hidden'}`}>{description}</div>
         )}
-        <a
-          href={linkHref}
-          className="text-white underline text-base font-medium mt-auto hover:text-blue-300 transition-colors"
-        >
+        <div className="text-white underline text-base font-medium mt-auto hover:text-blue-300 transition-colors">
           {linkText} &rarr;
-        </a>
+        </div>
       </div>
     </div>
   );

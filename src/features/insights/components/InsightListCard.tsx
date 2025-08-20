@@ -1,5 +1,8 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { InsightData } from '../types';
 
 interface InsightListCardProps {
@@ -11,10 +14,25 @@ interface InsightListCardProps {
 const InsightListCard: React.FC<InsightListCardProps> = ({
   insight,
   linkText = "Read more",
-  linkHref = "#"
+  linkHref
 }) => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    if (linkHref) {
+      // If custom linkHref is provided, use it
+      router.push(linkHref);
+    } else {
+      // Default navigation to insight detail page
+      router.push(`/insights/${insight.documentId}`);
+    }
+  };
+
   return (
-    <div className="flex flex-col items-start w-full max-w-xs mx-auto cursor-pointer group">
+    <div
+      className="flex flex-col items-start w-full max-w-xs mx-auto cursor-pointer group"
+      onClick={handleClick}
+    >
       {/* Image */}
       <div className="w-full h-48 mb-6 overflow-hidden">
         <Image
@@ -38,12 +56,9 @@ const InsightListCard: React.FC<InsightListCardProps> = ({
         </h3>
 
         {/* Clickable Link */}
-        <a
-          href={linkHref}
-          className="text-white text-lg underline hover:text-[#0C52E6] transition-colors"
-        >
+        <div className="text-white text-lg underline hover:text-[#0C52E6] transition-colors">
           {linkText} <span aria-hidden>→</span>
-        </a>
+        </div>
       </div>
     </div>
   );
