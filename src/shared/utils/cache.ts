@@ -38,9 +38,10 @@ if (CACHE_CLEANUP_INTERVAL > 0) {
  * @returns A Promise that resolves with the fetched or cached data.
  */
 export const fetchWithCache = async <T>(url: string): Promise<T> => {
+    const isUseCache = process.env.NEXT_PUBLIC_API_USE_CACHE === 'true';
     const cachedData = inMemoryCache.get(url);
 
-    if (cachedData && (Date.now() - cachedData.timestamp) < CACHE_TTL) {
+    if (isUseCache && cachedData && (Date.now() - cachedData.timestamp) < CACHE_TTL) {
         console.log(`Using cached data for ${url}`);
         return cachedData.data;
     }
