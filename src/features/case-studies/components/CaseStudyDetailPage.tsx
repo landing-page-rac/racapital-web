@@ -7,81 +7,29 @@ import Navbar from '../../landing/components/Navbar';
 import { ContactSection } from '@/shared/components';
 import { Footer } from '@/features/landing';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
-import superGraphicWhite from '../../landing/assets/super-graphic-white.png';
 import { NAV_ITEMS } from '@/shared/constants/navigation';
 import { CaseStudyData } from '../types';
-import { renderRichTextContent } from '@/shared/utils/contentRenderer';
 import SimpleCache from '@/shared/utils/simpleCache';
 import { CaseStudiesResponse } from '../types';
+import {
+  CaseStudyHeader,
+  CaseStudyMainImage,
+  CaseStudyService,
+  CaseStudyContent,
+  CaseStudyAdditionalImage,
+  CaseStudyAccordion,
+  CaseStudyQuote,
+  CaseStudyAttachment
+} from './sections';
 
 interface CaseStudyDetailPageProps {
   documentId: string;
 }
 
-const CollapsibleAccordionItem: React.FC<{
-  item: import('../types').CaseStudyCollapsibleItem;
-  isOpen: boolean;
-  onToggle: () => void;
-  index: number;
-}> = ({ item, isOpen, onToggle, index }) => {
-  return (
-    <motion.div
-      className="border-t border-b border-white/20 last:border-b-0 py-10"
-      initial={false}
-      animate={{ height: 'auto' }}
-    >
-      <motion.button
-        className="w-full px-6 py-6 flex items-center justify-between text-left hover:bg-white/5 transition-colors duration-200 cursor-pointer"
-        onClick={onToggle}
-        whileHover={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
-      >
-        <div className="flex items-center space-x-8">
-          <span className="text-2xl font-bold text-white/60 min-w-[3rem]">
-            {String(index + 1).padStart(2, '0')}
-          </span>
-          <div>
-            <h3 className="text-xl font-semibold text-white">
-              {item.title}
-            </h3>
-          </div>
-        </div>
-        <motion.div
-          animate={{ rotate: isOpen ? 45 : 0 }}
-          transition={{ duration: 0.3 }}
-          className="text-white text-2xl font-light cursor-pointer"
-        >
-          +
-        </motion.div>
-      </motion.button>
-
-      <motion.div
-        initial={false}
-        animate={{
-          height: isOpen ? 'auto' : 0,
-          opacity: isOpen ? 1 : 0,
-        }}
-        transition={{ duration: 0.3, ease: 'easeInOut' }}
-        className="overflow-hidden"
-      >
-        <div className="px-6 pb-6 pl-20">
-          <div className="text-white/80 text-lg leading-relaxed">
-            {renderRichTextContent(item.content)}
-          </div>
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-};
-
 const CaseStudyDetailPage: React.FC<CaseStudyDetailPageProps> = ({ documentId }) => {
   const [caseStudy, setCaseStudy] = useState<CaseStudyData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
-  const [openItemId, setOpenItemId] = useState<number | null>(null);
-
-  const handleItemToggle = (itemId: number) => {
-    setOpenItemId(openItemId === itemId ? null : itemId);
-  };
 
   useEffect(() => {
     const fetchCaseStudy = () => {
@@ -176,176 +124,14 @@ const CaseStudyDetailPage: React.FC<CaseStudyDetailPageProps> = ({ documentId })
 
         <main className="relative z-10 pt-5">
           <div className="mx-auto px-4 sm:px-6 lg:px-8 pt-16">
-            {/* CASE STUDY Label */}
-            <motion.div
-              className="mb-2"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="text-2xl uppercase tracking-widest text-blue-300 font-medium">
-                CASE STUDY
-              </div>
-            </motion.div>
-
-            {/* Title */}
-            <motion.div
-              className="mb-8"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <h1 className="text-xl md:text-4xl text-white">
-                {caseStudy.title}
-              </h1>
-            </motion.div>
-
-            {/* Main Image - Full Width */}
-            {caseStudy.mainImage && (
-              <motion.div
-                className="mb-8 -mx-4 sm:-mx-6 lg:-mx-8 px-8"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-              >
-                <div className="relative w-full h-96 md:h-[350px]">
-                  <Image
-                    src={caseStudy.mainImage.image.url}
-                    alt={caseStudy.mainImage.alternativeText || caseStudy.title}
-                    fill
-                    className="object-cover object-center"
-                  />
-                </div>
-              </motion.div>
-            )}
-
-            {/* Service Section */}
-            {caseStudy.service && (
-              <motion.div
-                className="flex items-center gap-5 mb-8"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.5 }}
-              >
-                <div className="text-xl text-blue-300 font-medium">
-                  Services
-                </div>
-                <div className="inline-block border border-blue-500 px-4 py-2">
-                  <span className="text-white font-medium">
-                    {caseStudy.service.name}
-                  </span>
-                </div>
-              </motion.div>
-            )}
-
-            {/* Content */}
-            <motion.div
-              className="max-w-none w-2/3"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
-              {renderRichTextContent(caseStudy.content)}
-            </motion.div>
-
-            {/* Additional Image */}
-            {caseStudy.image && (
-              <motion.div
-                className="mt-12 flex flex-col items-center"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.7 }}
-              >
-                <div className="relative w-2/4 h-80">
-                  <Image
-                    src={caseStudy.image.image.url}
-                    alt={caseStudy.image.alternativeText || caseStudy.title}
-                    fill
-                    className="object-cover object-center"
-                  />
-                </div>
-                {caseStudy.image.alternativeText && (
-                  <div className="mt-4 text-center text-gray-300 text-sm italic">
-                    {caseStudy.image.alternativeText}
-                  </div>
-                )}
-              </motion.div>
-            )}
-
-            {/* Collapsible List Accordion */}
-            {caseStudy.collapsibleList && caseStudy.collapsibleList.length > 0 && (
-              <motion.div
-                className="mt-16 w-full"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.8 }}
-              >
-                <div className="overflow-hidden">
-                  {caseStudy.collapsibleList.map((item, index) => (
-                    <CollapsibleAccordionItem
-                      key={index}
-                      item={item}
-                      isOpen={openItemId === index}
-                      onToggle={() => handleItemToggle(index)}
-                      index={index}
-                    />
-                  ))}
-                </div>
-              </motion.div>
-            )}
-
-            {/* Quote Section */}
-            {caseStudy.quote && (
-              <motion.section
-                className="mt-16 bg-[#0D52E5] py-20 px-4 relative overflow-hidden -mx-4 sm:-mx-6 lg:-mx-8"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.9 }}
-              >
-                {/* Background Image */}
-                <div className="absolute inset-0">
-                  <Image
-                    src={superGraphicWhite.src}
-                    alt="Background Graphic"
-                    className="w-full h-full object-cover opacity-30"
-                    fill
-                    priority
-                  />
-                </div>
-
-                {/* Content */}
-                <div className="relative z-10 max-w-4xl mx-auto text-center">
-                  <div className="text-white text-2xl md:text-3xl lg:text-4xl leading-relaxed">
-                    {renderRichTextContent(caseStudy.quote)}
-                  </div>
-                </div>
-              </motion.section>
-            )}
-
-            {/* Attachment Section */}
-            {caseStudy.attachment && (
-              <motion.section
-                className="bg-white py-16 px-4 -mx-4 sm:-mx-6 lg:-mx-8"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.0 }}
-              >
-                <div className="max-w-4xl mx-auto text-center">
-                  <motion.button
-                    className="border border-[#0D52E5] text-[#0D52E5] px-8 py-4 hover:bg-[#0D52E5] hover:text-white transition-colors duration-200 cursor-pointer text-2xl"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => {
-                      if (caseStudy.attachment?.media?.url) {
-                        window.open(caseStudy.attachment.media.url, '_blank');
-                      }
-                    }}
-                  >
-                    Download Summary File
-                  </motion.button>
-                </div>
-              </motion.section>
-            )}
+            <CaseStudyHeader caseStudy={caseStudy} />
+            <CaseStudyMainImage caseStudy={caseStudy} />
+            <CaseStudyService caseStudy={caseStudy} />
+            <CaseStudyContent caseStudy={caseStudy} />
+            <CaseStudyAdditionalImage caseStudy={caseStudy} />
+            <CaseStudyAccordion caseStudy={caseStudy} />
+            <CaseStudyQuote caseStudy={caseStudy} />
+            <CaseStudyAttachment caseStudy={caseStudy} />
           </div>
         </main>
       </div>
