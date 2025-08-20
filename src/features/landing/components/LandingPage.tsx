@@ -1,6 +1,6 @@
 'use client';
 
-import { useLandingPageData } from '../hooks/useLandingPageData';
+import { useLandingPageDataCached } from '../hooks/useLandingPageDataCached';
 import HeroSectionWrapper from './HeroSectionWrapper';
 import OurServicesWrapper from './OurServicesWrapper';
 import StatsBarWrapper from './StatsBarWrapper';
@@ -12,7 +12,7 @@ import ContactSectionWrapper from './ContactSectionWrapper';
 import FooterWrapper from './FooterWrapper';
 
 const LandingPage: React.FC = () => {
-  const { data, isLoading, error } = useLandingPageData();
+  const { data, isLoading, error } = useLandingPageDataCached();
 
   return (
     <div className="min-h-screen bg-white">
