@@ -13,7 +13,7 @@ export const useContactUsData = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const response = await axiosInstance.get<ContactUsResponse>('/api/contact-us');
+        const response = await axiosInstance.get<ContactUsResponse>('/contact-us');
         setData(response.data.data);
       } catch (err) {
         setError(err instanceof Error ? err : new Error('An error occurred'));

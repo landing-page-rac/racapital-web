@@ -27,7 +27,7 @@ export const useContactUsDataCached = () => {
         }
 
         // 2. Fetch from API
-        const response = await axiosInstance.get<ContactUsResponse>('/api/contact-us');
+        const response = await axiosInstance.get<ContactUsResponse>('/contact-us');
 
         // 3. Save to cache
         SimpleCache.set(cacheKey, response.data);

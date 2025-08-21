@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useContactForm } from '@/shared/hooks/useContactForm';
 import { validateContactForm, ValidationErrors } from '@/shared/utils/validation';
+import { ContactUsData } from '../types';
 
 interface FormData {
   fullName: string;
@@ -12,7 +13,11 @@ interface FormData {
   location: string;
 }
 
-const HelpForm: React.FC = () => {
+interface HelpFormProps {
+  data: ContactUsData;
+}
+
+const HelpForm: React.FC<HelpFormProps> = ({ data }) => {
   const { submitContactForm, isLoading, isSuccess, isError, error } = useContactForm();
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
 
@@ -93,20 +98,6 @@ const HelpForm: React.FC = () => {
     }
   };
 
-  const interestOptions = [
-    "Passing on our wealth in line with our family&apos;s purpose, wishes and values",
-    "Raising capital for my business or seeking advice on the pre- and post-sale of my business",
-    "Seeking interesting investment ideas or looking to appoint a trusted investment manager",
-    "Moving to another country and would like help planning both the financial and lifestyle aspects",
-    "National and international tax planning",
-    "Something else"
-  ];
-
-  const locationOptions = [
-    "Our wealth is based largely in one country",
-    "Our wealth is based in more than one country"
-  ];
-
   return (
     <div className="bg-white/95 backdrop-blur-sm p-8">
       <form onSubmit={handleSubmit} className="space-y-8">
@@ -126,19 +117,19 @@ const HelpForm: React.FC = () => {
         {/* What's on your mind section */}
         <div>
           <h3 className="text-xl font-medium text-[#0D52E5] mb-6">
-            WHAT&apos;S ON YOUR MIND?
+            {data.topicTitle}
           </h3>
           <div className="space-y-4">
-            {interestOptions.map((option, index) => (
+            {data.topicOptions.map((option, index) => (
               <label key={index} className="flex items-start space-x-3 cursor-pointer">
                 <input
                   type="checkbox"
-                  checked={formData.interests.includes(option)}
-                  onChange={() => handleCheckboxChange(option, 'interests')}
+                  checked={formData.interests.includes(option.label)}
+                  onChange={() => handleCheckboxChange(option.label, 'interests')}
                   className="mt-1 w-4 h-4 text-[#0D52E5] border-[#0D52E5] focus:ring-[#0D52E5] rounded-sm"
                   style={{ borderColor: '#0D52E5' }}
                 />
-                <span className="text-gray-700 text-sm leading-relaxed">{option}</span>
+                <span className="text-gray-700 text-sm leading-relaxed">{option.label}</span>
               </label>
             ))}
           </div>
@@ -147,18 +138,18 @@ const HelpForm: React.FC = () => {
         {/* Your location section */}
         <div>
           <h3 className="text-xl font-medium text-[#0D52E5] mb-6">
-            YOUR LOCATION
+            {data.locationTitle}
           </h3>
           <div className="space-y-4">
-            {locationOptions.map((option, index) => (
+            {data.locationOptions.map((option, index) => (
               <label key={index} className="flex items-start space-x-3 cursor-pointer">
                 <input
                   type="checkbox"
-                  checked={formData.location === option}
-                  onChange={() => handleCheckboxChange(option, 'location')}
+                  checked={formData.location === option.label}
+                  onChange={() => handleCheckboxChange(option.label, 'location')}
                   className="mt-1 w-4 h-4 text-[#0D52E5] border-[#0D52E5] focus:ring-[#0D52E5] rounded-sm"
                 />
-                <span className="text-gray-700 text-sm leading-relaxed">{option}</span>
+                <span className="text-gray-700 text-sm leading-relaxed">{option.label}</span>
               </label>
             ))}
           </div>

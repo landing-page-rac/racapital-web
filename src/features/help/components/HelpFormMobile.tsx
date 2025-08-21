@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useContactForm } from '@/shared/hooks/useContactForm';
 import { validateContactForm, ValidationErrors } from '@/shared/utils/validation';
+import { ContactUsData } from '../types';
 
 interface FormData {
   fullName: string;
@@ -14,7 +15,11 @@ interface FormData {
   location: string;
 }
 
-const HelpFormMobile: React.FC = () => {
+interface HelpFormMobileProps {
+  data: ContactUsData;
+}
+
+const HelpFormMobile: React.FC<HelpFormMobileProps> = ({ data }) => {
   const { submitContactForm, isLoading, isSuccess, isError, error } = useContactForm();
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
 
@@ -95,22 +100,8 @@ const HelpFormMobile: React.FC = () => {
     }
   };
 
-  const interestOptions = [
-    "Passing on our wealth in line with our family&apos;s purpose, wishes and values",
-    "Raising capital for my business or seeking advice on the pre- and post-sale of my business",
-    "Seeking interesting investment ideas or looking to appoint a trusted investment manager",
-    "Moving to another country and would like help planning both the financial and lifestyle aspects",
-    "National and international tax planning",
-    "Something else"
-  ];
-
-  const locationOptions = [
-    "Our wealth is based largely in one country",
-    "Our wealth is based in more than one country"
-  ];
-
   return (
-    <div className="bg-white/95 backdrop-blur-sm p-5 mx-4 shadow-lg">
+    <div className="bg-white/95 backdrop-blur-sm p-5 shadow-lg">
       <form onSubmit={handleSubmit} className="space-y-8">
         {/* Success/Error Messages */}
         {isSuccess && (
@@ -143,10 +134,10 @@ const HelpFormMobile: React.FC = () => {
           viewport={{ once: true }}
         >
           <h3 className="text-lg font-medium text-[#0D52E5] mb-4">
-            WHAT&apos;S ON YOUR MIND?
+            {data.topicTitle}
           </h3>
           <div className="space-y-3">
-            {interestOptions.map((option, index) => (
+            {data.topicOptions.map((option, index) => (
               <motion.label
                 key={index}
                 className="flex items-start space-x-3 cursor-pointer"
@@ -157,12 +148,12 @@ const HelpFormMobile: React.FC = () => {
               >
                 <input
                   type="checkbox"
-                  checked={formData.interests.includes(option)}
-                  onChange={() => handleCheckboxChange(option, 'interests')}
+                  checked={formData.interests.includes(option.label)}
+                  onChange={() => handleCheckboxChange(option.label, 'interests')}
                   className="mt-1 w-4 h-4 text-[#0D52E5] border-[#0D52E5] focus:ring-[#0D52E5] rounded-sm flex-shrink-0"
                   style={{ borderColor: '#0D52E5' }}
                 />
-                <span className="text-gray-700 text-sm leading-relaxed">{option}</span>
+                <span className="text-gray-700 text-sm leading-relaxed">{option.label}</span>
               </motion.label>
             ))}
           </div>
@@ -176,10 +167,10 @@ const HelpFormMobile: React.FC = () => {
           viewport={{ once: true }}
         >
           <h3 className="text-lg font-medium text-[#0D52E5] mb-4">
-            YOUR LOCATION
+            {data.locationTitle}
           </h3>
           <div className="space-y-3">
-            {locationOptions.map((option, index) => (
+            {data.locationOptions.map((option, index) => (
               <motion.label
                 key={index}
                 className="flex items-start space-x-3 cursor-pointer"
@@ -190,11 +181,11 @@ const HelpFormMobile: React.FC = () => {
               >
                 <input
                   type="checkbox"
-                  checked={formData.location === option}
-                  onChange={() => handleCheckboxChange(option, 'location')}
+                  checked={formData.location === option.label}
+                  onChange={() => handleCheckboxChange(option.label, 'location')}
                   className="mt-1 w-4 h-4 text-[#0D52E5] border-[#0D52E5] focus:ring-[#0D52E5] rounded-sm flex-shrink-0"
                 />
-                <span className="text-gray-700 text-sm leading-relaxed">{option}</span>
+                <span className="text-gray-700 text-sm leading-relaxed">{option.label}</span>
               </motion.label>
             ))}
           </div>

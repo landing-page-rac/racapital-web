@@ -7,8 +7,23 @@ import HelpForm from './HelpForm';
 import { Footer } from '@/features/landing';
 import superGraphic from '../../landing/assets/super-graphic-white.png';
 import { NAV_ITEMS } from '@/shared/constants/navigation';
+import { ContactUsData, AttachmentData } from '../types';
+import { renderRichTextContent } from '@/shared/utils/contentRenderer';
 
-const HelpPageDesktop: React.FC = () => {
+interface HelpPageDesktopProps {
+  data: ContactUsData;
+}
+
+const HelpPageDesktop: React.FC<HelpPageDesktopProps> = ({ data }) => {
+  const handleDownload = (attachment: AttachmentData) => {
+    const link = document.createElement('a');
+    link.href = attachment.media.url;
+    link.download = attachment.media.name;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <main className="bg-[#0D52E5] relative min-h-screen">
       <Navbar navItems={NAV_ITEMS} />
@@ -27,23 +42,29 @@ const HelpPageDesktop: React.FC = () => {
         <div className="grid md:grid-cols-2 gap-12">
           {/* Left Column */}
           <div className="text-white">
-            <h1 className="text-4xl md:text-6xl font-bold mb-10">
-              How Can We <br /><u>Support</u> You?
-            </h1>
+            {renderRichTextContent(data.title)}
             <p className="text-2xl text-white/90 max-w-lg mb-10">
-              Nothing beats a one-on-one discussion. If you&apos;d like to learn more about our tailored solutions, drop us a line and one of our consultants will reach out shortly.
+              {data.description}
             </p>
 
-            <button
-              type="submit"
-              className="text-white py-4 px-6 font-medium hover:bg-blue-700 transition-colors border w-1/2"
-            >
-              XXXXX
-            </button>
+            {/* Attachment Buttons */}
+            {data.attachment && data.attachment.length > 0 && (
+              <div className="space-y-3">
+                {data.attachment.map((attachment, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleDownload(attachment)}
+                    className="text-white py-4 px-6 font-medium hover:bg-blue-700 transition-colors border w-full text-left"
+                  >
+                    📎 {attachment.alternativeText || attachment.media.name}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Right Column */}
-          <HelpForm />
+          <HelpForm data={data} />
         </div>
       </div>
 

@@ -1,18 +1,29 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import Image from 'next/image';
 import Navbar from '../../landing/components/Navbar';
 import HelpFormMobile from './HelpFormMobile';
-import { NAV_ITEMS } from '@/shared/constants/navigation';
-import superGraphic from '../../landing/assets/super-graphic-white.png';
-import Image from 'next/image';
 import { Footer } from '@/features/landing';
+import superGraphic from '../../landing/assets/super-graphic-white.png';
+import { NAV_ITEMS } from '@/shared/constants/navigation';
+import { ContactUsData, AttachmentData } from '../types';
+import { renderRichTextContent } from '@/shared/utils/contentRenderer';
 
-// Navigation items configuration
+interface HelpPageMobileProps {
+  data: ContactUsData;
+}
 
+const HelpPageMobile: React.FC<HelpPageMobileProps> = ({ data }) => {
+  const handleDownload = (attachment: AttachmentData) => {
+    const link = document.createElement('a');
+    link.href = attachment.media.url;
+    link.download = attachment.media.name;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
-const HelpPageMobile: React.FC = () => {
   return (
     <main className="bg-[#0D52E5] relative min-h-screen">
       <Navbar navItems={NAV_ITEMS} />
@@ -27,32 +38,34 @@ const HelpPageMobile: React.FC = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 px-4 py-16">
+      <div className="relative z-10 px-4 p-5">
         {/* Header Section */}
-        <motion.div
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-6 leading-tight">
-            How Can We <br /><span className="underline decoration-2 underline-offset-4">Support</span> You?
+        <div className="text-white mb-8">
+          <h1 className="text-3xl font-bold mb-6">
+            {renderRichTextContent(data.title)}
           </h1>
-          <p className="text-lg leading-relaxed text-white/90 max-w-2xl mx-auto px-4">
-            Nothing beats a one-on-one discussion. If you&apos;d like to learn more about our tailored solutions, drop us a line and one of our consultants will reach out shortly.
+          <p className="text-lg text-white/90 mb-6">
+            {data.description}
           </p>
-        </motion.div>
+
+          {/* Attachment Buttons */}
+          {data.attachment && data.attachment.length > 0 && (
+            <div className="space-y-3 mb-8">
+              {data.attachment.map((attachment, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleDownload(attachment)}
+                  className="text-white py-3 px-4 font-medium hover:bg-blue-700 transition-colors border w-full text-left text-sm"
+                >
+                  📎 {attachment.alternativeText || attachment.media.name}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
 
         {/* Form Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
-        >
-          <HelpFormMobile />
-        </motion.div>
+        <HelpFormMobile data={data} />
       </div>
 
       <Footer />
