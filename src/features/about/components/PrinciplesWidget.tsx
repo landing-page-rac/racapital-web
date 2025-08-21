@@ -15,6 +15,13 @@ const PrinciplesWidget: React.FC<PrinciplesWidgetProps> = ({ principles = [] }) 
     principles.length > 0 ? principles[0] : null
   );
 
+  // Ensure the first principle is selected when principles change
+  React.useEffect(() => {
+    if (principles.length > 0 && !activePrinciple) {
+      setActivePrinciple(principles[0]);
+    }
+  }, [principles, activePrinciple]);
+
   return (
     <section className="relative z-20">
       <div className="flex flex-col lg:flex-row">
