@@ -1,17 +1,14 @@
 'use client';
 
+import React from 'react';
+import { useResponsiveHero } from '../hooks/useResponsiveHero';
 import Footer from './Footer';
 import FooterMobile from './FooterMobile';
-import { useResponsiveHero } from '../hooks/useResponsiveHero';
 
 const FooterWrapper: React.FC = () => {
   const isMobile = useResponsiveHero();
 
-  if (isMobile) {
-    return <FooterMobile />;
-  }
-
-  return <Footer />;
+  return isMobile ? <FooterMobile /> : <Footer />;
 };
 
 export default FooterWrapper; 

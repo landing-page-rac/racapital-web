@@ -19,7 +19,7 @@ class SimpleCache {
 
       if (!cachedItem) return null;
 
-      const parsed: CacheData<T> = JSON.parse(cachedItem);
+      const parsed: CacheData<T> = JSON.parse(cachedItem as string);
       const isExpired = Date.now() - parsed.timestamp > this.CACHE_DURATION;
 
       if (isExpired) {
