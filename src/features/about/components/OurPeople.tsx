@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
 import { AboutUsTeamMember, AboutUsFlagshipService } from '../types';
+import { renderRichTextContent } from '@/shared/utils/contentRenderer';
 import FlagshipService from './FlagshipService';
 
 interface OurPeopleProps {
@@ -184,7 +185,7 @@ const OurPeople: React.FC<OurPeopleProps> = ({ teamMembers = [], flagshipService
           }
         `}</style>
           {teamMembers.map((person, index) => {
-            const isZoomed = hoveredIdx === index;
+            const isZoomed = hoveredIdx === index || activeIdx == index;
             return (
               <div
                 key={index}
@@ -196,23 +197,33 @@ const OurPeople: React.FC<OurPeopleProps> = ({ teamMembers = [], flagshipService
                 onBlur={() => setHoveredIdx(null)}
                 tabIndex={0}
               >
-                <div className="bg-transparent hover:bg-white transition-all duration-300 ease-in-out p-4 shadow-sm hover:shadow-lg h-full group">
+                <div
+                  className={`bg-transparent transition-all duration-300 ease-in-out p-4 shadow-sm h-full group ${isZoomed ? 'bg-white shadow-lg' : ''
+                    } hover:bg-white hover:shadow-lg`}
+                >
                   {/* Image */}
                   <div className="relative w-full h-48 mb-4 overflow-hidden">
                     <Image
                       src={person.photo.image.url}
                       alt={person.photo.alternativeText || person.name}
                       fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      className={`object-cover transition-transform duration-300 ${isZoomed ? 'scale-105' : ''
+                        } group-hover:scale-105`}
                     />
                   </div>
 
                   {/* Name and Position */}
                   <div className="text-center">
-                    <h3 className="text-lg font-semibold text-white group-hover:text-blue-600 transition-colors duration-300 mb-2">
+                    <h3
+                      className={`text-lg font-semibold transition-colors duration-300 mb-2 ${isZoomed ? 'text-blue-600' : 'text-white'
+                        } group-hover:text-blue-600`}
+                    >
                       {person.name}
                     </h3>
-                    <p className="text-gray-200 group-hover:text-gray-700 transition-colors duration-300 text-sm">
+                    <p
+                      className={`transition-colors duration-300 text-sm ${isZoomed ? 'text-gray-700' : 'text-gray-200'
+                        } group-hover:text-gray-700`}
+                    >
                       {person.role}
                     </p>
                   </div>
@@ -222,10 +233,21 @@ const OurPeople: React.FC<OurPeopleProps> = ({ teamMembers = [], flagshipService
           })}
         </div>
 
-        <div className="max-w-5xl mx-auto mt-8 mb-8 px-4 text-center">
-          <p className="text-base md:text-lg text-gray-200">
-            Lorem Ipsum  is a seasoned financial strategist who studied Economics at the University of Indonesia and earned her MBA from Harvard Business School. With over 15 years’ experience advising multinational family offices, she drives RAC’s vision for sustainable value creation.
-          </p>
+        {/* Bio Display - Show when hovering over a card or default to first person */}
+        <div className="max-w-5xl mx-auto mt-8 mb-8 px-4 text-center min-h-[80px]">
+          {teamMembers.length > 0 && (
+            <motion.div
+              key={hoveredIdx !== null ? hoveredIdx : activeIdx}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="text-base md:text-lg text-gray-200">
+                {renderRichTextContent(teamMembers[hoveredIdx !== null ? hoveredIdx : activeIdx].bio)}
+              </div>
+            </motion.div>
+          )}
         </div>
 
         {/* Navigation Buttons */}

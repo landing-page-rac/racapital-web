@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import superGraphic from '../../landing/assets/super-graphic-1.png';
 import { AboutUsTeamMember, AboutUsFlagshipService } from '../types';
+import { renderRichTextContent } from '@/shared/utils/contentRenderer';
 import Container from '../../../shared/components/ui/Container';
 import FlagshipServiceMobile from './FlagshipServiceMobile';
 
@@ -207,9 +208,18 @@ const OurPeopleMobile: React.FC<OurPeopleMobileProps> = ({ teamMembers = [], fla
               transition={{ duration: 0.8, delay: 0.3 }}
             >
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-                <p className="text-sm sm:text-base text-gray-200 leading-relaxed">
-                  Lorem Ipsum is a seasoned financial strategist who studied Economics at the University of Indonesia and earned her MBA from Harvard Business School. With over 15 years&apos; experience advising multinational family offices, she drives RAC&apos;s vision for sustainable value creation.
-                </p>
+                {teamMembers.length > 0 && teamMembers[safeCurrentIndex] && (
+                  <motion.div
+                    key={safeCurrentIndex}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <div className="text-sm sm:text-base text-gray-200 leading-relaxed">
+                      {renderRichTextContent(teamMembers[safeCurrentIndex].bio)}
+                    </div>
+                  </motion.div>
+                )}
               </div>
             </motion.div>
           </div>
