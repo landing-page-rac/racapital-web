@@ -32,7 +32,10 @@ export { default as ContactSectionWrapper } from './components/ContactSectionWra
 // Hooks
 export { useLandingPageData } from './hooks/useLandingPageData';
 export { useLandingPageDataCached } from './hooks/useLandingPageDataCached';
+export { useFooterData } from './hooks/useFooterData';
+export { useFooterDataCached } from './hooks/useFooterDataCached';
 export { useResponsiveHero } from './hooks/useResponsiveHero';
 
 // Types
-export * from './types'; 
+export * from './types';
+export * from './types/footer'; 
