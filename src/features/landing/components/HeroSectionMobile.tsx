@@ -7,9 +7,6 @@ import Container from '../../../shared/components/ui/Container';
 import Navbar from './Navbar';
 import { RichTextParagraph } from '@/shared/types';
 import { renderInlineBlock, renderRichTextContent } from '@/shared/utils/contentRenderer';
-import hero1 from '../assets/hero-1.png';
-import hero2 from '../assets/hero-2.png';
-import hero3 from '../assets/hero-3.png';
 import superGraphic from '../assets/super-graphic-1.png';
 
 interface HeroSectionMobileProps {
@@ -90,8 +87,8 @@ const HeroSectionMobile: React.FC<HeroSectionMobileProps> = ({ navItems, aboutUs
             >
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src={hero1}
-                  alt="RAC Capital Management"
+                  src={heroContent?.centerImage?.image?.url || ''}
+                  alt={heroContent?.centerImage?.alternativeText || "RAC Capital Management"}
                   width={800}
                   height={600}
                   className="w-full h-auto object-cover"
@@ -138,8 +135,8 @@ const HeroSectionMobile: React.FC<HeroSectionMobileProps> = ({ navItems, aboutUs
               <div className="relative group">
                 <div className="relative rounded-xl overflow-hidden shadow-lg">
                   <Image
-                    src={hero2}
-                    alt="Financial Advisory"
+                    src={heroContent?.leftImage?.image?.url || ''}
+                    alt={heroContent?.leftImage?.alternativeText || "Financial Advisory"}
                     width={400}
                     height={300}
                     className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
@@ -155,8 +152,8 @@ const HeroSectionMobile: React.FC<HeroSectionMobileProps> = ({ navItems, aboutUs
               <div className="relative group">
                 <div className="relative rounded-xl overflow-hidden shadow-lg">
                   <Image
-                    src={hero3}
-                    alt="Investment Strategy"
+                    src={heroContent?.rightImage?.image?.url || ''}
+                    alt={heroContent?.rightImage?.alternativeText || "Investment Strategy"}
                     width={400}
                     height={300}
                     className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"

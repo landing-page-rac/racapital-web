@@ -6,9 +6,6 @@ import { HeroSectionContentType, NavItem } from '../types';
 import Container from '../../../shared/components/ui/Container';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import Navbar from './Navbar';
-import hero1 from '../assets/hero-1.png';
-import hero2 from '../assets/hero-2.png';
-import hero3 from '../assets/hero-3.png';
 import superGraphic from '../assets/super-graphic-1.png';
 import { RichTextParagraph } from '@/shared/types';
 import { renderInlineBlock, renderRichTextContent } from '@/shared/utils/contentRenderer';
@@ -105,8 +102,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ navItems, aboutUsIntro, heroC
                 }}
               >
                 <Image
-                  src={hero2}
-                  alt="Hero Image 1"
+                  src={heroContent?.leftImage?.image?.url || ''}
+                  alt={heroContent?.leftImage?.alternativeText || "Hero Image 1"}
                   width={600}
                   height={400}
                   className="w-full h-auto object-cover rounded-lg shadow-2xl"
@@ -134,8 +131,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ navItems, aboutUsIntro, heroC
                 }}
               >
                 <Image
-                  src={hero1}
-                  alt="Hero Image 2"
+                  src={heroContent?.centerImage?.image?.url || ''}
+                  alt={heroContent?.centerImage?.alternativeText || "Hero Image 2"}
                   width={800}
                   height={600}
                   className="w-full h-auto object-cover rounded-lg shadow-2xl"
@@ -165,8 +162,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ navItems, aboutUsIntro, heroC
                 }}
               >
                 <Image
-                  src={hero3}
-                  alt="Hero Image 3"
+                  src={heroContent?.rightImage?.image?.url || ''}
+                  alt={heroContent?.rightImage?.alternativeText || "Hero Image 3"}
                   width={600}
                   height={400}
                   className="w-full h-auto object-cover rounded-lg shadow-2xl"
