@@ -14,6 +14,12 @@ const EventAttachment: React.FC<EventAttachmentProps> = ({ event }) => {
 
   if (!event.attachment || !event.attachment.media || !event.attachment.media.url) return null;
 
+  // Extract file key from URL by removing the S3 base URL
+  const getFileKey = (url: string) => {
+    const baseUrl = 'https://rac-content-bucket.s3.ap-southeast-3.amazonaws.com';
+    return url.replace(baseUrl, '').replace(/^\//, ''); // Remove leading slash if present
+  };
+
   const handleDownload = (formData: { fullName: string; email: string; phone: string }) => {
     // Here you can implement the actual download logic
     console.log('Download requested with form data:', formData);
@@ -49,6 +55,10 @@ const EventAttachment: React.FC<EventAttachmentProps> = ({ event }) => {
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <DownloadForm
           title={event.title || 'Event'}
+          collectionType="Event"
+          collectionIdentifier={event.documentId}
+          fileKey={getFileKey(event.attachment.media.url)}
+          fileUrl={event.attachment.media.url}
           onDownload={handleDownload}
           onClose={() => setIsModalOpen(false)}
         />

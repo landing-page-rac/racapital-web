@@ -14,6 +14,12 @@ const InsightAttachment: React.FC<InsightAttachmentProps> = ({ insight }) => {
 
   if (!insight.attachment || !insight.attachment.media || !insight.attachment.media.url) return null;
 
+  // Extract file key from URL by removing the S3 base URL
+  const getFileKey = (url: string) => {
+    const baseUrl = 'https://rac-content-bucket.s3.ap-southeast-3.amazonaws.com';
+    return url.replace(baseUrl, '').replace(/^\//, ''); // Remove leading slash if present
+  };
+
   const handleDownload = (formData: { fullName: string; email: string; phone: string }) => {
     // Here you can implement the actual download logic
     console.log('Download requested with form data:', formData);
@@ -49,6 +55,10 @@ const InsightAttachment: React.FC<InsightAttachmentProps> = ({ insight }) => {
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <DownloadForm
           title={insight.title || 'Insight'}
+          collectionType="Insight"
+          collectionIdentifier={insight.documentId}
+          fileKey={getFileKey(insight.attachment.media.url)}
+          fileUrl={insight.attachment.media.url}
           onDownload={handleDownload}
           onClose={() => setIsModalOpen(false)}
         />
