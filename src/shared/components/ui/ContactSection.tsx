@@ -19,7 +19,7 @@ const ContactSection: React.FC = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <ContactText />
           <ContactForm />

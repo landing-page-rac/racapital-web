@@ -4,4 +4,6 @@ export { default as ContactSection } from './ContactSection';
 export { default as ContactSectionMobile } from './ContactSectionMobile';
 export { default as ContactForm } from './ContactForm';
 export { default as ContactText } from './ContactText';
-export { default as LoadingSpinner } from './LoadingSpinner'; 
+export { default as LoadingSpinner } from './LoadingSpinner';
+export { default as Modal } from './Modal';
+export { default as DownloadForm } from './DownloadForm'; 
