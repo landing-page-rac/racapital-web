@@ -15,7 +15,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   return (
     <AnimatePresence>
       <motion.div
-        className="fixed inset-0 z-50 flex items-center justify-center"
+        className="fixed inset-0 z-50 flex items-center justify-center p-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -23,7 +23,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
       >
         {/* Modal Content */}
         <motion.div
-          className="relative bg-white p-6 max-w-xl w-full mx-4 shadow-xl"
+          className="relative bg-white rounded-lg w-full max-w-md md:max-w-xl max-h-[90vh] overflow-y-auto"
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
@@ -32,14 +32,14 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl font-bold"
+            className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-2xl font-bold z-10 bg-white rounded-full w-8 h-8 flex items-center justify-center shadow-sm"
             aria-label="Close modal"
           >
             ×
           </button>
 
           {/* Modal Content */}
-          <div className="text-center">
+          <div className="p-4 sm:p-6">
             {children}
           </div>
         </motion.div>

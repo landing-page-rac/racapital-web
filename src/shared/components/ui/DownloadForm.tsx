@@ -75,16 +75,16 @@ const DownloadForm: React.FC<DownloadFormProps> = ({
   };
 
   return (
-    <div className="bg-white p-2">
-      <h2 className="text-2xl font-bold text-[#0D52E5] mb-2 text-center">
+    <div className="text-center">
+      <h2 className="text-xl sm:text-2xl font-bold text-[#0D52E5] mb-2">
         Please provide your contact details to download this content
       </h2>
-      <p className="text-[#0D52E5] text-sm mb-6 text-center">
+      <p className="text-[#0D52E5] text-sm mb-6">
         Summary of {title}
       </p>
 
       {isError && (
-        <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+        <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded text-sm">
           {error || 'An error occurred. Please try again.'}
         </div>
       )}
@@ -97,20 +97,20 @@ const DownloadForm: React.FC<DownloadFormProps> = ({
             value={formData.fullName}
             onChange={handleInputChange}
             placeholder="FULL NAME"
-            className="w-full px-4 py-3 border border-[#0D52E5] rounded text-[#0D52E5] placeholder-[#0D52E5] focus:outline-none focus:ring-2 focus:ring-[#0D52E5] focus:border-transparent"
+            className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-[#0D52E5] rounded text-[#0D52E5] placeholder-[#0D52E5] focus:outline-none focus:ring-2 focus:ring-[#0D52E5] focus:border-transparent text-sm sm:text-base"
             required
             disabled={isLoading}
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <input
             type="email"
             name="email"
             value={formData.email}
             onChange={handleInputChange}
             placeholder="EMAIL ADDRESS"
-            className="w-full px-4 py-3 border border-[#0D52E5] rounded text-[#0D52E5] placeholder-[#0D52E5] focus:outline-none focus:ring-2 focus:ring-[#0D52E5] focus:border-transparent"
+            className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-[#0D52E5] rounded text-[#0D52E5] placeholder-[#0D52E5] focus:outline-none focus:ring-2 focus:ring-[#0D52E5] focus:border-transparent text-sm sm:text-base"
             required
             disabled={isLoading}
           />
@@ -120,7 +120,7 @@ const DownloadForm: React.FC<DownloadFormProps> = ({
             value={formData.phone}
             onChange={handleInputChange}
             placeholder="PHONE NUMBER"
-            className="w-full px-4 py-3 border border-[#0D52E5] rounded text-[#0D52E5] placeholder-[#0D52E5] focus:outline-none focus:ring-2 focus:ring-[#0D52E5] focus:border-transparent"
+            className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-[#0D52E5] rounded text-[#0D52E5] placeholder-[#0D52E5] focus:outline-none focus:ring-2 focus:ring-[#0D52E5] focus:border-transparent text-sm sm:text-base"
             required
             disabled={isLoading}
           />
@@ -128,7 +128,7 @@ const DownloadForm: React.FC<DownloadFormProps> = ({
 
         <button
           type="submit"
-          className="w-full bg-[#0D52E5] text-white py-3 px-6 rounded font-semibold hover:bg-[#0A3FB8] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full bg-[#0D52E5] text-white py-2 sm:py-3 px-4 sm:px-6 rounded font-semibold hover:bg-[#0A3FB8] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
           disabled={isLoading}
         >
           {isLoading ? 'PROCESSING...' : 'DOWNLOAD'}

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Navbar from '../../landing/components/Navbar';
@@ -11,12 +11,26 @@ import { NAV_ITEMS } from '@/shared/constants/navigation';
 import { InsightData } from '../types';
 import { renderRichTextContent } from '@/shared/utils/contentRenderer';
 import { InsightAccordion, InsightService } from './sections';
+import { Modal, DownloadForm } from '@/shared/components/ui';
 
 interface InsightDetailPageMobileProps {
   insight: InsightData;
 }
 
 const InsightDetailPageMobile: React.FC<InsightDetailPageMobileProps> = ({ insight }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Extract file key from URL by removing the S3 base URL
+  const getFileKey = (url: string) => {
+    const baseUrl = 'https://rac-content-bucket.s3.ap-southeast-3.amazonaws.com';
+    return url.replace(baseUrl, '').replace(/^\//, ''); // Remove leading slash if present
+  };
+
+  const handleDownload = (formData: { fullName: string; email: string; phone: string }) => {
+    console.log('Download requested with form data:', formData);
+    console.log('File URL:', insight.attachment?.media?.url);
+  };
+
   return (
     <div className="min-h-screen">
       <div className="relative bg-gradient-to-br from-[#051F42] via-[#002d72] to-[#051F42] text-white overflow-hidden">
@@ -140,21 +154,32 @@ const InsightDetailPageMobile: React.FC<InsightDetailPageMobileProps> = ({ insig
                   <div className="text-blue-300 text-sm uppercase tracking-wider mb-3">
                     Attachment
                   </div>
-                  <a
-                    href={insight.attachment.media.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white hover:text-blue-300 transition-colors duration-200 flex items-center text-lg"
+                  <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="text-white hover:text-blue-300 transition-colors duration-200 flex items-center text-lg w-full text-left"
                   >
                     <span className="mr-3 text-xl">📎</span>
-                    {insight.attachment.media.name || 'Download Attachment'}
-                  </a>
+                    {insight.attachment.media.name || 'Download Summary File'}
+                  </button>
                 </div>
               </motion.div>
             )}
           </div>
         </main>
       </div>
+
+      {/* Modal */}
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <DownloadForm
+          title={insight.title || 'Insight'}
+          collectionType="Insight"
+          collectionIdentifier={insight.documentId}
+          fileKey={getFileKey(insight.attachment.media.url)}
+          fileUrl={insight.attachment.media.url}
+          onDownload={handleDownload}
+          onClose={() => setIsModalOpen(false)}
+        />
+      </Modal>
 
       <ContactSectionMobile />
       <FooterMobile />
