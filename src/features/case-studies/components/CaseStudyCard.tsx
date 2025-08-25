@@ -32,7 +32,7 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
         }}
       >
         <Image
-          src={caseStudy.image.image.url}
+          src={caseStudy.mainImage.image.url}
           alt={caseStudy.image.alternativeText || caseStudy.title}
           fill
           style={{ objectFit: 'cover', objectPosition: 'center' }}
