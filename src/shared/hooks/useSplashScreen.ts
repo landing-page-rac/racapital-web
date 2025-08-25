@@ -13,11 +13,29 @@ export const useSplashScreen = ({
   timeoutMs = 5000,
   minDisplayMs = 3000
 }: UseSplashScreenProps) => {
-  const [showSplash, setShowSplash] = useState(true);
+  const [showSplash, setShowSplash] = useState(false);
   const [hasTimedOut, setHasTimedOut] = useState(false);
-  const [startTime] = useState(Date.now());
+  const [startTime, setStartTime] = useState<number | null>(null);
 
   useEffect(() => {
+    // Check if splash screen has been shown in this session
+    const hasShownSplash = sessionStorage.getItem('splashScreenShown');
+
+    if (hasShownSplash) {
+      // Splash screen already shown in this session, don't show it again
+      setShowSplash(false);
+      return;
+    }
+
+    // Mark splash screen as shown for this session
+    sessionStorage.setItem('splashScreenShown', 'true');
+    setShowSplash(true);
+    setStartTime(Date.now());
+  }, []);
+
+  useEffect(() => {
+    if (!showSplash || !startTime) return;
+
     let timeoutId: NodeJS.Timeout;
 
     // Calculate how much time has passed since splash started
@@ -41,7 +59,7 @@ export const useSplashScreen = ({
       if (timeoutId) clearTimeout(timeoutId);
       clearTimeout(timeoutTimer);
     };
-  }, [isLoading, hasTimedOut, timeoutMs, minDisplayMs, startTime]);
+  }, [isLoading, hasTimedOut, timeoutMs, minDisplayMs, startTime, showSplash]);
 
   return {
     showSplash,
