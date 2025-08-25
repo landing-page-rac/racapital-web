@@ -21,7 +21,7 @@ const InsightMainImage: React.FC<InsightMainImageProps> = ({ insight }) => {
     >
       <div className="relative w-full h-96 md:h-[350px]">
         <Image
-          src={insight.image.image.url}
+          src={insight.mainImage.image.url}
           alt={insight.image.alternativeText || insight.title}
           fill
           className="object-cover object-center"

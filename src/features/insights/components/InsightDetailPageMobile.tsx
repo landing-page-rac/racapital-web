@@ -80,7 +80,7 @@ const InsightDetailPageMobile: React.FC<InsightDetailPageMobileProps> = ({ insig
               >
                 <div className="relative w-full h-72 rounded-lg overflow-hidden shadow-lg">
                   <Image
-                    src={insight.image.image.url}
+                    src={insight.mainImage.image.url}
                     alt={insight.image.alternativeText || insight.title}
                     fill
                     className="object-cover object-center"
