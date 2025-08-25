@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import superGraphic from '../assets/super-graphic-white.png';
+import racIcon from '../assets/rac-icon.png';
 import { useFooterDataCached } from '../hooks/useFooterDataCached';
 import { renderRichTextContent } from '@/shared/utils/contentRenderer';
 
@@ -26,11 +27,13 @@ const Footer: React.FC = () => {
             {/* Left Column - Logo and Copyright */}
             <div className="space-y-8">
               <div className="flex items-center space-x-3">
-                <div className="text-3xl font-bold">RAC</div>
-                <div className="flex flex-col text-sm uppercase">
-                  <span>CAPITAL</span>
-                  <span>MANAGEMENT</span>
-                </div>
+                <Image
+                  src={racIcon}
+                  alt="RAC Capital Management"
+                  width={150}
+                  height={80}
+                  className="object-contain"
+                />
               </div>
               <div className="text-sm opacity-80">
                 Copyright © 2025 RAC Capital
@@ -117,11 +120,13 @@ const Footer: React.FC = () => {
           <div className="space-y-8">
             {/* Logo */}
             <div className="flex items-center space-x-3">
-              <div className="text-3xl font-bold">RAC</div>
-              <div className="flex flex-col text-sm uppercase">
-                <span>CAPITAL</span>
-                <span>MANAGEMENT</span>
-              </div>
+              <Image
+                src={racIcon}
+                alt="RAC Capital Management"
+                width={200}
+                height={100}
+                className="object-contain"
+              />
             </div>
 
             {/* Copyright */}

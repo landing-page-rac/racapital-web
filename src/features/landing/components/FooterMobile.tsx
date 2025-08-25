@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import superGraphic from '../assets/super-graphic-white.png';
+import racIcon from '../assets/rac-icon.png';
 import { useFooterDataCached } from '../hooks/useFooterDataCached';
 import { renderRichTextContent } from '@/shared/utils/contentRenderer';
 
@@ -24,11 +25,13 @@ const FooterMobile: React.FC = () => {
         <div className="max-w-4xl mx-auto relative z-10">
           <div className="mb-8">
             <div className="flex items-center space-x-3 mb-4">
-              <div className="text-2xl font-bold">RAC</div>
-              <div className="flex flex-col text-sm uppercase">
-                <span>CAPITAL</span>
-                <span>MANAGEMENT</span>
-              </div>
+              <Image
+                src={racIcon}
+                alt="RAC Capital Management"
+                width={140}
+                height={70}
+                className="object-contain"
+              />
             </div>
             <div className="text-sm opacity-80">
               Copyright © 2025 RAC Capital
@@ -36,16 +39,35 @@ const FooterMobile: React.FC = () => {
           </div>
 
           <div className="space-y-6 mb-8">
-            <div>
-              <div className="flex items-start space-x-3">
-                <svg width="16" height="16" fill="currentColor" className="mt-1 flex-shrink-0" viewBox="0 0 24 24">
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-                </svg>
-                <div className="text-sm space-y-1">
-                  <div>Treasury Tower Office 1, Level 7.</div>
-                  <div>Scbd Lot 28</div>
-                  <div>Jl. Jenderal Sudirman Kav 52-53</div>
-                  <div>Jakarta, Indonesia</div>
+            {/* Addresses */}
+            <div className="space-y-4">
+              {/* First Address */}
+              <div>
+                <div className="flex items-start space-x-3">
+                  <svg width="16" height="16" fill="currentColor" className="mt-1 flex-shrink-0" viewBox="0 0 24 24">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                  </svg>
+                  <div className="text-sm space-y-1">
+                    <div>Treasury Tower Office 1, Level 7.</div>
+                    <div>Scbd Lot 28</div>
+                    <div>Jl. Jenderal Sudirman Kav 52-53</div>
+                    <div>Jakarta, Indonesia</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Second Address */}
+              <div>
+                <div className="flex items-start space-x-3">
+                  <svg width="16" height="16" fill="currentColor" className="mt-1 flex-shrink-0" viewBox="0 0 24 24">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                  </svg>
+                  <div className="text-sm space-y-1">
+                    <div>Treasury Tower Office 1, Level 7.</div>
+                    <div>Scbd Lot 28</div>
+                    <div>Jl. Jenderal Sudirman Kav 52-53</div>
+                    <div>Jakarta, Indonesia</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -115,11 +137,13 @@ const FooterMobile: React.FC = () => {
         {/* Logo and Brand */}
         <div className="mb-8">
           <div className="flex items-center space-x-3 mb-4">
-            <div className="text-2xl font-bold">RAC</div>
-            <div className="flex flex-col text-sm uppercase">
-              <span>CAPITAL</span>
-              <span>MANAGEMENT</span>
-            </div>
+            <Image
+              src={racIcon}
+              alt="RAC Capital Management"
+              width={140}
+              height={70}
+              className="object-contain"
+            />
           </div>
           <div className="text-sm opacity-80">
             Copyright © 2025 RAC Capital
@@ -128,14 +152,29 @@ const FooterMobile: React.FC = () => {
 
         {/* Contact Information */}
         <div className="space-y-6 mb-8">
-          {/* Address */}
-          <div>
-            <div className="flex items-start space-x-3">
-              <svg width="16" height="16" fill="currentColor" className="mt-1 flex-shrink-0" viewBox="0 0 24 24">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-              </svg>
-              <div className="text-sm space-y-1">
-                {renderRichTextContent(data.address1)}
+          {/* Addresses */}
+          <div className="space-y-4">
+            {/* First Address */}
+            <div>
+              <div className="flex items-start space-x-3">
+                <svg width="16" height="16" fill="currentColor" className="mt-1 flex-shrink-0" viewBox="0 0 24 24">
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                </svg>
+                <div className="text-sm space-y-1">
+                  {renderRichTextContent(data.address1)}
+                </div>
+              </div>
+            </div>
+
+            {/* Second Address */}
+            <div>
+              <div className="flex items-start space-x-3">
+                <svg width="16" height="16" fill="currentColor" className="mt-1 flex-shrink-0" viewBox="0 0 24 24">
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                </svg>
+                <div className="text-sm space-y-1">
+                  {renderRichTextContent(data.address2)}
+                </div>
               </div>
             </div>
           </div>
