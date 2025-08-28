@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import InsightDetailPageMobile from './InsightDetailPageMobile';
 import InsightDetailPageDesktop from './InsightDetailPageDesktop';
-import { InsightData } from '../types';
+import { useInsightDetailData } from '../hooks';
 
 // Custom hook for responsive rendering
 const useResponsiveInsightDetail = () => {
@@ -33,16 +33,7 @@ interface InsightDetailPageProps {
 
 const InsightDetailPage: React.FC<InsightDetailPageProps> = ({ documentId }) => {
   const isMobile = useResponsiveInsightDetail();
-  const [insight, setInsight] = useState<InsightData | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  useEffect(() => {
-    // TODO: Implement API call to fetch insight by ID
-    // For now, set loading to false and show error
-    setIsLoading(false);
-    setError(new Error('API implementation pending'));
-  }, [documentId]);
+  const { insight, isLoading, error } = useInsightDetailData(documentId);
 
   if (isLoading) {
     return (
