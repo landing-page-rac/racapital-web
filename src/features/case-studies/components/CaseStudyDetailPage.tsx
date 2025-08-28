@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import CaseStudyDetailPageMobile from './CaseStudyDetailPageMobile';
 import CaseStudyDetailPageDesktop from './CaseStudyDetailPageDesktop';
-import { CaseStudyData } from '../types';
+import { useCaseStudyDetailData } from '../hooks';
 
 // Custom hook for responsive rendering
 const useResponsiveCaseStudyDetail = () => {
@@ -33,16 +33,7 @@ interface CaseStudyDetailPageProps {
 
 const CaseStudyDetailPage: React.FC<CaseStudyDetailPageProps> = ({ documentId }) => {
   const isMobile = useResponsiveCaseStudyDetail();
-  const [caseStudy, setCaseStudy] = useState<CaseStudyData | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  useEffect(() => {
-    // TODO: Implement API call to fetch case study by ID
-    // For now, set loading to false and show error
-    setIsLoading(false);
-    setError(new Error('API implementation pending'));
-  }, [documentId]);
+  const { caseStudy, isLoading, error } = useCaseStudyDetailData(documentId);
 
   if (isLoading) {
     return (

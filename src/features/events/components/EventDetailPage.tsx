@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import EventDetailPageMobile from './EventDetailPageMobile';
 import EventDetailPageDesktop from './EventDetailPageDesktop';
-import { EventData } from '../types';
+import { useEventDetailData } from '../hooks';
 
 // Custom hook for responsive rendering
 const useResponsiveEventDetail = () => {
@@ -33,16 +33,7 @@ interface EventDetailPageProps {
 
 const EventDetailPage: React.FC<EventDetailPageProps> = ({ documentId }) => {
   const isMobile = useResponsiveEventDetail();
-  const [event, setEvent] = useState<EventData | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  useEffect(() => {
-    // TODO: Implement API call to fetch event by ID
-    // For now, set loading to false and show error
-    setIsLoading(false);
-    setError(new Error('API implementation pending'));
-  }, [documentId]);
+  const { event, isLoading, error } = useEventDetailData(documentId);
 
   if (isLoading) {
     return (
