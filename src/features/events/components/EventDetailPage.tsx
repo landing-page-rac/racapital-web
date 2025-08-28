@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import EventDetailPageMobile from './EventDetailPageMobile';
 import EventDetailPageDesktop from './EventDetailPageDesktop';
 import { useEventDetailData } from '../hooks';
+import { LoadingScreen } from '@/shared/components';
 
 // Custom hook for responsive rendering
 const useResponsiveEventDetail = () => {
@@ -36,17 +37,7 @@ const EventDetailPage: React.FC<EventDetailPageProps> = ({ documentId }) => {
   const { event, isLoading, error } = useEventDetailData(documentId);
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen">
-        <div className="relative bg-gradient-to-br from-[#051F42] via-[#002d72] to-[#051F42] text-white overflow-hidden">
-          <div className="flex items-center justify-center min-h-screen">
-            <div className="text-center">
-              <p className="text-2xl mb-4">Loading event...</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+    return <LoadingScreen message="Loading event..." />;
   }
 
   if (error || !event) {
