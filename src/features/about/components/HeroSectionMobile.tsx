@@ -89,9 +89,9 @@ const HeroSectionMobile: React.FC<HeroSectionMobileProps> = ({ data }) => {
               {data?.hero?.body || "is an independent and privately owned multi-family office, investment & corporate finance advisory firm. We partner with leading family groups and institutions to promote value creation and competitive edge. Headquartered in Indonesia, RAC operates in the key market of one of the most promising region"}
             </motion.p>
 
-            {/* Stats with number animation - Mobile optimized grid */}
+            {/* Stats with number animation - Mobile optimized flex */}
             <motion.div
-              className="grid grid-cols-2 gap-6 mb-8"
+              className="flex flex-wrap justify-center gap-6 mb-8"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
@@ -103,7 +103,7 @@ const HeroSectionMobile: React.FC<HeroSectionMobileProps> = ({ data }) => {
               {metrics.map((stat, index) => (
                 <motion.div
                   key={stat.label}
-                  className="text-center bg-white/10 backdrop-blur-sm rounded-xl p-4"
+                  className="text-center bg-white/10 backdrop-blur-sm rounded-xl p-4 flex-1 min-w-[140px] max-w-[180px]"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{
