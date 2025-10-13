@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Navbar from '../../landing/components/Navbar';
@@ -18,41 +18,6 @@ interface HeroSectionProps {
 
 const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
   const metrics = useMemo(() => data?.hero?.metrics || [], [data?.hero?.metrics]);
-  const [animatedStats, setAnimatedStats] = useState(metrics.map(() => 0));
-
-  useEffect(() => {
-    if (metrics.length === 0) return;
-
-    const animateNumbers = () => {
-      const duration = 2000; // 2 seconds
-      const steps = 60;
-      const stepDuration = duration / steps;
-
-      let currentStep = 0;
-
-      const interval = setInterval(() => {
-        currentStep++;
-        const progress = currentStep / steps;
-
-        setAnimatedStats(metrics.map((stat) => {
-          const targetValue = parseInt(stat.value);
-          const currentValue = Math.floor(targetValue * progress);
-          return currentValue;
-        }));
-
-        if (currentStep >= steps) {
-          clearInterval(interval);
-          setAnimatedStats(metrics.map(stat => parseInt(stat.value)));
-        }
-      }, stepDuration);
-
-      return () => clearInterval(interval);
-    };
-
-    // Start animation after a delay
-    const timer = setTimeout(animateNumbers, 800);
-    return () => clearTimeout(timer);
-  }, [metrics]);
 
   return (
     <section className="relative bg-[#051F42] text-white overflow-hidden">
@@ -128,7 +93,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
               }}
             >
               <div className="text-white text-5xl md:text-6xl font-bold mb-2">
-                {animatedStats[index]}
+                {stat.value}
               </div>
               <div className="text-white text-lg md:text-xl opacity-90">{stat.label}</div>
             </motion.div>
