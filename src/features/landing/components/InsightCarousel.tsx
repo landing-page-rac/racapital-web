@@ -253,7 +253,7 @@ const InsightCarousel: React.FC<{ cards?: CardData[], aspirationQuote?: string }
           </button>
         </div>
 
-        <p className='text-center mt-10 text-3xl px-44'>{aspirationQuote}</p>
+        <p className='text-center mt-10 text-3xl px-44 text-white'>{aspirationQuote}</p>
 
         <InsightsButton />
       </div>
