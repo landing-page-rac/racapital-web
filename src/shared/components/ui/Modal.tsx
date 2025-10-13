@@ -35,7 +35,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
             className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-2xl font-bold z-10 bg-white rounded-full w-8 h-8 flex items-center justify-center shadow-sm"
             aria-label="Close modal"
           >
-            ×
+            x
           </button>
 
           {/* Modal Content */}
