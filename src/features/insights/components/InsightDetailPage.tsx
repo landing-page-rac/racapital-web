@@ -37,7 +37,7 @@ const InsightDetailPage: React.FC<InsightDetailPageProps> = ({ documentId }) => 
   const { insight, isLoading, error } = useInsightDetailData(documentId);
 
   if (isLoading) {
-    return <LoadingScreen message="Loading insight..." />;
+    return <LoadingScreen message="Loading Perspective..." />;
   }
 
   if (error || !insight) {
@@ -46,9 +46,9 @@ const InsightDetailPage: React.FC<InsightDetailPageProps> = ({ documentId }) => 
         <div className="relative bg-gradient-to-br from-[#051F42] via-[#002d72] to-[#051F42] text-white overflow-hidden">
           <div className="flex items-center justify-center min-h-screen">
             <div className="text-center">
-              <p className="text-2xl mb-4">Insight not found</p>
+              <p className="text-2xl mb-4">Perspective not found</p>
               <p className="text-lg text-gray-300">
-                The insight you&apos;re looking for doesn&apos;t exist or has been removed.
+                The Perspective you&apos;re looking for doesn&apos;t exist or has been removed.
               </p>
             </div>
           </div>

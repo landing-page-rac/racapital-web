@@ -3,7 +3,7 @@ const ContactText: React.FC = () => {
     <div className="text-white">
       {/* Heading */}
       <h2 className="text-4xl font-bold mb-6">
-        How Can We <span className="underline">Support</span> <br />You?
+        How Can We <span className="underline">Aid</span> <br />You?
       </h2>
 
       {/* Description */}

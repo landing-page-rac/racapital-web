@@ -15,7 +15,7 @@ export const NAV_ITEMS: NavItem[] = [
     href: '/services',
   },
   {
-    label: 'Insights',
+    label: 'Perspective',
     href: '/insights',
   },
   {

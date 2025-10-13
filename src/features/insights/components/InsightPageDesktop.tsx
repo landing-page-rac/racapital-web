@@ -53,7 +53,7 @@ const InsightPageDesktop: React.FC<InsightPageDesktopProps> = ({
               transition={{ duration: 0.8 }}
             >
               <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-                Insights
+                Perspective
               </h1>
               <p className="text-xl text-gray-200 max-w-3xl mx-auto">
                 Discover our latest thoughts and perspectives on market trends, investment strategies, and industry developments.
@@ -68,11 +68,11 @@ const InsightPageDesktop: React.FC<InsightPageDesktopProps> = ({
             >
               {isLoading ? (
                 <div className="text-center text-gray-200 col-span-full">
-                  <p className="text-2xl mb-4">Loading insights...</p>
+                  <p className="text-2xl mb-4">Loading Perspective...</p>
                 </div>
               ) : error ? (
                 <div className="text-center text-gray-200 col-span-full">
-                  <p className="text-2xl mb-4">Error loading insights</p>
+                  <p className="text-2xl mb-4">Error loading Perspective</p>
                   <p className="text-lg text-gray-300">
                     Please try again later.
                   </p>
@@ -88,9 +88,9 @@ const InsightPageDesktop: React.FC<InsightPageDesktopProps> = ({
                 ))
               ) : (
                 <div className="text-center text-gray-200 col-span-full">
-                  <p className="text-2xl mb-4">No insights available</p>
+                  <p className="text-2xl mb-4">No Perspective available</p>
                   <p className="text-lg text-gray-300">
-                    Check back soon for our latest insights and analysis.
+                    Check back soon for our latest Perspective and analysis.
                   </p>
                 </div>
               )}
