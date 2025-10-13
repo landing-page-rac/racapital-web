@@ -71,7 +71,7 @@ const ContactSectionMobile: React.FC = () => {
           viewport={{ once: true }}
         >
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6 leading-tight">
-            How Can We <span className="underline decoration-2 underline-offset-4">Support</span> You?
+            How Can We <span className="underline decoration-2 underline-offset-4">Aid</span> You?
           </h2>
           <p className="text-lg leading-relaxed text-blue-100 max-w-2xl mx-auto">
             Nothing beats a one-on-one discussion. If you&apos;d like to learn more about our tailored solutions, drop us a line and one of our consultants will reach out shortly.
