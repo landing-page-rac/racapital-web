@@ -41,7 +41,7 @@ export interface EventData {
   location: string;
   date: string;
   mainImage: EventImage;
-  service: EventService;
+  services: EventService[];
   image: EventImage;
   collapsibleList: EventCollapsibleItem[];
   attachment: EventAttachment;

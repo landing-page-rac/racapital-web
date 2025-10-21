@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { ReportBanner } from '../types';
-import cta2Img from '../assets/cta-2.png';
 import { Modal, DownloadForm } from '../../../shared/components/ui';
 
 interface StewardshipCTAProps {
@@ -31,22 +30,35 @@ const StewardshipCTA: React.FC<StewardshipCTAProps> = ({ reportBanner }) => {
     // window.open(reportBanner?.attachment?.media?.url, '_blank');
   };
 
+  const imageUrl = reportBanner?.attachment?.media?.url;
+  const imageAlt = reportBanner?.attachment?.alternativeText || 'Stewardship Report';
+
   return (
     <>
-      <section className="bg-[#002E73] border border-[#0a2342] px-4 md:px-8 overflow-hidden">
-        <div className="flex flex-col md:flex-row items-center md:items-stretch">
-          <div className="flex-shrink-0 w-full md:w-1/2 flex justify-center">
-            <div className="relative transform ">
-              <Image
-                src={cta2Img}
-                alt="Fourth Annual Stewardship Report"
-                className="object-contain w-full max-w-sm md:max-w-md"
-                style={{ maxHeight: '300px' }}
-              />
-            </div>
+      <section className="bg-[#002E73] border border-[#0a2342] overflow-hidden">
+        <div className="flex flex-col md:flex-row items-center md:items-stretch min-h-[400px]">
+          {/* Left side - Image */}
+          <div className="w-full md:w-1/2 flex items-center justify-center p-8 md:p-12">
+            {imageUrl ? (
+              <div className="relative w-full h-full min-h-[300px] md:min-h-[400px]">
+                <Image
+                  src={imageUrl}
+                  alt={imageAlt}
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+            ) : (
+              <div className="flex items-center justify-center w-full h-full min-h-[300px] md:min-h-[400px] bg-[#001F4D] rounded-lg">
+                <span className="text-white/50 text-lg">No image available</span>
+              </div>
+            )}
           </div>
-          <div className="flex-1 flex flex-col justify-center text-center md:text-left">
-            <div className="text-white text-xl font-normal mb-4 md:mb-6">
+
+          {/* Right side - Content */}
+          <div className="w-full md:w-1/2 flex flex-col justify-center p-8 md:p-12 text-center md:text-left">
+            <div className="text-white text-xl md:text-2xl font-normal mb-6 md:mb-8 leading-relaxed">
               {reportBanner?.text || 'Dive in below for our Fourth Annual Stewardship Report.'}
             </div>
             <button
@@ -62,7 +74,7 @@ const StewardshipCTA: React.FC<StewardshipCTAProps> = ({ reportBanner }) => {
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <DownloadForm
-          title="Fourth Annual Stewardship Report"
+          title="Stewardship Report"
           collectionType="ReportBanner"
           collectionIdentifier={reportBanner?.attachment?.media?.url || ''}
           fileKey={reportBanner?.attachment?.media?.url ? getFileKey(reportBanner.attachment.media.url) : ''}

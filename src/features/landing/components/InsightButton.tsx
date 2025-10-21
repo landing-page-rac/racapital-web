@@ -19,7 +19,7 @@ const InsightsButton: React.FC<{ onClick?: () => void }> = ({ onClick }) => {
       onClick={handleClick}
       className="mx-auto block mt-10 px-10 py-4 border-2 border-white text-white text-xl rounded transition-colors hover:bg-white hover:text-[#1763F7] font-light hover:cursor-pointer"
     >
-      MORE INSIGHTS
+      MORE PERSPECTIVE
     </button>
   );
 };

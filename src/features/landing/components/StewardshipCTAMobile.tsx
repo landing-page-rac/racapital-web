@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ReportBanner } from '../types';
-import cta2Img from '../assets/cta-2.png';
 import { Modal, DownloadForm } from '../../../shared/components/ui';
 
 interface StewardshipCTAMobileProps {
@@ -32,12 +31,15 @@ const StewardshipCTAMobile: React.FC<StewardshipCTAMobileProps> = ({ reportBanne
     // window.open(reportBanner?.attachment?.media?.url, '_blank');
   };
 
+  const imageUrl = reportBanner?.attachment?.media?.url;
+  const imageAlt = reportBanner?.attachment?.alternativeText || 'Stewardship Report';
+
   return (
     <>
       <section className="bg-gradient-to-br from-[#002E73] to-[#001F4D] py-12 px-4">
         <div className="max-w-4xl mx-auto">
           <motion.div
-            className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-xl"
+            className="bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/20 shadow-xl"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -45,33 +47,37 @@ const StewardshipCTAMobile: React.FC<StewardshipCTAMobileProps> = ({ reportBanne
           >
             {/* Image */}
             <motion.div
-              className="text-center mb-6"
+              className="w-full"
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              <div className="relative inline-block">
-                <Image
-                  src={cta2Img}
-                  alt="Fourth Annual Stewardship Report"
-                  className="object-contain w-full max-w-xs"
-                  style={{ maxHeight: '200px' }}
-                />
-              </div>
+              {imageUrl ? (
+                <div className="relative w-full h-[250px] sm:h-[300px] bg-white/5">
+                  <Image
+                    src={imageUrl}
+                    alt={imageAlt}
+                    fill
+                    className="object-contain p-4"
+                    sizes="100vw"
+                  />
+                </div>
+              ) : (
+                <div className="flex items-center justify-center w-full h-[250px] sm:h-[300px] bg-[#001F4D]">
+                  <span className="text-white/50 text-lg">No image available</span>
+                </div>
+              )}
             </motion.div>
 
             {/* Content */}
             <motion.div
-              className="text-center"
+              className="text-center p-6"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
               viewport={{ once: true }}
             >
-              <h3 className="text-white text-xl sm:text-2xl font-semibold mb-4">
-                Fourth Annual Stewardship Report
-              </h3>
               <p className="text-blue-100 text-base sm:text-lg leading-relaxed mb-6">
                 {reportBanner?.text || 'Dive in below for our comprehensive annual report showcasing our commitment to excellence and sustainable growth.'}
               </p>
@@ -96,7 +102,7 @@ const StewardshipCTAMobile: React.FC<StewardshipCTAMobileProps> = ({ reportBanne
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <DownloadForm
-          title="Fourth Annual Stewardship Report"
+          title="Stewardship Report"
           collectionType="ReportBanner"
           collectionIdentifier={reportBanner?.attachment?.media?.url || ''}
           fileKey={reportBanner?.attachment?.media?.url ? getFileKey(reportBanner.attachment.media.url) : ''}

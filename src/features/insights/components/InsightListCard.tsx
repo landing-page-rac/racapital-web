@@ -47,7 +47,7 @@ const InsightListCard: React.FC<InsightListCardProps> = ({
       {/* Content */}
       <div className="flex flex-col w-full">
         <div className="text-sm font-medium text-white uppercase tracking-widest mb-2">
-          Insight
+          Perspective
         </div>
 
         {/* Title */}

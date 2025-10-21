@@ -17,7 +17,7 @@ const InsightHeader: React.FC<InsightHeaderProps> = ({ insight }) => {
         transition={{ duration: 0.8 }}
       >
         <div className="text-2xl uppercase tracking-widest text-blue-300 font-medium">
-          INSIGHTS
+          PERSPECTIVE
         </div>
       </motion.div>
 

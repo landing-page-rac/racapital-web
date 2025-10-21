@@ -39,7 +39,7 @@ export interface InsightData {
   content: RichTextContent;
   quote: RichTextContent;
   mainImage: InsightImage;
-  service: InsightService;
+  services: InsightService[];
   image: InsightImage;
   collapsibleList: InsightCollapsibleItem[];
   attachment: InsightAttachment;

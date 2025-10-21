@@ -7,7 +7,7 @@ interface InsightServiceProps {
 }
 
 const InsightService: React.FC<InsightServiceProps> = ({ insight }) => {
-  if (!insight.service || !insight.service.name) {
+  if (!insight.services || insight.services.length === 0) {
     return null;
   }
 
@@ -18,11 +18,16 @@ const InsightService: React.FC<InsightServiceProps> = ({ insight }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 0.6 }}
     >
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 flex-wrap">
         <div className="text-white text-lg font-medium">Services</div>
-        <div className="px-4 py-2 border border-[#1763F7] text-[#1763F7] rounded">
-          {insight.service.name}
-        </div>
+        {insight.services.map((service) => (
+          <div
+            key={service.documentId}
+            className="px-4 py-2 border border-[#1763F7] text-[#1763F7] rounded"
+          >
+            {service.name}
+          </div>
+        ))}
       </div>
     </motion.div>
   );

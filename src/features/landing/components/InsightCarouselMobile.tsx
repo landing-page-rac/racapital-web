@@ -21,7 +21,7 @@ interface CardData {
 
 const defaultCards: CardData[] = [
   {
-    subtitle: 'INSIGHT',
+    subtitle: 'PERSPECTIVE',
     title: 'The future of finance: Decoding digital treasury',
     description: 'Explore how digital transformation is reshaping treasury management for modern organizations.',
     linkText: 'Explore approaches',
@@ -29,7 +29,7 @@ const defaultCards: CardData[] = [
     image: hero1,
   },
   {
-    subtitle: 'INSIGHT',
+    subtitle: 'PERSPECTIVE',
     title: 'Reimagining resilience: Building adaptive organizations',
     description: 'In an era of constant disruption, companies need more than a contingency plan—they need an adaptive operating model that learns and evolves.',
     linkText: 'Discover strategies',
@@ -37,7 +37,7 @@ const defaultCards: CardData[] = [
     image: hero2,
   },
   {
-    subtitle: 'INSIGHT',
+    subtitle: 'PERSPECTIVE',
     title: 'Unlocking value: The rise of alternative investments',
     description: 'Alternative investments are gaining traction. Learn how to leverage them for portfolio growth.',
     linkText: 'Read more',

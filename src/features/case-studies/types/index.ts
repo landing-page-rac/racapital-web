@@ -39,7 +39,7 @@ export interface CaseStudyData {
   content: RichTextContent;
   quote: RichTextContent;
   mainImage: CaseStudyImage;
-  service: CaseStudyService;
+  services: CaseStudyService[];
   image: CaseStudyImage;
   collapsibleList: CaseStudyCollapsibleItem[];
   attachment: CaseStudyAttachment;

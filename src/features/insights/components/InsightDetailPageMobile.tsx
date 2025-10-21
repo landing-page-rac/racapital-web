@@ -63,7 +63,7 @@ const InsightDetailPageMobile: React.FC<InsightDetailPageMobileProps> = ({ insig
               transition={{ duration: 0.8 }}
             >
               <div className="text-lg uppercase tracking-widest text-blue-300 font-medium mb-4">
-                INSIGHTS
+                PERSPECTIVE
               </div>
               <h1 className="text-3xl text-white leading-tight font-bold">
                 {insight.title}
