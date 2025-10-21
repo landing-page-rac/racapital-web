@@ -5,6 +5,8 @@ import CaseStudyDetailPageMobile from './CaseStudyDetailPageMobile';
 import CaseStudyDetailPageDesktop from './CaseStudyDetailPageDesktop';
 import { useCaseStudyDetailData } from '../hooks';
 import { LoadingScreen } from '@/shared/components';
+import Navbar from '@/features/landing/components/Navbar';
+import { NAV_ITEMS } from '@/shared/constants/navigation';
 
 // Custom hook for responsive rendering
 const useResponsiveCaseStudyDetail = () => {
@@ -44,6 +46,7 @@ const CaseStudyDetailPage: React.FC<CaseStudyDetailPageProps> = ({ documentId })
     return (
       <div className="min-h-screen">
         <div className="relative bg-gradient-to-br from-[#051F42] via-[#002d72] to-[#051F42] text-white overflow-hidden">
+          <Navbar navItems={NAV_ITEMS} />
           <div className="flex items-center justify-center min-h-screen">
             <div className="text-center">
               <p className="text-2xl mb-4">Case study not found</p>

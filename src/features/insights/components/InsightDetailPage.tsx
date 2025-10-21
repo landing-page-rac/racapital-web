@@ -5,6 +5,8 @@ import InsightDetailPageMobile from './InsightDetailPageMobile';
 import InsightDetailPageDesktop from './InsightDetailPageDesktop';
 import { useInsightDetailData } from '../hooks';
 import { LoadingScreen } from '@/shared/components';
+import Navbar from '@/features/landing/components/Navbar';
+import { NAV_ITEMS } from '@/shared/constants/navigation';
 
 // Custom hook for responsive rendering
 const useResponsiveInsightDetail = () => {
@@ -44,6 +46,7 @@ const InsightDetailPage: React.FC<InsightDetailPageProps> = ({ documentId }) => 
     return (
       <div className="min-h-screen">
         <div className="relative bg-gradient-to-br from-[#051F42] via-[#002d72] to-[#051F42] text-white overflow-hidden">
+          <Navbar navItems={NAV_ITEMS} />
           <div className="flex items-center justify-center min-h-screen">
             <div className="text-center">
               <p className="text-2xl mb-4">Perspective not found</p>
