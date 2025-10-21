@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Navbar from '../../landing/components/Navbar';
 import HelpFormMobile from './HelpFormMobile';
-import { Footer } from '@/features/landing';
+import { FooterWrapper } from '@/features/landing';
 import superGraphic from '../../landing/assets/super-graphic-white.png';
 import { NAV_ITEMS } from '@/shared/constants/navigation';
 import { ContactUsData, AttachmentData } from '../types';
@@ -87,7 +87,7 @@ const HelpPageMobile: React.FC<HelpPageMobileProps> = ({ data }) => {
           <HelpFormMobile data={data} />
         </div>
 
-        <Footer />
+        <FooterWrapper />
       </main>
 
       <Modal isOpen={isModalOpen} onClose={() => {

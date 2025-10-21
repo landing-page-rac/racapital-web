@@ -11,6 +11,7 @@ import Navbar from '@/features/landing/components/Navbar';
 import LoadingScreen from '@/shared/components/ui/LoadingScreen';
 import superGraphic from '@/features/landing/assets/super-graphic-1.png';
 import { NAV_ITEMS } from '@/shared/constants/navigation';
+import { FooterWrapper } from '@/features/landing';
 
 const ServicesPageMobile: React.FC = () => {
   const { services, isLoading, error } = useServicesData();
@@ -63,19 +64,11 @@ const ServicesPageMobile: React.FC = () => {
             <ServicesAccordion services={services} />
           </div>
         </Container>
+        <ContactSectionMobile />
+        <FooterWrapper />
       </main>
 
       {/* Contact Section */}
-      <ContactSectionMobile />
-
-      {/* Footer */}
-      <footer className="bg-black py-8 relative z-10">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="text-center text-white/60">
-            <p>&copy; 2024 Relevance and Alliance Capital. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };
