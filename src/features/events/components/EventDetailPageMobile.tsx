@@ -199,8 +199,8 @@ const EventDetailPageMobile: React.FC<EventDetailPageMobileProps> = ({ event }) 
           title={event.title || 'Event'}
           collectionType="Event"
           collectionIdentifier={event.documentId}
-          fileKey={getFileKey(event.attachment.media.url)}
-          fileUrl={event.attachment.media.url}
+          fileKey={event.attachment?.media?.url ? getFileKey(event.attachment.media.url) : ''}
+          fileUrl={event.attachment?.media?.url || ''}
           onDownload={handleDownload}
           onClose={() => setIsModalOpen(false)}
         />

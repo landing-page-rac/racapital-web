@@ -57,8 +57,8 @@ const CaseStudyAttachment: React.FC<CaseStudyAttachmentProps> = ({ caseStudy }) 
           title={caseStudy.title || 'Case Study'}
           collectionType="CaseStudy"
           collectionIdentifier={caseStudy.documentId}
-          fileKey={getFileKey(caseStudy.attachment.media.url)}
-          fileUrl={caseStudy.attachment.media.url}
+          fileKey={caseStudy.attachment?.media?.url ? getFileKey(caseStudy.attachment.media.url) : ''}
+          fileUrl={caseStudy.attachment?.media?.url || ''}
           onDownload={handleDownload}
           onClose={() => setIsModalOpen(false)}
         />

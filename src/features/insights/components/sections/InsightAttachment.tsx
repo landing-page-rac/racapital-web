@@ -57,8 +57,8 @@ const InsightAttachment: React.FC<InsightAttachmentProps> = ({ insight }) => {
           title={insight.title || 'Insight'}
           collectionType="Insight"
           collectionIdentifier={insight.documentId}
-          fileKey={getFileKey(insight.attachment.media.url)}
-          fileUrl={insight.attachment.media.url}
+          fileKey={insight.attachment?.media?.url ? getFileKey(insight.attachment.media.url) : ''}
+          fileUrl={insight.attachment?.media?.url || ''}
           onDownload={handleDownload}
           onClose={() => setIsModalOpen(false)}
         />
