@@ -13,17 +13,17 @@ const EventService: React.FC<EventServiceProps> = ({ event }) => {
 
   return (
     <motion.div
-      className="mb-8"
+      className="mb-6 md:mb-8"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 0.6 }}
     >
-      <div className="flex items-center gap-4 flex-wrap">
-        <div className="text-white text-lg font-medium">Services</div>
+      <div className="flex items-center gap-2 md:gap-4 flex-wrap">
+        <div className="text-white text-sm md:text-lg font-medium">Services</div>
         {event.services.map((service) => (
           <div
             key={service.documentId}
-            className="px-4 py-2 border border-[#1763F7] text-[#1763F7] rounded"
+            className="px-2 py-1 md:px-4 md:py-2 border border-[#1763F7] text-[#1763F7] rounded text-xs md:text-base"
           >
             {service.name}
           </div>
