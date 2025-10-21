@@ -112,7 +112,7 @@ const InsightCarouselWrapper: React.FC<InsightCarouselWrapperProps> = ({
         <LoadingSpinner
           size="md"
           className="py-8"
-          text="Loading insights..."
+          text="Loading perspective..."
         />
       </section>
     );
@@ -123,7 +123,7 @@ const InsightCarouselWrapper: React.FC<InsightCarouselWrapperProps> = ({
     return (
       <section className="bg-[#051F42] py-20">
         <div className="text-center text-white">
-          <p className="text-red-200 text-sm">Error loading insights</p>
+          <p className="text-red-200 text-sm">Error loading perspective</p>
         </div>
       </section>
     );

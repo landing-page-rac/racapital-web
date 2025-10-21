@@ -54,7 +54,7 @@ const InsightPageMobile: React.FC<InsightPageMobileProps> = ({
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              Insights
+              Perspective
             </h1>
             <p className="text-base sm:text-lg text-gray-200 max-w-2xl mx-auto">
               Discover our latest thoughts and perspectives on market trends, investment strategies, and industry developments.
@@ -75,7 +75,7 @@ const InsightPageMobile: React.FC<InsightPageMobileProps> = ({
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
               >
-                <p className="text-lg">Loading insights...</p>
+                <p className="text-lg">Loading perspective...</p>
               </motion.div>
             ) : error ? (
               <motion.div
@@ -84,7 +84,7 @@ const InsightPageMobile: React.FC<InsightPageMobileProps> = ({
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
               >
-                <p className="text-lg">Error loading insights</p>
+                <p className="text-lg">Error loading perspective</p>
                 <p className="text-sm text-gray-300 mt-2">
                   Please try again later.
                 </p>
@@ -112,9 +112,9 @@ const InsightPageMobile: React.FC<InsightPageMobileProps> = ({
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
               >
-                <p className="text-lg">No insights available</p>
+                <p className="text-lg">No perspective available</p>
                 <p className="text-sm text-gray-300 mt-2">
-                  Check back soon for our latest insights and analysis.
+                  Check back soon for our latest perspective and analysis.
                 </p>
               </motion.div>
             )}

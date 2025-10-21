@@ -103,7 +103,7 @@ const EventsPageMobile: React.FC<EventsPageMobileProps> = ({ events, isLoading, 
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              Join us at our upcoming events and discover insights from industry leaders, networking opportunities, and the latest developments in investment management.
+              Join us at our upcoming events and discover perspective from industry leaders, networking opportunities, and the latest developments in investment management.
             </motion.p>
           </motion.div>
 

@@ -159,7 +159,7 @@ const ParallaxEventsList: React.FC<ParallaxEventsListProps> = ({ events }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            Join us at our upcoming events and discover insights from industry leaders, networking opportunities, and the latest developments in investment management.
+            Join us at our upcoming events and discover perspective from industry leaders, networking opportunities, and the latest developments in investment management.
           </motion.p>
         </div>
       </motion.div>

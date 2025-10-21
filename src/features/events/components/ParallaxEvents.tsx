@@ -29,7 +29,7 @@ const ParallaxEvents: React.FC<ParallaxEventsProps> = ({ events }) => {
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Join us at industry events, conferences, and exclusive gatherings
-            where we share insights and connect with the financial community.
+            where we share perspective and connect with the financial community.
           </p>
         </div>
       </div>

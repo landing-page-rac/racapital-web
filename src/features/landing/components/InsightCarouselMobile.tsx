@@ -219,7 +219,7 @@ const InsightCarouselMobile: React.FC<{ cards?: CardData[], aspirationQuote?: st
           viewport={{ once: true }}
         >
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
-            Latest Insights
+            Latest Perspectives
           </h2>
           <p className="text-blue-100 text-base leading-relaxed">
             Discover our latest perspectives on finance and investment strategies

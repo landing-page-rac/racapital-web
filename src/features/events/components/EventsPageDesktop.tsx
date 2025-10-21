@@ -52,7 +52,7 @@ const EventsPageDesktop: React.FC<EventsPageDesktopProps> = ({ events, isLoading
                 Events
               </h1>
               <p className="text-xl text-gray-200 max-w-3xl mx-auto">
-                Join us at our upcoming events and discover insights from industry leaders, networking opportunities, and the latest developments in investment management.
+                Join us at our upcoming events and discover perspective from industry leaders, networking opportunities, and the latest developments in investment management.
               </p>
             </motion.div>
 
