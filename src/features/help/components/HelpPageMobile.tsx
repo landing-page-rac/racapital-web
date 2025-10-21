@@ -61,9 +61,8 @@ const HelpPageMobile: React.FC<HelpPageMobileProps> = ({ data }) => {
         <div className="relative z-10 px-4 p-5">
           {/* Header Section */}
           <div className="text-white mb-8">
-            <h1 className="text-3xl font-bold mb-6">
-              {renderRichTextContent(data.title)}
-            </h1>
+            {renderRichTextContent(data.title)}
+
             <p className="text-lg text-white/90 mb-6">
               {data.description}
             </p>
