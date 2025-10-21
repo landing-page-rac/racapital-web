@@ -59,6 +59,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ navItems, aboutUsIntro, heroC
             {/* Main Headline */}
             <motion.h1
               className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6"
+              style={{ fontFamily: 'Optima, "Avenir Next", "Helvetica Neue", Arial, sans-serif' }}
               initial={{ opacity: 0, y: 50, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{

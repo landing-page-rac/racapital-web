@@ -65,11 +65,17 @@ const HeroSectionMobile: React.FC<HeroSectionMobileProps> = ({ navItems, aboutUs
               transition={{ duration: 0.8, delay: 0.5 }}
             >
               {heroContent ? (
-                <h1 className="text-2xl sm:text-5xl leading-tight mb-3 text-white">
+                <h1
+                  className="text-2xl sm:text-5xl leading-tight mb-3 text-white"
+                  style={{ fontFamily: 'Optima, "Avenir Next", "Helvetica Neue", Arial, sans-serif' }}
+                >
                   {renderRichTextContent(heroContent.headline)}
                 </h1>
               ) : (
-                <h1 className="text-2xl sm:text-5xl font-bold leading-tight mb-3">
+                <h1
+                  className="text-2xl sm:text-5xl font-bold leading-tight mb-3"
+                  style={{ fontFamily: 'Optima, "Avenir Next", "Helvetica Neue", Arial, sans-serif' }}
+                >
                   Building Your Tomorrow&apos;s
                   <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-blue-100">
                     Fortune, Today
