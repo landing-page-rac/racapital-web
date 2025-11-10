@@ -30,9 +30,9 @@ const FlagshipService: React.FC<FlagshipServiceProps> = ({ flagshipServices = []
           {flagshipServices.map((item, index) => {
             const isOpen = openCard === index;
             // Calculate height based on index - higher index = smaller height
-            const baseHeight = 500;
+            const baseHeight = 400;
             const heightReduction = index * 50; // Reduce by 50px for each index
-            const dynamicHeight = Math.max(baseHeight - heightReduction, 300); // Minimum height of 300px
+            const dynamicHeight = Math.max(baseHeight - heightReduction, 200); // Minimum height of 300px
 
             return (
               <div
