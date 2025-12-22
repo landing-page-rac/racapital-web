@@ -30,8 +30,8 @@ const StewardshipCTA: React.FC<StewardshipCTAProps> = ({ reportBanner }) => {
     // window.open(reportBanner?.attachment?.media?.url, '_blank');
   };
 
-  const imageUrl = reportBanner?.attachment?.media?.url;
-  const imageAlt = reportBanner?.attachment?.alternativeText || 'Stewardship Report';
+  const imageUrl = reportBanner?.banner?.image?.url;
+  const imageAlt = reportBanner?.banner?.alternativeText || 'Stewardship Report';
 
   return (
     <>

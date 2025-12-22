@@ -16,10 +16,15 @@ export interface ImageWithAlt {
   alternativeText: string;
   image: ImageData;
 }
+export interface MediaData {
+  documentId: string;
+  name: string;
+  url: string;
+}
 
 export interface MediaWithAlt {
   alternativeText: string;
-  media: ImageData;
+  media: MediaData;
 }
 
 // Hero section types
@@ -48,6 +53,7 @@ export interface Metric {
 export interface ReportBanner {
   text: string;
   attachment: MediaWithAlt;
+  banner: ImageWithAlt;
 }
 
 // Featured case study type
