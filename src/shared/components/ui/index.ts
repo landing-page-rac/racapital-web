@@ -6,6 +6,7 @@ export { default as ContactForm } from './ContactForm';
 export { default as ContactText } from './ContactText';
 export { default as LoadingSpinner } from './LoadingSpinner';
 export { default as Modal } from './Modal';
+export { default as SuccessModal } from './SuccessModal';
 export { default as DownloadForm } from './DownloadForm';
 export { default as SplashScreen } from './SplashScreen';
 export { default as LoadingScreen } from './LoadingScreen'; 

@@ -33,21 +33,11 @@ export const validateContactForm = (formData: {
   // Phone validation
   if (!formData.phone.trim()) {
     errors.phone = 'Phone number is required';
-  } else {
-    // Remove all non-digit characters for validation
-    const phoneDigits = formData.phone.replace(/\D/g, '');
-    if (phoneDigits.length < 10) {
-      errors.phone = 'Phone number must be at least 10 digits';
-    } else if (phoneDigits.length > 15) {
-      errors.phone = 'Phone number must not exceed 15 digits';
-    }
   }
 
-  // Message validation
+  // Message validation - no validation, just check if not empty
   if (!formData.message.trim()) {
     errors.message = 'Message is required';
-  } else if (formData.message.trim().length < 10) {
-    errors.message = 'Message must be at least 10 characters';
   }
 
   return errors;
